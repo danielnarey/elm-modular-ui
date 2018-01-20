@@ -242,7 +242,7 @@ displayed.
 
 -}
 audio : { sourceList : List (String, String), hasControls : Bool } -> Ui.Element msg
-audio hasControls sourceList =
+audio args =
   let
     toSourceNode (path, filetype) =
       [ "src"
@@ -335,6 +335,6 @@ withCaption args figureElement =
 
     |> Dom.Element.addAttribute
       ( "aria-labelledby"
-        |> Dom.Attribute.string captionId
+        |> Dom.Attribute.string args.id
 
       )
