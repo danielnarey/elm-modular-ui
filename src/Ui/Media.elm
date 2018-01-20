@@ -335,6 +335,11 @@ withCaption args figureElement =
 
     |> Dom.Element.addAttribute
       ( "aria-labelledby"
-        |> Dom.Attribute.string args.id
+        |> Dom.Attribute.string
+          ( args.id
+            |> Basics.toString
+            |> String.append "caption-"
+
+          )
 
       )
