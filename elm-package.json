@@ -7,24 +7,25 @@
         "./src"
     ],
     "exposed-modules": [
-      "Ui",
-      "Ui.Action",
-      "Ui.Attribute",
-      "Ui.Button",
-      "Ui.Heading",
-      "Ui.Icon",
-      "Ui.Indicator",
-      "Ui.Input",
-      "Ui.Media",
-      "Ui.Modifier",
-      "Ui.Selector",
-      "Ui.Source",
-      "Ui.Style",
-      "Ui.Text"
+        "Ui",
+        "Ui.Action",
+        "Ui.Attribute",
+        "Ui.Button",
+        "Ui.Heading",
+        "Ui.Icon",
+        "Ui.Indicator",
+        "Ui.Input",
+        "Ui.Media",
+        "Ui.Modifier",
+        "Ui.Selector",
+        "Ui.Source",
+        "Ui.Style",
+        "Ui.Text"
     ],
     "dependencies": {
         "danielnarey/elm-semantic-dom": "3.0.0 <= v < 4.0.0",
-        "elm-lang/core": "5.1.1 <= v < 6.0.0"
+        "elm-lang/core": "5.1.1 <= v < 6.0.0",
+        "elm-lang/virtual-dom": "2.0.4 <= v < 3.0.0"
     },
     "elm-version": "0.18.0 <= v < 0.19.0"
 }
