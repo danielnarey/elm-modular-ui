@@ -1,5 +1,5 @@
 # Modular UI for Elm
-## A friendly UI development framework based on Bulma CSS
+### A friendly UI development framework based on Bulma CSS
 
 + Modular UI is a framework for building a modern user interface in Elm that
 abstracts out a lot of the details of the underlying HTML and CSS. It also provides a set of helpers for updating
