@@ -14,6 +14,9 @@ module Ui exposing
 ## Generic Constructors
 @docs leaf, textWrapper, container
 
+### Setting an element's id
+@docs setId
+
 ## Rendering to VirtualDom
 @docs render
 

@@ -103,8 +103,6 @@ import Dom.Element
 import Dom.Property
 import Dom.Attribute
 import Dom.Style
--- Helpers
-import Toolkit.Float
 -- Core
 import Color exposing (Color)
 
@@ -312,6 +310,12 @@ toRgbaString colorValue =
       colorValue
         |> Color.toRgb
 
+    roundTo2 number =
+      number * 100
+        |> Basics.round
+        |> Basics.toFloat
+        |> Basics.flip (/) 100
+
   in
     [ "rgba("
 
@@ -331,7 +335,7 @@ toRgbaString colorValue =
     , ","
 
     , rgba.alpha
-      |> Toolkit.Float.roundTo 2
+      |> roundTo2
       |> Basics.toString
 
     , ")"
