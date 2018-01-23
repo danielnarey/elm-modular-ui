@@ -25,7 +25,7 @@ for adding common ARIA attributes where needed.
 [Semantic Dom](https://github.com/danielnarey/elm-semantic-dom)
 package, which provides an interface to Elm
 [VirtualDom](http://package.elm-lang.org/packages/elm-lang/virtual-dom/2.0.4/VirtualDom).
-It particular, Modular UI constructors and modifiers rely on Semantic Dom's
+In particular, Modular UI constructors and modifiers rely on Semantic Dom's
 [Element](http://package.elm-lang.org/packages/danielnarey/elm-semantic-dom/latest/Dom-Element)
 module, which makes it possible to construct elements as updatable Elm records
 before they are rendered to unmodifiable VirtualDom nodes.
