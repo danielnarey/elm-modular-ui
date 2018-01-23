@@ -4,7 +4,7 @@ module Ui.Selector exposing
 
 {-|
 
-# UI Element: Selector
+# Interactive Element: Selector
 In an Elm program, option selection is handled by the program's update function.
 The constructors in this module automate part of the set-up for capturing input
 from selectors. They also provide built-in web accessibility features and
@@ -29,8 +29,11 @@ import Json.Decode
 
 {-| Construct a checkbox that sends update messages like a button
 
-+ To make the checkbox work as intended, the update function should handle the
-message by toggling a boolean value in the program's model (see example)
+To make the checkbox work as intended, the update function should handle the
+message by toggling a boolean value in the program's model (see example).
+
+*Example:*
+
 
     --- MODEL ---
 
@@ -73,7 +76,7 @@ message by toggling a boolean value in the program's model (see example)
 
 
 + __HTML tag__: `<label>` > `<input type="checkbox">`
-+ __ARIA role__: *checkbox* (default for *checkbox* input)
++ __ARIA role__: *checkbox* (default)
 + __Element class__: *.checkbox*
 + __Available modifiers__: none
 + __Bulma CSS reference__: https://bulma.io/documentation/form/checkbox/
@@ -125,7 +128,15 @@ checkbox msg args =
         )
 
 
-{-|
+{-| Construct a set of radio buttons that send update messages like regular
+buttons, but include a value that identifies the user's selection
+
+To make the radio buttons work as intended, the update function should handle
+the message by updating a record field in the program's model to the user's
+selection (see example).
+
+*Example:*
+
 
     --- MODEL ---
 
@@ -170,7 +181,7 @@ checkbox msg args =
 
 
 + __HTML tag__: List of `label` > `<input type="radio">`
-+ __ARIA role__: *radio* (default for *radio* input)
++ __ARIA role__: *radio* (default)
 + __Element class__: *.radio*
 + __Available modifiers__: none
 + __Bulma CSS reference__: https://bulma.io/documentation/form/radio/
@@ -239,7 +250,15 @@ radioButtons token args =
       |> List.indexedMap toButton
 
 
-{-|
+{-| Construct a dropdown selector where selecting an option sends an update
+message like a button, but also includes a value that identifies the user's
+selection
+
+To make the dropdown selector work as intended, the update function should
+handle the message by updating a record field in the program's model to the
+user's selection (see example).
+
+*Example:*
 
     --- MODEL ---
 
@@ -291,7 +310,7 @@ radioButtons token args =
 
 
 + __HTML tag__: `<select>`
-+ __ARIA role__: *combobox* (default for *select* input, not multiple)
++ __ARIA role__: *combobox* (default)
 + __Element class__: *.select*
 + __Available modifiers__: [color](https://bulma.io/documentation/form/select/#colors),
 [style](https://bulma.io/documentation/form/select/#styles),

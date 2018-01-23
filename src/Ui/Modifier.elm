@@ -20,6 +20,10 @@ import Dom.Element
 
 
 {-| Add a single modifier class to a UI element
+
+    myElement
+      |> Ui.Modifier.add "has-text-centered"
+
 -}
 add : String -> Ui.Element msg -> Ui.Element msg
 add =
@@ -27,6 +31,13 @@ add =
 
 
 {-| Add a list of modifier classes to a UI element
+
+    myElement
+      |> Ui.Modifier.addList
+        [ "box"
+        , "has-text-centered"
+        ]
+
 -}
 addList : List String -> Ui.Element msg -> Ui.Element msg
 addList modifiers element =
@@ -37,6 +48,15 @@ addList modifiers element =
 
 
 {-| Conditionally add a modifier class if the boolean argument is `True`
+
+    myElement
+      |> Ui.Modifier.conditional
+        ( "has-text-centered"
+        , myElement
+          |> Dom.Element.hasClass "box"
+
+        )
+        
 -}
 conditional : (String, Bool) -> Ui.Element msg -> Ui.Element msg
 conditional (modifier, test) =

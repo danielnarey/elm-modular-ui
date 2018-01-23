@@ -6,29 +6,27 @@ module Ui exposing
 
 {-|
 
-# Basics
-
-## Type
+# Ui.Element Records
 @docs Element
 
-## Generic Constructors
+# Generic Constructors
 @docs leaf, textWrapper, container
 
-### Setting an element's id
+## Setting an element's id
 @docs setId
 
-## Rendering to VirtualDom
+# Rendering to VirtualDom
 @docs render
 
 # Package Modules
 
-## UI Elements
+## Interactive Elements
 - [Ui.Button](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Button)
 - [Ui.Input](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Input)
 - [Ui.Selector](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Selector)
 - [Ui.Indicator](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Indicator)
 
-## UI Content
+## Content Elements
 - [Ui.Text](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Text)
 - [Ui.Heading](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Heading)
 - [Ui.Icon](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Icon)

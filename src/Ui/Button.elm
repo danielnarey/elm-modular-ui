@@ -3,7 +3,7 @@ module Ui.Button exposing
 
 {-|
 
-# UI Element: Button
+# Interactive Element: Button
 In an Elm program, button clicks are handled by the program's update function.
 There are three button options in this module:
 - `Ui.Button.action` is just a generic button. Use it in your view whenever
@@ -38,7 +38,7 @@ import Dom.Event
     --> <button class="button">Click Here</button>
 
 + __HTML tag__: `<button>`
-+ __ARIA role__: *button* (element default)
++ __ARIA role__: *button* (default)
 + __Element class__: *.button*
 + __Available modifiers__: [color](http://bulma.io/documentation/elements/button/#colors),
 [size](http://bulma.io/documentation/elements/button/#sizes),
@@ -70,7 +70,7 @@ action msg label =
     --> <a class="button">Click Here</a>
 
 + __HTML tag__: `<a>`
-+ __ARIA role__: *button* (element default)
++ __ARIA role__: *link* (default)
 + __Element class__: *.button*
 + __Available modifiers__: [color](http://bulma.io/documentation/elements/button/#colors),
 [size](http://bulma.io/documentation/elements/button/#sizes),
@@ -101,7 +101,7 @@ navigation msg label =
     --> <button class="delete"></button>
 
 + __HTML tag__: `<button>`
-+ __ARIA role__: *button* (element default)
++ __ARIA role__: *button* (default)
 + __Element class__: *.delete*
 + __Available modifiers__: [size](http://bulma.io/documentation/elements/delete/#sizes)
 + __Bulma CSS reference__: http://bulma.io/documentation/elements/delete/

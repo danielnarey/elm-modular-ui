@@ -17,7 +17,10 @@ and recompiling the Bulma source files to CSS. The functions in this module
 may be used to where necessary to override default styling or further
 customize the appearance and behavior of individual elements and components. In
 general, it is preferable to change defaults rather than overriding them so as
-to avoid redundancies and performance lags.
+to avoid redundancies and performance lags. (See
+[below](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/1.0.0/Ui-Style#discussion-are-there-performance-costs-to-setting-style-properties-on-individual-elements-)
+for further discussion of performance issues related to setting styles on
+individual elements).
 
 ## Generic functions for adding style modifications
 @docs add, addList
@@ -26,7 +29,7 @@ to avoid redundancies and performance lags.
 @docs color, backgroundColor, border, borderRadius, boxShadow
 
 
-### Discussion: Are there performance costs to setting style properties on individual elements?
+## Discussion: Are there performance costs to setting style properties on individual elements?
 
 __Short answer:__
 

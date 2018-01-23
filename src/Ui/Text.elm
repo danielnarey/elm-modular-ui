@@ -5,7 +5,7 @@ module Ui.Text exposing
 
 {-|
 
-# UI Content: Text
+# Content Element: Text
 This module contains helpers for assembling text content that may include links
 and font style variations. It provides an alternative to Markdown syntax that
 is still fairly concise, while offering more control over text appearance via

@@ -5,7 +5,7 @@ module Ui.Indicator exposing
 
 {-|
 
-# UI Element: Indicator
+# Interactive Element: Indicator
 Indicators are stylized, interactive elements indended to highlight information
 or notify the user of something. Bulma CSS provides default styling and
 color and size modifiers for three types of indicators: tags, notifications, and
@@ -96,7 +96,7 @@ notification =
     --> <progress class="progress" value="15" max="100">15%</progress>
 
 + __HTML tag__: `<progress>`
-+ __ARIA role__: *progressbar* (element default)
++ __ARIA role__: *progressbar* (default)
 + __Element class__: *.progress*
 + __Available modifiers__: [color](http://bulma.io/documentation/elements/progress/#colors),
 [size](http://bulma.io/documentation/elements/progress/#sizes)
@@ -134,7 +134,7 @@ progress currentValue =
     --  </div>
 
 + __HTML tag__: `<button>`
-+ __ARIA role__: *button* (element default)
++ __ARIA role__: *button* (default)
 + __ARIA attribute__: *aria-label*: Assigned a label corresponding to the
 element class of the parent ("Remove tag", "Dismiss notification", or "Delete" as a default)
 + __Element class__: *.delete*

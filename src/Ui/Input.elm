@@ -8,7 +8,7 @@ module Ui.Input exposing
 
 {-|
 
-# UI Element: Input
+# Interactive Element: Input
 In an Elm program, captured user input is handled by the program's update
 function. The constructors in this module automate part of the set-up for
 capturing input and, optionally, decoding string values into numeric or custom
@@ -41,6 +41,7 @@ import Dom.Event
 import Dom.Text
 -- Core
 import Json.Decode
+import Json.Encode
 
 
 {-| Construct an input field to capture a `String`
@@ -56,6 +57,9 @@ a label.
 + The `value` sets the input element's *value* attribute. It should be a
 record field in your Elm program's model that gets updated whenever the
 user enters input. See the example below.
+
+
+*Example:*
 
     --- MODEL ---
 
@@ -90,7 +94,7 @@ user enters input. See the example below.
 
 
 + __HTML tag__: `<input type="text">`
-+ __ARIA role__: *textbox* (default for *text* input)
++ __ARIA role__: *textbox* (default)
 + __Element class__: *.input*
 + __Available modifiers__: [color](https://bulma.io/documentation/form/input/#colors),
 [size](https://bulma.io/documentation/form/input/#sizes),
@@ -137,6 +141,15 @@ string token args =
     , rows = Just 10
     }
       |> Ui.Input.textArea UserBioInput
+
+
++ __HTML tag__: `<textarea>`
++ __ARIA role__: *textbox* (default)
++ __Element class__: *.textarea*
++ __Available modifiers__: [color](https://bulma.io/documentation/form/textarea/#colors),
+[size](https://bulma.io/documentation/form/textarea/#sizes),
+[state](https://bulma.io/documentation/form/textarea/#states)
++ __Bulma CSS reference__: https://bulma.io/documentation/form/textarea/
 
 -}
 textArea : (String -> msg) -> { id : Int, placeholder : String, value : String, rows : Maybe Int } -> Ui.Element msg
@@ -215,6 +228,9 @@ focus).
 which are used for native browser implementations of increment/decrement buttons
 or a spinbox for selecting a value in the given range.
 
+*Example:*
+
+
     --- MODEL ---
 
     type alias Model =
@@ -249,7 +265,7 @@ or a spinbox for selecting a value in the given range.
 
 
 + __HTML tag__: `<input type="number">`
-+ __ARIA role__: *spinbutton* (default for *number* input)
++ __ARIA role__: *spinbutton* (default)
 + __Element class__: *.input*
 + __Available modifiers__: [color](https://bulma.io/documentation/form/input/#colors),
 [size](https://bulma.io/documentation/form/input/#sizes),
@@ -365,6 +381,9 @@ focus).
 which are used for native browser implementations of increment/decrement buttons
 or a spinbox for selecting a value in the given range.
 
+*Example:*
+
+
     --- MODEL ---
 
     type alias Model =
@@ -399,7 +418,7 @@ or a spinbox for selecting a value in the given range.
 
 
 + __HTML tag__: `<input type="number">`
-+ __ARIA role__: *spinbutton* (default for *number* input)
++ __ARIA role__: *spinbutton* (default)
 + __Element class__: *.input*
 + __Available modifiers__: [color](https://bulma.io/documentation/form/input/#colors),
 [size](https://bulma.io/documentation/form/input/#sizes),
@@ -424,16 +443,33 @@ float token args =
           , "value"
           ]
 
-    failOnErr result =
-      case result of
-        Ok float ->
-          Just float
-            |> token
-            |> Json.Decode.succeed
+    failOnIncompleteOrInvalid input =
+      case
+        input
+          |> String.right 1
+          |> (==) "."
 
-        _ ->
-          "not a Float"
+      of
+        True ->
+          "ends with decimal point"
             |> Json.Decode.fail
+
+        False ->
+          input
+            |> String.toFloat
+            |>
+              ( \result ->
+                case result of
+                  Ok float ->
+                    Just float
+                      |> token
+                      |> Json.Decode.succeed
+
+                  _ ->
+                    "not a Float"
+                      |> Json.Decode.fail
+
+              )
 
     nothingOnErr =
       Result.toMaybe
@@ -473,8 +509,7 @@ float token args =
         , "input"
           |> Dom.Event.custom
             ( captureString
-              |> Json.Decode.andThen
-                ( String.toFloat >> failOnErr )
+              |> Json.Decode.andThen failOnIncompleteOrInvalid
             )
 
         , "change"
@@ -507,6 +542,9 @@ arguments.
 on an *input* event; invalid integer input fails to update on *input*, but will
 trigger an update of the value to `Nothing` on a *change* event (i.e., when the
 input element loses focus).
+
+*Example*
+
 
     --- MODEL ---
 
@@ -543,7 +581,7 @@ input element loses focus).
 
 
 + __HTML tag__: `<input type="text">`
-+ __ARIA role__: *textbox* (default for *text* input)
++ __ARIA role__: *textbox* (default)
 + __Element class__: *.input*
 + __Available modifiers__: [color](https://bulma.io/documentation/form/input/#colors),
 [size](https://bulma.io/documentation/form/input/#sizes),
@@ -629,6 +667,9 @@ input/output type is an `Int`, not a `Maybe Int`.
 + The `minMaxStep` argument sets the HTML5 *min*, *max*, and *step* attributes,
 which are used for native browser implementations of the slider widget.
 
+*Example:*
+
+
     --- MODEL ---
 
     type alias Model =
@@ -668,7 +709,7 @@ which are used for native browser implementations of the slider widget.
 
 
 + __HTML tag__: `<input type="range">`
-+ __ARIA role__: *slider* (default for *range* input)
++ __ARIA role__: *slider* (default)
 + __Element class__: *.slider*
 + __Available modifiers__: none
 + __Bulma CSS reference__: none (*.slider* is not a Bulma element class)
@@ -751,6 +792,9 @@ input/output type is a `Float`, not a `Maybe Float`.
 + The `minMaxStep` argument sets the HTML5 *min*, *max*, and *step* attributes,
 which are used for native browser implementations of the slider widget.
 
+*Example:*
+
+
     --- MODEL ---
 
     type alias Model =
@@ -790,7 +834,7 @@ which are used for native browser implementations of the slider widget.
 
 
 + __HTML tag__: `<input type="range">`
-+ __ARIA role__: *slider* (default for *range* input)
++ __ARIA role__: *slider* (default)
 + __Element class__: *.slider*
 + __Available modifiers__: none
 + __Bulma CSS reference__: none (*.slider* is not a Bulma element class)
@@ -868,6 +912,9 @@ floatSlider token args =
 + The input/output value of the color picker widget is a hexadecimal string
 representing an RGB color encoding. This constructor does not implement any
 error handling for hex codes.
+
+*Example:*
+
 
     --- MODEL ---
 

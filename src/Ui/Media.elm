@@ -3,7 +3,7 @@ module Ui.Media exposing
 
 {-|
 
-# UI Content: Media
+# Content Element: Media
 This module contains helpers to insert images and other media content into your
 page layout, with built-in features for web accessibility. The image constructor
 applies the *.image* Bulma element class, which is helpful for positioning
@@ -45,7 +45,7 @@ text for screen readers
     --  </figure>
 
 + __HTML tags__: `<figure>` > `<img>`
-+ __ARIA roles__: *figure* > *img* (element defaults)
++ __ARIA roles__: *figure* > *img* (defaults)
 + __Element class__: *.image*
 + __Available modifiers__: size ([fixed](https://bulma.io/documentation/elements/image/#fixed-square-images),
  [responsive](https://bulma.io/documentation/elements/image/#responsive-images-with-ratios))
@@ -86,7 +86,7 @@ alt text for screen readers
     --  </figure>
 
 + __HTML tags__: `<figure>` > `<object>` > `<img>`
-+ __ARIA roles__: *figure* > *img* (element defaults)
++ __ARIA roles__: *figure* > *img* (defaults)
 + __Element class__: *.svg-object*
 + __Available modifiers__: none
 + __Bulma CSS reference__: none (*.svg-object* is not a Bulma element class)
@@ -150,7 +150,7 @@ displayed in the video frame.
     --  </figure>
 
 + __HTML tags__: `<figure>` > `<video>` > `<source>`
-+ __ARIA roles__: *figure* (element default) > *application*
++ __ARIA roles__: *figure* (default) > *application*
 + __Element class__: *.video*
 + __Available modifiers__: none
 + __Bulma CSS reference__: none (*.video* is not a Bulma element class)
@@ -235,7 +235,7 @@ displayed.
     --  </figure>
 
 + __HTML tags__: `<figure>` > `<audio>` > `<source>`
-+ __ARIA roles__: *figure* (element default) > *application*
++ __ARIA roles__: *figure* (default) > *application*
 + __Element class__: *.audio*
 + __Available modifiers__: none
 + __Bulma CSS reference__: none (*.audio* is not a Bulma element class)

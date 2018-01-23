@@ -33,6 +33,7 @@ before they are rendered to unmodifiable VirtualDom nodes.
 
 ## Versions
 - 1.0.0: Complete with respect to features; in-browser testing is ongoing
+- 1.0.1: Documentation fixes; minor change in event handling for `Ui.Input.float`
 
 ## Package Modules
 

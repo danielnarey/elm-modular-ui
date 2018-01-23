@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "summary": "A friendly UI development framework based on Bulma CSS",
     "repository": "https://github.com/danielnarey/elm-modular-ui.git",
     "license": "BSD2",

@@ -3,7 +3,7 @@ module Ui.Icon exposing
 
 {-|
 
-# UI Content: Icons
+# Content Element: Icon
 Icons are a common feature of modern UI design. This module provides helpers
 for inserting SVG icons or making use of popular icon font character
 collections. The Bulma *.icon* element class, which is applied to a wrapping
@@ -40,8 +40,8 @@ import Dom.Attribute
     --  </span>
 
 + __Browser compatability__: Requires support for SVG (to include a raster fallback, use [Ui.Media.svg](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Media#svg))
-+ __ARIA role__: *img*
 + __HTML tags__: `<span>` > `<object>`
++ __ARIA role__: *img*
 + __Element class__: *.icon*
 + __Available modifiers__: [size](http://bulma.io/documentation/elements/icon/#sizes)
 + __Bulma CSS reference__: http://bulma.io/documentation/elements/icon/
@@ -141,8 +141,8 @@ collection, with alt text for screen readers
     --  </span>
 
 + __Browser compatability__: Requires support for [ligatures](http://google.github.io/material-design-icons/#using-the-icons-in-html) (not compatible with IE 9 and below)
-+ __ARIA role__: *img*
 + __HTML tags__: `<span>` > `<i>`
++ __ARIA role__: *img*
 + __Element class__: *.icon*
 + __Available modifiers__: [color](http://bulma.io/documentation/elements/icon/#colors),
 [size](http://bulma.io/documentation/elements/icon/#material-design-icons),

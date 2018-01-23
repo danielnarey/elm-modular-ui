@@ -3,7 +3,7 @@ module Ui.Heading exposing
 
 {-|
 
-# UI Content: Heading
+# Content Element: Heading
 Using the *.title* and *.subtitle* element classes gives greater control over
 the ranking and appearance of headings by making HTML markup independent of
 font-size rendering. With Bulma CSS, size modifier classes can be used to set
@@ -29,7 +29,7 @@ import Dom.Element
     --> <h1 class="title is-4">My Title</h1>
 
 + __HTML tag__: variable (use `<h1>` to `<h6>`, or `<p>`)
-+ __ARIA role__: element default
++ __ARIA role__: default
 + __Element class__: *.title*
 + __Available modifiers__: [size](http://bulma.io/documentation/elements/title/#sizes),
 [spacing](http://bulma.io/documentation/elements/title/#sizes),
@@ -57,7 +57,7 @@ title htmlTag =
     --> <h2 class="subtitle is-6">My Subtitle</h2>
 
 + __HTML tag__: variable (use `<h2>` to `<h6>`, or `<p>`)
-+ __ARIA role__: element default
++ __ARIA role__: default
 + __Element class__: *.subtitle*
 + __Available modifiers__: [size](http://bulma.io/documentation/elements/title/#sizes),
 [spacing](http://bulma.io/documentation/elements/title/#sizes),

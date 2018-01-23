@@ -3,7 +3,7 @@ module Ui.Source exposing
 
 {-|
 
-# UI Content: External Source
+# Content Element: Source
 This module contains helpers to embed external content into your page layout,
 with built-in features for web accessibility. The embedding elements are
 assigned the *.source* class to allow for custom styling.
