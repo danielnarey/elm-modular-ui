@@ -444,12 +444,7 @@ float token args =
           ]
 
     failOnIncompleteOrInvalid input =
-      case
-        input
-          |> String.right 1
-          |> (==) "."
-
-      of
+      case (input == "0.") of
         True ->
           "ends with decimal point"
             |> Json.Decode.fail
