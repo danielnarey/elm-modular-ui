@@ -5,7 +5,7 @@
 abstracts out a lot of the details of the underlying HTML and CSS. It also provides a set of helpers for updating
 an element's
 [classes](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Modifier),
-[attributes](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Attributes),
+[attributes](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Attribute),
 [styles](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Style),
 and [mouse/keyboard event handlers](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Action).
 + Modular UI is partially inspired by and designed to be used with the Bulma CSS
