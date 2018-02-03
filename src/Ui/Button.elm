@@ -26,6 +26,7 @@ remove data from a record field, or otherwise "delete" something.
 -- Frameworks
 import Ui
 import Dom.Element
+import Dom.Attribute
 import Dom.Event
 
 
@@ -70,7 +71,7 @@ action msg label =
     --> <a class="button">Click Here</a>
 
 + __HTML tag__: `<a>`
-+ __ARIA role__: *link* (default)
++ __ARIA role__: *link*
 + __Element class__: *.button*
 + __Available modifiers__: [color](http://bulma.io/documentation/elements/button/#colors),
 [size](http://bulma.io/documentation/elements/button/#sizes),
@@ -82,12 +83,15 @@ action msg label =
 navigation : msg -> String -> Ui.Element msg
 navigation msg label =
   label
-    |> Dom.Element.textWrapper "button"
+    |> Dom.Element.textWrapper "a"
     |> Dom.Element.withClasses
       [ "button" ]
 
     |> Dom.Element.withAttributes
-      [ "click"
+      [ "role"
+        |> Dom.Attribute.string "link"
+
+      , "click"
         |> Dom.Event.action msg
 
       ]

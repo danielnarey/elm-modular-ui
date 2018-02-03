@@ -71,13 +71,13 @@ user enters input. See the example below.
     --- UPDATE ---
 
     type Msg
-      = UserNameInput String
+      = UpdateUserName String
       | ...
 
     update : Msg -> Model -> Model
     update msg model =
       case msg of
-        UserNameInput value ->
+        UpdateUserName value ->
           { model
           | userName = value
           }
@@ -90,7 +90,7 @@ user enters input. See the example below.
     , placeholder = "first last"
     , value = model.userName
     }
-      |> Ui.Input.string UserNameInput
+      |> Ui.Input.string UpdateUserName
 
 
 + __HTML tag__: `<input type="text">`
@@ -140,7 +140,7 @@ string token args =
     , value = model.userBio
     , rows = Just 10
     }
-      |> Ui.Input.textArea UserBioInput
+      |> Ui.Input.textArea UpdateUserBio
 
 
 + __HTML tag__: `<textarea>`
@@ -241,13 +241,13 @@ or a spinbox for selecting a value in the given range.
     --- UPDATE ---
 
     type Msg
-      = UserAgeInput (Maybe Int)
+      = UpdateUserAge (Maybe Int)
       | ...
 
     update : Msg -> Model -> Model
     update msg model =
       case msg of
-        UserAgeInput value ->
+        UpdateUserAge value ->
           { model
           | userAge = value
           }
@@ -261,7 +261,7 @@ or a spinbox for selecting a value in the given range.
     , value = model.userAge
     , minMaxStep = (0, 117, 1)
     }
-      |> Ui.Input.int UserAgeInput
+      |> Ui.Input.int UpdateUserAge
 
 
 + __HTML tag__: `<input type="number">`
@@ -551,13 +551,13 @@ input element loses focus).
     --- UPDATE ---
 
     type Msg
-      = BackgroundColorInput (Maybe Color)
+      = UpdateBackgroundColor (Maybe Color)
       | ...
 
     update : Msg -> Model -> Model
     update msg model =
       case msg of
-        BackgroundColorInput value ->
+        UpdateBackgroundColor value ->
           { model
           | backgroundColor = value
           }
@@ -572,7 +572,7 @@ input element loses focus).
     , encoder = ColorMath.Hex.toColor
     , decoder = ColorMath.Hex.fromColor >> Ok
     }
-      |> Ui.Input.custom BackgroundColorInput
+      |> Ui.Input.custom UpdateBackgroundColor
 
 
 + __HTML tag__: `<input type="text">`
@@ -921,15 +921,15 @@ error handling for hex codes.
     --- UPDATE ---
 
     type Msg
-      = UpdateBackgroundColor String
+      = UpdateTextColor String
       | ...
 
     update : Msg -> Model -> Model
     update msg model =
       case msg of
-        UpdateBackgroundColor value ->
+        UpdateTextColor value ->
           { model
-          | backgroundColor = value
+          | textColor = value
           }
 
         ...
@@ -937,9 +937,9 @@ error handling for hex codes.
     --- VIEW ---
 
     { id = 8
-    , value = model.backgroundColor
+    , value = model.textColor
     }
-      |> Ui.Input.colorPicker UpdateBackgroundColor
+      |> Ui.Input.colorPicker UpdateTextColor
 
 
 + __HTML tag__: `<input type="color">`
