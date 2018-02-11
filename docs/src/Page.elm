@@ -1,6 +1,7 @@
 module Page exposing
   ( Id(..)
-  , url, fromPath
+  , hash, title, ancestors
+  , fromHash
   )
 
 
@@ -17,41 +18,89 @@ type Id
   | Customize Page.Customize.Id
 
 
-url : Id -> String
-url id =
+hash : Id -> String
+hash id =
+  case id of
+    Home ->
+      "#/"
+
+    Interactive subId ->
+      subId
+        |> Page.Interactive.hash
+        |> String.append "#/interactive-elements"
+
+    Content subId ->
+      subId
+        |> Page.Content.hash
+        |> String.append "#/content-elements"
+
+    Customize subId ->
+      subId
+        |> Page.Customize.hash
+        |> String.append "#/customize"
+
+
+title : Id -> String
+title id =
+  case id of
+    Home ->
+      "Ui"
+
+    Interactive subId ->
+      subId
+        |> Page.Interactive.title
+
+    Content subId ->
+      subId
+        |> Page.Content.title
+
+    Customize subId ->
+      subId
+        |> Page.Customize.title
+
+
+ancestors : Id -> List (String, Id)
+ancestors id =
   let
-    path =
+    ancestorList =
       case id of
         Home ->
-          "/"
+          []
 
         Interactive subId ->
           subId
-            |> Page.Interactive.url
-            |> String.append "/interactive-elements"
+            |> Page.Interactive.ancestors
+            |> List.map (Tuple.mapSecond Interactive)
+            |> (::) ("Ui", Home)
 
         Content subId ->
           subId
-            |> Page.Content.url
-            |> String.append "/content-elements"
+            |> Page.Content.ancestors
+            |> List.map (Tuple.mapSecond Content)
+            |> (::) ("Ui", Home)
 
         Customize subId ->
           subId
-            |> Page.Customize.url
-            |> String.append "/customize"
+            |> Page.Customize.ancestors
+            |> List.map (Tuple.mapSecond Customize)
+            |> (::) ("Ui", Home)
 
   in
-    path
-      |> String.append "http://danielnarey.com/elm-modular-ui"
+    [ ( id |> title
+      , id
+      )
+
+    ]
+      |> List.append ancestorList
 
 
-fromPath : String -> Maybe Id
-fromPath path =
+fromHash : String -> Maybe Id
+fromHash path =
   let
     parsed =
       path
         |> String.split "/"
-        |> List.drop 2
+        |> List.drop 1
 
   in
     case (parsed |> List.head) of
@@ -66,19 +115,19 @@ fromPath path =
           "interactive-elements" ->
             parsed
               |> List.drop 1
-              |> Page.Interactive.fromPath
+              |> Page.Interactive.fromHash
               |> Maybe.map Interactive
 
           "content-elements" ->
             parsed
               |> List.drop 1
-              |> Page.Content.fromPath
+              |> Page.Content.fromHash
               |> Maybe.map Content
 
           "customize" ->
             parsed
               |> List.drop 1
-              |> Page.Customize.fromPath
+              |> Page.Customize.fromHash
               |> Maybe.map Customize
 
           _ ->

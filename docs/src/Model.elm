@@ -59,6 +59,6 @@ fromLocation location =
       }
 
   in
-    location.pathname
-      |> Page.fromPath
+    location.hash
+      |> Page.fromHash
       |> Maybe.map (updatePage initial)

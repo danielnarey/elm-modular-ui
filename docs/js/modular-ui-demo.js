@@ -9014,6 +9014,345 @@ var _danielnarey$elm_modular_ui$Ui$container = _danielnarey$elm_semantic_dom$Dom
 var _danielnarey$elm_modular_ui$Ui$textWrapper = _danielnarey$elm_semantic_dom$Dom_Element$textWrapper;
 var _danielnarey$elm_modular_ui$Ui$leaf = _danielnarey$elm_semantic_dom$Dom_Element$leaf;
 
+var _danielnarey$elm_semantic_dom$Dom_Event$customWithOptions = F3(
+	function (decoder, options, string) {
+		return A3(_elm_lang$virtual_dom$VirtualDom$onWithOptions, string, options, decoder);
+	});
+var _danielnarey$elm_semantic_dom$Dom_Event$custom = F2(
+	function (decoder, string) {
+		return A2(_elm_lang$virtual_dom$VirtualDom$on, string, decoder);
+	});
+var _danielnarey$elm_semantic_dom$Dom_Event$submit = F2(
+	function (captureKey, idList) {
+		var mapDictInsert = F2(
+			function (dict, _p0) {
+				var _p1 = _p0;
+				return A4(_elm_lang$core$Json_Decode$map3, _elm_lang$core$Dict$insert, _p1._0, _p1._1, dict);
+			});
+		var inputDecoder = function (idString) {
+			return A2(
+				_elm_lang$core$Json_Decode$at,
+				{
+					ctor: '::',
+					_0: 'target',
+					_1: {
+						ctor: '::',
+						_0: 'elements',
+						_1: {
+							ctor: '::',
+							_0: idString,
+							_1: {
+								ctor: '::',
+								_0: 'value',
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				_elm_lang$core$Json_Decode$string);
+		};
+		var buildDecoder = F2(
+			function (idList, dictDecoder) {
+				buildDecoder:
+				while (true) {
+					var _p2 = idList;
+					if (_p2.ctor === '[]') {
+						return dictDecoder;
+					} else {
+						var _p3 = _p2._0;
+						var _v2 = _p2._1,
+							_v3 = A2(
+							mapDictInsert,
+							dictDecoder,
+							{
+								ctor: '_Tuple2',
+								_0: _elm_lang$core$Json_Decode$succeed(_p3),
+								_1: inputDecoder(_p3)
+							});
+						idList = _v2;
+						dictDecoder = _v3;
+						continue buildDecoder;
+					}
+				}
+			});
+		return A3(
+			_elm_lang$virtual_dom$VirtualDom$onWithOptions,
+			'submit',
+			{stopPropagation: false, preventDefault: true},
+			A2(
+				_elm_lang$core$Json_Decode$map,
+				captureKey,
+				A2(
+					buildDecoder,
+					idList,
+					_elm_lang$core$Json_Decode$succeed(_elm_lang$core$Dict$empty))));
+	});
+var _danielnarey$elm_semantic_dom$Dom_Event$capture = F2(
+	function (captureKey, event) {
+		return A2(
+			_elm_lang$virtual_dom$VirtualDom$on,
+			event,
+			A2(
+				_elm_lang$core$Json_Decode$map,
+				captureKey,
+				A2(
+					_elm_lang$core$Json_Decode$at,
+					{
+						ctor: '::',
+						_0: 'target',
+						_1: {
+							ctor: '::',
+							_0: 'value',
+							_1: {ctor: '[]'}
+						}
+					},
+					_elm_lang$core$Json_Decode$string)));
+	});
+var _danielnarey$elm_semantic_dom$Dom_Event$action = F2(
+	function (msg, event) {
+		return A2(
+			_elm_lang$virtual_dom$VirtualDom$on,
+			event,
+			_elm_lang$core$Json_Decode$succeed(msg));
+	});
+var _danielnarey$elm_semantic_dom$Dom_Event$Options = F2(
+	function (a, b) {
+		return {stopPropagation: a, preventDefault: b};
+	});
+
+var _danielnarey$elm_modular_ui$Ui_Action$onKeyUp = function (_p0) {
+	var _p1 = _p0;
+	var _p3 = _p1._0;
+	var customDecoder = A2(
+		_elm_lang$core$Json_Decode$andThen,
+		function (pressed) {
+			var _p2 = _elm_lang$core$Native_Utils.eq(pressed, _p3);
+			if (_p2 === true) {
+				return _elm_lang$core$Json_Decode$succeed(_p1._1);
+			} else {
+				return _elm_lang$core$Json_Decode$fail(
+					A2(_elm_lang$core$Basics_ops['++'], 'not ', _p3));
+			}
+		},
+		A2(_elm_lang$core$Json_Decode$field, 'key', _elm_lang$core$Json_Decode$string));
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		A2(_danielnarey$elm_semantic_dom$Dom_Event$custom, customDecoder, 'keyup'));
+};
+var _danielnarey$elm_modular_ui$Ui_Action$onKeyPress = function (_p4) {
+	var _p5 = _p4;
+	var _p7 = _p5._0;
+	var customDecoder = A2(
+		_elm_lang$core$Json_Decode$andThen,
+		function (pressed) {
+			var _p6 = _elm_lang$core$Native_Utils.eq(pressed, _p7);
+			if (_p6 === true) {
+				return _elm_lang$core$Json_Decode$succeed(_p5._1);
+			} else {
+				return _elm_lang$core$Json_Decode$fail(
+					A2(_elm_lang$core$Basics_ops['++'], 'not ', _p7));
+			}
+		},
+		A2(_elm_lang$core$Json_Decode$field, 'key', _elm_lang$core$Json_Decode$string));
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		A2(_danielnarey$elm_semantic_dom$Dom_Event$custom, customDecoder, 'keypress'));
+};
+var _danielnarey$elm_modular_ui$Ui_Action$onKeyDown = function (_p8) {
+	var _p9 = _p8;
+	var _p11 = _p9._0;
+	var customDecoder = A2(
+		_elm_lang$core$Json_Decode$andThen,
+		function (pressed) {
+			var _p10 = _elm_lang$core$Native_Utils.eq(pressed, _p11);
+			if (_p10 === true) {
+				return _elm_lang$core$Json_Decode$succeed(_p9._1);
+			} else {
+				return _elm_lang$core$Json_Decode$fail(
+					A2(_elm_lang$core$Basics_ops['++'], 'not ', _p11));
+			}
+		},
+		A2(_elm_lang$core$Json_Decode$field, 'key', _elm_lang$core$Json_Decode$string));
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		A2(_danielnarey$elm_semantic_dom$Dom_Event$custom, customDecoder, 'keydown'));
+};
+var _danielnarey$elm_modular_ui$Ui_Action$onMouseOut = function (msg) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		A2(_danielnarey$elm_semantic_dom$Dom_Event$action, msg, 'mouseout'));
+};
+var _danielnarey$elm_modular_ui$Ui_Action$onMouseOver = function (msg) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		A2(_danielnarey$elm_semantic_dom$Dom_Event$action, msg, 'mouseover'));
+};
+var _danielnarey$elm_modular_ui$Ui_Action$onClick = function (msg) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		A2(_danielnarey$elm_semantic_dom$Dom_Event$action, msg, 'click'));
+};
+var _danielnarey$elm_modular_ui$Ui_Action$addList = F2(
+	function (tupleList, element) {
+		var toAttribute = function (_p12) {
+			var _p13 = _p12;
+			return A2(_danielnarey$elm_semantic_dom$Dom_Event$action, _p13._1, _p13._0);
+		};
+		var newAttributes = A2(_elm_lang$core$List$map, toAttribute, tupleList);
+		return _elm_lang$core$Native_Utils.update(
+			element,
+			{
+				attributes: A2(_elm_lang$core$Basics_ops['++'], element.attributes, newAttributes)
+			});
+	});
+var _danielnarey$elm_modular_ui$Ui_Action$add = function (_p14) {
+	var _p15 = _p14;
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		A2(_danielnarey$elm_semantic_dom$Dom_Event$action, _p15._1, _p15._0));
+};
+
+var _danielnarey$elm_semantic_dom$Dom_Property$float = F2(
+	function (value, key) {
+		return A2(
+			_elm_lang$virtual_dom$VirtualDom$property,
+			key,
+			_elm_lang$core$Json_Encode$float(value));
+	});
+var _danielnarey$elm_semantic_dom$Dom_Property$int = F2(
+	function (value, key) {
+		return A2(
+			_elm_lang$virtual_dom$VirtualDom$property,
+			key,
+			_elm_lang$core$Json_Encode$int(value));
+	});
+var _danielnarey$elm_semantic_dom$Dom_Property$string = F2(
+	function (value, key) {
+		return A2(
+			_elm_lang$virtual_dom$VirtualDom$property,
+			key,
+			_elm_lang$core$Json_Encode$string(value));
+	});
+var _danielnarey$elm_semantic_dom$Dom_Property$bool = F2(
+	function (value, key) {
+		return A2(
+			_elm_lang$virtual_dom$VirtualDom$property,
+			key,
+			_elm_lang$core$Json_Encode$bool(value));
+	});
+
+var _danielnarey$elm_semantic_dom$Dom_Attribute$namespaced = F3(
+	function (_p0, value, key) {
+		var _p1 = _p0;
+		return A3(
+			_elm_lang$virtual_dom$VirtualDom$attributeNS,
+			_p1._1,
+			A2(
+				_elm_lang$core$Basics_ops['++'],
+				_p1._0,
+				A2(_elm_lang$core$Basics_ops['++'], ':', key)),
+			value);
+	});
+var _danielnarey$elm_semantic_dom$Dom_Attribute$float = F2(
+	function (value, key) {
+		return A2(
+			_elm_lang$virtual_dom$VirtualDom$attribute,
+			key,
+			_elm_lang$core$Basics$toString(value));
+	});
+var _danielnarey$elm_semantic_dom$Dom_Attribute$int = F2(
+	function (value, key) {
+		return A2(
+			_elm_lang$virtual_dom$VirtualDom$attribute,
+			key,
+			_elm_lang$core$Basics$toString(value));
+	});
+var _danielnarey$elm_semantic_dom$Dom_Attribute$string = F2(
+	function (value, key) {
+		return A2(_elm_lang$virtual_dom$VirtualDom$attribute, key, value);
+	});
+
+var _danielnarey$elm_modular_ui$Ui_Attribute$ariaHidden = _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+	A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'true', 'aria-hidden'));
+var _danielnarey$elm_modular_ui$Ui_Attribute$ariaDescribedBy = function (value) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, value, 'aria-describedby'));
+};
+var _danielnarey$elm_modular_ui$Ui_Attribute$ariaLabelledBy = function (value) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, value, 'aria-labelledby'));
+};
+var _danielnarey$elm_modular_ui$Ui_Attribute$ariaLabel = function (value) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, value, 'aria-label'));
+};
+var _danielnarey$elm_modular_ui$Ui_Attribute$role = function (value) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, value, 'role'));
+};
+var _danielnarey$elm_modular_ui$Ui_Attribute$hidden = function (value) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		A2(_danielnarey$elm_semantic_dom$Dom_Property$bool, value, 'hidden'));
+};
+var _danielnarey$elm_modular_ui$Ui_Attribute$title = function (value) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		A2(_danielnarey$elm_semantic_dom$Dom_Property$string, value, 'title'));
+};
+var _danielnarey$elm_modular_ui$Ui_Attribute$addList = F2(
+	function (tupleList, element) {
+		var toAttribute = function (_p0) {
+			var _p1 = _p0;
+			return _p1._1(_p1._0);
+		};
+		var newAttributes = A2(_elm_lang$core$List$map, toAttribute, tupleList);
+		return _elm_lang$core$Native_Utils.update(
+			element,
+			{
+				attributes: A2(_elm_lang$core$Basics_ops['++'], element.attributes, newAttributes)
+			});
+	});
+var _danielnarey$elm_modular_ui$Ui_Attribute$add = function (_p2) {
+	var _p3 = _p2;
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		_p3._1(_p3._0));
+};
+
+var _danielnarey$elm_modular_ui$Component$navLink = F2(
+	function (token, _p0) {
+		var _p1 = _p0;
+		return A2(
+			_danielnarey$elm_modular_ui$Ui_Attribute$role,
+			'link',
+			A2(
+				_danielnarey$elm_modular_ui$Ui_Action$onClick,
+				token(_p1._1),
+				A2(_danielnarey$elm_modular_ui$Ui$textWrapper, 'a', _p1._0)));
+	});
+var _danielnarey$elm_modular_ui$Component$navList = function (token) {
+	return function (_p2) {
+		return A2(
+			_danielnarey$elm_modular_ui$Ui$container,
+			'ul',
+			A2(
+				_elm_lang$core$List$map,
+				function (_p3) {
+					return A2(
+						_danielnarey$elm_modular_ui$Ui$container,
+						'li',
+						_elm_lang$core$List$singleton(
+							A2(_danielnarey$elm_modular_ui$Component$navLink, token, _p3)));
+				},
+				_p2));
+	};
+};
+var _danielnarey$elm_modular_ui$Component$listedItems = function (_p4) {
+	return A2(
+		_danielnarey$elm_modular_ui$Ui$container,
+		'ul',
+		A2(
+			_elm_lang$core$List$map,
+			function (_p5) {
+				return A2(
+					_danielnarey$elm_modular_ui$Ui$container,
+					'li',
+					_elm_lang$core$List$singleton(_p5));
+			},
+			_p4));
+};
+
 var _danielnarey$elm_modular_ui$Ui_Modifier$conditional = function (_p0) {
 	var _p1 = _p0;
 	var _p2 = _p1._1;
@@ -9032,6 +9371,23 @@ var _danielnarey$elm_modular_ui$Ui_Modifier$addList = F2(
 			});
 	});
 var _danielnarey$elm_modular_ui$Ui_Modifier$add = _danielnarey$elm_semantic_dom$Dom_Element$addClass;
+
+var _danielnarey$elm_modular_ui$Component_Breadcrumb$container = function (args) {
+	return A2(
+		_danielnarey$elm_modular_ui$Ui_Attribute$ariaLabel,
+		'breadcrumbs',
+		A2(
+			_danielnarey$elm_modular_ui$Ui_Modifier$add,
+			'breadcrumb',
+			A2(
+				_danielnarey$elm_modular_ui$Ui$container,
+				'nav',
+				{
+					ctor: '::',
+					_0: A2(_danielnarey$elm_modular_ui$Component$navList, args.navigation, args.ancestors),
+					_1: {ctor: '[]'}
+				})));
+};
 
 var _danielnarey$elm_modular_ui$Component_Grid$singleColumn = function (_p0) {
 	return A2(
@@ -9263,6 +9619,369 @@ var _danielnarey$elm_modular_ui$Component_Layout$section = function (_p8) {
 		A2(_danielnarey$elm_modular_ui$Ui$container, 'section', _p8));
 };
 
+var _danielnarey$elm_modular_ui$Page_Interactive$title = function (id) {
+	var _p0 = id;
+	switch (_p0.ctor) {
+		case 'Index':
+			return 'Interactive';
+		case 'Buttons':
+			return 'Buttons';
+		case 'Input':
+			return 'Input';
+		case 'Selectors':
+			return 'Selectors';
+		default:
+			return 'Indicators';
+	}
+};
+var _danielnarey$elm_modular_ui$Page_Interactive$hash = function (id) {
+	var _p1 = id;
+	switch (_p1.ctor) {
+		case 'Index':
+			return '/';
+		case 'Buttons':
+			return '/buttons';
+		case 'Input':
+			return '/input';
+		case 'Selectors':
+			return '/selectors';
+		default:
+			return '/indicators';
+	}
+};
+var _danielnarey$elm_modular_ui$Page_Interactive$Indicators = {ctor: 'Indicators'};
+var _danielnarey$elm_modular_ui$Page_Interactive$Selectors = {ctor: 'Selectors'};
+var _danielnarey$elm_modular_ui$Page_Interactive$Input = {ctor: 'Input'};
+var _danielnarey$elm_modular_ui$Page_Interactive$Buttons = {ctor: 'Buttons'};
+var _danielnarey$elm_modular_ui$Page_Interactive$Index = {ctor: 'Index'};
+var _danielnarey$elm_modular_ui$Page_Interactive$ancestors = function (id) {
+	var _p2 = id;
+	if (_p2.ctor === 'Index') {
+		return {ctor: '[]'};
+	} else {
+		return {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: _danielnarey$elm_modular_ui$Page_Interactive$title(_danielnarey$elm_modular_ui$Page_Interactive$Index),
+				_1: _danielnarey$elm_modular_ui$Page_Interactive$Index
+			},
+			_1: {ctor: '[]'}
+		};
+	}
+};
+var _danielnarey$elm_modular_ui$Page_Interactive$fromHash = function (parsed) {
+	var _p3 = _elm_lang$core$List$head(parsed);
+	if (_p3.ctor === 'Nothing') {
+		return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Interactive$Index);
+	} else {
+		var _p4 = _p3._0;
+		switch (_p4) {
+			case '':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Interactive$Index);
+			case 'buttons':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Interactive$Buttons);
+			case 'input':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Interactive$Input);
+			case 'selectors':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Interactive$Selectors);
+			case 'indicators':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Interactive$Indicators);
+			default:
+				return _elm_lang$core$Maybe$Nothing;
+		}
+	}
+};
+
+var _danielnarey$elm_modular_ui$Page_Content$title = function (id) {
+	var _p0 = id;
+	switch (_p0.ctor) {
+		case 'Index':
+			return 'Content';
+		case 'Text':
+			return 'Text';
+		case 'Heading':
+			return 'Heading';
+		case 'Icon':
+			return 'Icon';
+		case 'Media':
+			return 'Media';
+		default:
+			return 'Source';
+	}
+};
+var _danielnarey$elm_modular_ui$Page_Content$hash = function (id) {
+	var _p1 = id;
+	switch (_p1.ctor) {
+		case 'Index':
+			return '/';
+		case 'Text':
+			return '/text';
+		case 'Heading':
+			return '/heading';
+		case 'Icon':
+			return '/icon';
+		case 'Media':
+			return '/media';
+		default:
+			return '/source';
+	}
+};
+var _danielnarey$elm_modular_ui$Page_Content$Source = {ctor: 'Source'};
+var _danielnarey$elm_modular_ui$Page_Content$Media = {ctor: 'Media'};
+var _danielnarey$elm_modular_ui$Page_Content$Icon = {ctor: 'Icon'};
+var _danielnarey$elm_modular_ui$Page_Content$Heading = {ctor: 'Heading'};
+var _danielnarey$elm_modular_ui$Page_Content$Text = {ctor: 'Text'};
+var _danielnarey$elm_modular_ui$Page_Content$Index = {ctor: 'Index'};
+var _danielnarey$elm_modular_ui$Page_Content$ancestors = function (id) {
+	var _p2 = id;
+	if (_p2.ctor === 'Index') {
+		return {ctor: '[]'};
+	} else {
+		return {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: _danielnarey$elm_modular_ui$Page_Content$title(_danielnarey$elm_modular_ui$Page_Content$Index),
+				_1: _danielnarey$elm_modular_ui$Page_Content$Index
+			},
+			_1: {ctor: '[]'}
+		};
+	}
+};
+var _danielnarey$elm_modular_ui$Page_Content$fromHash = function (parsed) {
+	var _p3 = _elm_lang$core$List$head(parsed);
+	if (_p3.ctor === 'Nothing') {
+		return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Content$Index);
+	} else {
+		var _p4 = _p3._0;
+		switch (_p4) {
+			case '':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Content$Index);
+			case 'heading':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Content$Heading);
+			case 'icon':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Content$Icon);
+			case 'media':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Content$Media);
+			case 'source':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Content$Source);
+			default:
+				return _elm_lang$core$Maybe$Nothing;
+		}
+	}
+};
+
+var _danielnarey$elm_modular_ui$Page_Customize$title = function (id) {
+	var _p0 = id;
+	switch (_p0.ctor) {
+		case 'Index':
+			return 'Customize';
+		case 'Modifier':
+			return 'Modifier';
+		case 'Attribute':
+			return 'Attribute';
+		case 'Action':
+			return 'Action';
+		default:
+			return 'Style';
+	}
+};
+var _danielnarey$elm_modular_ui$Page_Customize$hash = function (id) {
+	var _p1 = id;
+	switch (_p1.ctor) {
+		case 'Index':
+			return '/';
+		case 'Modifier':
+			return '/modifier';
+		case 'Attribute':
+			return '/attribute';
+		case 'Action':
+			return '/action';
+		default:
+			return '/style';
+	}
+};
+var _danielnarey$elm_modular_ui$Page_Customize$Style = {ctor: 'Style'};
+var _danielnarey$elm_modular_ui$Page_Customize$Action = {ctor: 'Action'};
+var _danielnarey$elm_modular_ui$Page_Customize$Attribute = {ctor: 'Attribute'};
+var _danielnarey$elm_modular_ui$Page_Customize$Modifier = {ctor: 'Modifier'};
+var _danielnarey$elm_modular_ui$Page_Customize$Index = {ctor: 'Index'};
+var _danielnarey$elm_modular_ui$Page_Customize$ancestors = function (id) {
+	var _p2 = id;
+	if (_p2.ctor === 'Index') {
+		return {ctor: '[]'};
+	} else {
+		return {
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: _danielnarey$elm_modular_ui$Page_Customize$title(_danielnarey$elm_modular_ui$Page_Customize$Index),
+				_1: _danielnarey$elm_modular_ui$Page_Customize$Index
+			},
+			_1: {ctor: '[]'}
+		};
+	}
+};
+var _danielnarey$elm_modular_ui$Page_Customize$fromHash = function (parsed) {
+	var _p3 = _elm_lang$core$List$head(parsed);
+	if (_p3.ctor === 'Nothing') {
+		return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Customize$Index);
+	} else {
+		var _p4 = _p3._0;
+		switch (_p4) {
+			case '':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Customize$Index);
+			case 'modifier':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Customize$Modifier);
+			case 'attribute':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Customize$Attribute);
+			case 'action':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Customize$Action);
+			case 'style':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Customize$Style);
+			default:
+				return _elm_lang$core$Maybe$Nothing;
+		}
+	}
+};
+
+var _danielnarey$elm_modular_ui$Page$title = function (id) {
+	var _p0 = id;
+	switch (_p0.ctor) {
+		case 'Home':
+			return 'Ui';
+		case 'Interactive':
+			return _danielnarey$elm_modular_ui$Page_Interactive$title(_p0._0);
+		case 'Content':
+			return _danielnarey$elm_modular_ui$Page_Content$title(_p0._0);
+		default:
+			return _danielnarey$elm_modular_ui$Page_Customize$title(_p0._0);
+	}
+};
+var _danielnarey$elm_modular_ui$Page$hash = function (id) {
+	var _p1 = id;
+	switch (_p1.ctor) {
+		case 'Home':
+			return '#/';
+		case 'Interactive':
+			return A2(
+				_elm_lang$core$String$append,
+				'#/interactive-elements',
+				_danielnarey$elm_modular_ui$Page_Interactive$hash(_p1._0));
+		case 'Content':
+			return A2(
+				_elm_lang$core$String$append,
+				'#/content-elements',
+				_danielnarey$elm_modular_ui$Page_Content$hash(_p1._0));
+		default:
+			return A2(
+				_elm_lang$core$String$append,
+				'#/customize',
+				_danielnarey$elm_modular_ui$Page_Customize$hash(_p1._0));
+	}
+};
+var _danielnarey$elm_modular_ui$Page$Customize = function (a) {
+	return {ctor: 'Customize', _0: a};
+};
+var _danielnarey$elm_modular_ui$Page$Content = function (a) {
+	return {ctor: 'Content', _0: a};
+};
+var _danielnarey$elm_modular_ui$Page$Interactive = function (a) {
+	return {ctor: 'Interactive', _0: a};
+};
+var _danielnarey$elm_modular_ui$Page$Home = {ctor: 'Home'};
+var _danielnarey$elm_modular_ui$Page$ancestors = function (id) {
+	var ancestorList = function () {
+		var _p2 = id;
+		switch (_p2.ctor) {
+			case 'Home':
+				return {ctor: '[]'};
+			case 'Interactive':
+				return A2(
+					F2(
+						function (x, y) {
+							return {ctor: '::', _0: x, _1: y};
+						}),
+					{ctor: '_Tuple2', _0: 'Ui', _1: _danielnarey$elm_modular_ui$Page$Home},
+					A2(
+						_elm_lang$core$List$map,
+						_elm_lang$core$Tuple$mapSecond(_danielnarey$elm_modular_ui$Page$Interactive),
+						_danielnarey$elm_modular_ui$Page_Interactive$ancestors(_p2._0)));
+			case 'Content':
+				return A2(
+					F2(
+						function (x, y) {
+							return {ctor: '::', _0: x, _1: y};
+						}),
+					{ctor: '_Tuple2', _0: 'Ui', _1: _danielnarey$elm_modular_ui$Page$Home},
+					A2(
+						_elm_lang$core$List$map,
+						_elm_lang$core$Tuple$mapSecond(_danielnarey$elm_modular_ui$Page$Content),
+						_danielnarey$elm_modular_ui$Page_Content$ancestors(_p2._0)));
+			default:
+				return A2(
+					F2(
+						function (x, y) {
+							return {ctor: '::', _0: x, _1: y};
+						}),
+					{ctor: '_Tuple2', _0: 'Ui', _1: _danielnarey$elm_modular_ui$Page$Home},
+					A2(
+						_elm_lang$core$List$map,
+						_elm_lang$core$Tuple$mapSecond(_danielnarey$elm_modular_ui$Page$Customize),
+						_danielnarey$elm_modular_ui$Page_Customize$ancestors(_p2._0)));
+		}
+	}();
+	return A2(
+		_elm_lang$core$List$append,
+		ancestorList,
+		{
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: _danielnarey$elm_modular_ui$Page$title(id),
+				_1: id
+			},
+			_1: {ctor: '[]'}
+		});
+};
+var _danielnarey$elm_modular_ui$Page$fromHash = function (path) {
+	var parsed = A2(
+		_elm_lang$core$List$drop,
+		1,
+		A2(_elm_lang$core$String$split, '/', path));
+	var _p3 = _elm_lang$core$List$head(parsed);
+	if (_p3.ctor === 'Nothing') {
+		return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page$Home);
+	} else {
+		var _p4 = _p3._0;
+		switch (_p4) {
+			case '':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page$Home);
+			case 'interactive-elements':
+				return A2(
+					_elm_lang$core$Maybe$map,
+					_danielnarey$elm_modular_ui$Page$Interactive,
+					_danielnarey$elm_modular_ui$Page_Interactive$fromHash(
+						A2(_elm_lang$core$List$drop, 1, parsed)));
+			case 'content-elements':
+				return A2(
+					_elm_lang$core$Maybe$map,
+					_danielnarey$elm_modular_ui$Page$Content,
+					_danielnarey$elm_modular_ui$Page_Content$fromHash(
+						A2(_elm_lang$core$List$drop, 1, parsed)));
+			case 'customize':
+				return A2(
+					_elm_lang$core$Maybe$map,
+					_danielnarey$elm_modular_ui$Page$Customize,
+					_danielnarey$elm_modular_ui$Page_Customize$fromHash(
+						A2(_elm_lang$core$List$drop, 1, parsed)));
+			default:
+				return _elm_lang$core$Maybe$Nothing;
+		}
+	}
+};
+
 var _danielnarey$elm_modular_ui$Option$Monthly = {ctor: 'Monthly'};
 var _danielnarey$elm_modular_ui$Option$Weekly = {ctor: 'Weekly'};
 var _danielnarey$elm_modular_ui$Option$Daily = {ctor: 'Daily'};
@@ -9270,126 +9989,388 @@ var _danielnarey$elm_modular_ui$Option$Global = {ctor: 'Global'};
 var _danielnarey$elm_modular_ui$Option$Canada = {ctor: 'Canada'};
 var _danielnarey$elm_modular_ui$Option$UnitedStates = {ctor: 'UnitedStates'};
 
-var _danielnarey$elm_modular_ui$Model$initial = {userName: '', userBio: '', userAge: _elm_lang$core$Maybe$Nothing, packageWeight: _elm_lang$core$Maybe$Nothing, backgroundColor: _elm_lang$core$Maybe$Nothing, starRating: 3, brightness: 1, textColor: '#000000', userAgrees: false, emailFrequency: _danielnarey$elm_modular_ui$Option$Weekly, shippingDestination: _elm_lang$core$Maybe$Nothing};
-var _danielnarey$elm_modular_ui$Model$Model = function (a) {
-	return function (b) {
-		return function (c) {
-			return function (d) {
-				return function (e) {
-					return function (f) {
-						return function (g) {
-							return function (h) {
-								return function (i) {
-									return function (j) {
-										return function (k) {
-											return {userName: a, userBio: b, userAge: c, packageWeight: d, backgroundColor: e, starRating: f, brightness: g, textColor: h, userAgrees: i, emailFrequency: j, shippingDestination: k};
-										};
-									};
-								};
-							};
-						};
-					};
-				};
+var _elm_lang$dom$Native_Dom = function() {
+
+var fakeNode = {
+	addEventListener: function() {},
+	removeEventListener: function() {}
+};
+
+var onDocument = on(typeof document !== 'undefined' ? document : fakeNode);
+var onWindow = on(typeof window !== 'undefined' ? window : fakeNode);
+
+function on(node)
+{
+	return function(eventName, decoder, toTask)
+	{
+		return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback) {
+
+			function performTask(event)
+			{
+				var result = A2(_elm_lang$core$Json_Decode$decodeValue, decoder, event);
+				if (result.ctor === 'Ok')
+				{
+					_elm_lang$core$Native_Scheduler.rawSpawn(toTask(result._0));
+				}
+			}
+
+			node.addEventListener(eventName, performTask);
+
+			return function()
+			{
+				node.removeEventListener(eventName, performTask);
 			};
-		};
+		});
 	};
-};
+}
 
-var _danielnarey$elm_modular_ui$Msg$UpdateShippingDestination = function (a) {
-	return {ctor: 'UpdateShippingDestination', _0: a};
-};
-var _danielnarey$elm_modular_ui$Msg$UpdateEmailFrequency = function (a) {
-	return {ctor: 'UpdateEmailFrequency', _0: a};
-};
-var _danielnarey$elm_modular_ui$Msg$ToggleUserAgrees = {ctor: 'ToggleUserAgrees'};
-var _danielnarey$elm_modular_ui$Msg$UpdateTextColor = function (a) {
-	return {ctor: 'UpdateTextColor', _0: a};
-};
-var _danielnarey$elm_modular_ui$Msg$AdjustBrightness = function (a) {
-	return {ctor: 'AdjustBrightness', _0: a};
-};
-var _danielnarey$elm_modular_ui$Msg$UpdateStarRating = function (a) {
-	return {ctor: 'UpdateStarRating', _0: a};
-};
-var _danielnarey$elm_modular_ui$Msg$UpdateBackgroundColor = function (a) {
-	return {ctor: 'UpdateBackgroundColor', _0: a};
-};
-var _danielnarey$elm_modular_ui$Msg$UpdatePackageWeight = function (a) {
-	return {ctor: 'UpdatePackageWeight', _0: a};
-};
-var _danielnarey$elm_modular_ui$Msg$UpdateUserAge = function (a) {
-	return {ctor: 'UpdateUserAge', _0: a};
-};
-var _danielnarey$elm_modular_ui$Msg$UpdateUserBio = function (a) {
-	return {ctor: 'UpdateUserBio', _0: a};
-};
-var _danielnarey$elm_modular_ui$Msg$UpdateUserName = function (a) {
-	return {ctor: 'UpdateUserName', _0: a};
-};
-var _danielnarey$elm_modular_ui$Msg$Disappear = {ctor: 'Disappear'};
-var _danielnarey$elm_modular_ui$Msg$NavTo = function (a) {
-	return {ctor: 'NavTo', _0: a};
-};
-var _danielnarey$elm_modular_ui$Msg$Alert = function (a) {
-	return {ctor: 'Alert', _0: a};
-};
+var rAF = typeof requestAnimationFrame !== 'undefined'
+	? requestAnimationFrame
+	: function(callback) { callback(); };
 
-var _danielnarey$elm_modular_ui$Update$update = F2(
-	function (msg, model) {
-		var _p0 = msg;
-		switch (_p0.ctor) {
-			case 'Alert':
-				return model;
-			case 'NavTo':
-				return model;
-			case 'Disappear':
-				return model;
-			case 'UpdateUserName':
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{userName: _p0._0});
-			case 'UpdateUserBio':
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{userBio: _p0._0});
-			case 'UpdateUserAge':
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{userAge: _p0._0});
-			case 'UpdatePackageWeight':
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{packageWeight: _p0._0});
-			case 'UpdateBackgroundColor':
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{backgroundColor: _p0._0});
-			case 'UpdateStarRating':
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{starRating: _p0._0});
-			case 'AdjustBrightness':
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{brightness: _p0._0});
-			case 'UpdateTextColor':
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{textColor: _p0._0});
-			case 'ToggleUserAgrees':
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{userAgrees: !model.userAgrees});
-			case 'UpdateEmailFrequency':
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{emailFrequency: _p0._0});
-			default:
-				return _elm_lang$core$Native_Utils.update(
-					model,
-					{shippingDestination: _p0._0});
+function withNode(id, doStuff)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		rAF(function()
+		{
+			var node = document.getElementById(id);
+			if (node === null)
+			{
+				callback(_elm_lang$core$Native_Scheduler.fail({ ctor: 'NotFound', _0: id }));
+				return;
+			}
+			callback(_elm_lang$core$Native_Scheduler.succeed(doStuff(node)));
+		});
+	});
+}
+
+
+// FOCUS
+
+function focus(id)
+{
+	return withNode(id, function(node) {
+		node.focus();
+		return _elm_lang$core$Native_Utils.Tuple0;
+	});
+}
+
+function blur(id)
+{
+	return withNode(id, function(node) {
+		node.blur();
+		return _elm_lang$core$Native_Utils.Tuple0;
+	});
+}
+
+
+// SCROLLING
+
+function getScrollTop(id)
+{
+	return withNode(id, function(node) {
+		return node.scrollTop;
+	});
+}
+
+function setScrollTop(id, desiredScrollTop)
+{
+	return withNode(id, function(node) {
+		node.scrollTop = desiredScrollTop;
+		return _elm_lang$core$Native_Utils.Tuple0;
+	});
+}
+
+function toBottom(id)
+{
+	return withNode(id, function(node) {
+		node.scrollTop = node.scrollHeight;
+		return _elm_lang$core$Native_Utils.Tuple0;
+	});
+}
+
+function getScrollLeft(id)
+{
+	return withNode(id, function(node) {
+		return node.scrollLeft;
+	});
+}
+
+function setScrollLeft(id, desiredScrollLeft)
+{
+	return withNode(id, function(node) {
+		node.scrollLeft = desiredScrollLeft;
+		return _elm_lang$core$Native_Utils.Tuple0;
+	});
+}
+
+function toRight(id)
+{
+	return withNode(id, function(node) {
+		node.scrollLeft = node.scrollWidth;
+		return _elm_lang$core$Native_Utils.Tuple0;
+	});
+}
+
+
+// SIZE
+
+function width(options, id)
+{
+	return withNode(id, function(node) {
+		switch (options.ctor)
+		{
+			case 'Content':
+				return node.scrollWidth;
+			case 'VisibleContent':
+				return node.clientWidth;
+			case 'VisibleContentWithBorders':
+				return node.offsetWidth;
+			case 'VisibleContentWithBordersAndMargins':
+				var rect = node.getBoundingClientRect();
+				return rect.right - rect.left;
 		}
 	});
+}
+
+function height(options, id)
+{
+	return withNode(id, function(node) {
+		switch (options.ctor)
+		{
+			case 'Content':
+				return node.scrollHeight;
+			case 'VisibleContent':
+				return node.clientHeight;
+			case 'VisibleContentWithBorders':
+				return node.offsetHeight;
+			case 'VisibleContentWithBordersAndMargins':
+				var rect = node.getBoundingClientRect();
+				return rect.bottom - rect.top;
+		}
+	});
+}
+
+return {
+	onDocument: F3(onDocument),
+	onWindow: F3(onWindow),
+
+	focus: focus,
+	blur: blur,
+
+	getScrollTop: getScrollTop,
+	setScrollTop: F2(setScrollTop),
+	getScrollLeft: getScrollLeft,
+	setScrollLeft: F2(setScrollLeft),
+	toBottom: toBottom,
+	toRight: toRight,
+
+	height: F2(height),
+	width: F2(width)
+};
+
+}();
+
+var _elm_lang$core$Task$onError = _elm_lang$core$Native_Scheduler.onError;
+var _elm_lang$core$Task$andThen = _elm_lang$core$Native_Scheduler.andThen;
+var _elm_lang$core$Task$spawnCmd = F2(
+	function (router, _p0) {
+		var _p1 = _p0;
+		return _elm_lang$core$Native_Scheduler.spawn(
+			A2(
+				_elm_lang$core$Task$andThen,
+				_elm_lang$core$Platform$sendToApp(router),
+				_p1._0));
+	});
+var _elm_lang$core$Task$fail = _elm_lang$core$Native_Scheduler.fail;
+var _elm_lang$core$Task$mapError = F2(
+	function (convert, task) {
+		return A2(
+			_elm_lang$core$Task$onError,
+			function (_p2) {
+				return _elm_lang$core$Task$fail(
+					convert(_p2));
+			},
+			task);
+	});
+var _elm_lang$core$Task$succeed = _elm_lang$core$Native_Scheduler.succeed;
+var _elm_lang$core$Task$map = F2(
+	function (func, taskA) {
+		return A2(
+			_elm_lang$core$Task$andThen,
+			function (a) {
+				return _elm_lang$core$Task$succeed(
+					func(a));
+			},
+			taskA);
+	});
+var _elm_lang$core$Task$map2 = F3(
+	function (func, taskA, taskB) {
+		return A2(
+			_elm_lang$core$Task$andThen,
+			function (a) {
+				return A2(
+					_elm_lang$core$Task$andThen,
+					function (b) {
+						return _elm_lang$core$Task$succeed(
+							A2(func, a, b));
+					},
+					taskB);
+			},
+			taskA);
+	});
+var _elm_lang$core$Task$map3 = F4(
+	function (func, taskA, taskB, taskC) {
+		return A2(
+			_elm_lang$core$Task$andThen,
+			function (a) {
+				return A2(
+					_elm_lang$core$Task$andThen,
+					function (b) {
+						return A2(
+							_elm_lang$core$Task$andThen,
+							function (c) {
+								return _elm_lang$core$Task$succeed(
+									A3(func, a, b, c));
+							},
+							taskC);
+					},
+					taskB);
+			},
+			taskA);
+	});
+var _elm_lang$core$Task$map4 = F5(
+	function (func, taskA, taskB, taskC, taskD) {
+		return A2(
+			_elm_lang$core$Task$andThen,
+			function (a) {
+				return A2(
+					_elm_lang$core$Task$andThen,
+					function (b) {
+						return A2(
+							_elm_lang$core$Task$andThen,
+							function (c) {
+								return A2(
+									_elm_lang$core$Task$andThen,
+									function (d) {
+										return _elm_lang$core$Task$succeed(
+											A4(func, a, b, c, d));
+									},
+									taskD);
+							},
+							taskC);
+					},
+					taskB);
+			},
+			taskA);
+	});
+var _elm_lang$core$Task$map5 = F6(
+	function (func, taskA, taskB, taskC, taskD, taskE) {
+		return A2(
+			_elm_lang$core$Task$andThen,
+			function (a) {
+				return A2(
+					_elm_lang$core$Task$andThen,
+					function (b) {
+						return A2(
+							_elm_lang$core$Task$andThen,
+							function (c) {
+								return A2(
+									_elm_lang$core$Task$andThen,
+									function (d) {
+										return A2(
+											_elm_lang$core$Task$andThen,
+											function (e) {
+												return _elm_lang$core$Task$succeed(
+													A5(func, a, b, c, d, e));
+											},
+											taskE);
+									},
+									taskD);
+							},
+							taskC);
+					},
+					taskB);
+			},
+			taskA);
+	});
+var _elm_lang$core$Task$sequence = function (tasks) {
+	var _p3 = tasks;
+	if (_p3.ctor === '[]') {
+		return _elm_lang$core$Task$succeed(
+			{ctor: '[]'});
+	} else {
+		return A3(
+			_elm_lang$core$Task$map2,
+			F2(
+				function (x, y) {
+					return {ctor: '::', _0: x, _1: y};
+				}),
+			_p3._0,
+			_elm_lang$core$Task$sequence(_p3._1));
+	}
+};
+var _elm_lang$core$Task$onEffects = F3(
+	function (router, commands, state) {
+		return A2(
+			_elm_lang$core$Task$map,
+			function (_p4) {
+				return {ctor: '_Tuple0'};
+			},
+			_elm_lang$core$Task$sequence(
+				A2(
+					_elm_lang$core$List$map,
+					_elm_lang$core$Task$spawnCmd(router),
+					commands)));
+	});
+var _elm_lang$core$Task$init = _elm_lang$core$Task$succeed(
+	{ctor: '_Tuple0'});
+var _elm_lang$core$Task$onSelfMsg = F3(
+	function (_p7, _p6, _p5) {
+		return _elm_lang$core$Task$succeed(
+			{ctor: '_Tuple0'});
+	});
+var _elm_lang$core$Task$command = _elm_lang$core$Native_Platform.leaf('Task');
+var _elm_lang$core$Task$Perform = function (a) {
+	return {ctor: 'Perform', _0: a};
+};
+var _elm_lang$core$Task$perform = F2(
+	function (toMessage, task) {
+		return _elm_lang$core$Task$command(
+			_elm_lang$core$Task$Perform(
+				A2(_elm_lang$core$Task$map, toMessage, task)));
+	});
+var _elm_lang$core$Task$attempt = F2(
+	function (resultToMessage, task) {
+		return _elm_lang$core$Task$command(
+			_elm_lang$core$Task$Perform(
+				A2(
+					_elm_lang$core$Task$onError,
+					function (_p8) {
+						return _elm_lang$core$Task$succeed(
+							resultToMessage(
+								_elm_lang$core$Result$Err(_p8)));
+					},
+					A2(
+						_elm_lang$core$Task$andThen,
+						function (_p9) {
+							return _elm_lang$core$Task$succeed(
+								resultToMessage(
+									_elm_lang$core$Result$Ok(_p9)));
+						},
+						task))));
+	});
+var _elm_lang$core$Task$cmdMap = F2(
+	function (tagger, _p10) {
+		var _p11 = _p10;
+		return _elm_lang$core$Task$Perform(
+			A2(_elm_lang$core$Task$map, tagger, _p11._0));
+	});
+_elm_lang$core$Native_Platform.effectManagers['Task'] = {pkg: 'elm-lang/core', init: _elm_lang$core$Task$init, onEffects: _elm_lang$core$Task$onEffects, onSelfMsg: _elm_lang$core$Task$onSelfMsg, tag: 'cmd', cmdMap: _elm_lang$core$Task$cmdMap};
+
+var _elm_lang$dom$Dom_LowLevel$onWindow = _elm_lang$dom$Native_Dom.onWindow;
+var _elm_lang$dom$Dom_LowLevel$onDocument = _elm_lang$dom$Native_Dom.onDocument;
 
 var _elm_lang$html$Html$programWithFlags = _elm_lang$virtual_dom$VirtualDom$programWithFlags;
 var _elm_lang$html$Html$program = _elm_lang$virtual_dom$VirtualDom$program;
@@ -9515,6 +10496,880 @@ var _elm_lang$html$Html$details = _elm_lang$html$Html$node('details');
 var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
+
+var _elm_lang$navigation$Native_Navigation = function() {
+
+
+// FAKE NAVIGATION
+
+function go(n)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		if (n !== 0)
+		{
+			history.go(n);
+		}
+		callback(_elm_lang$core$Native_Scheduler.succeed(_elm_lang$core$Native_Utils.Tuple0));
+	});
+}
+
+function pushState(url)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		history.pushState({}, '', url);
+		callback(_elm_lang$core$Native_Scheduler.succeed(getLocation()));
+	});
+}
+
+function replaceState(url)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		history.replaceState({}, '', url);
+		callback(_elm_lang$core$Native_Scheduler.succeed(getLocation()));
+	});
+}
+
+
+// REAL NAVIGATION
+
+function reloadPage(skipCache)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		document.location.reload(skipCache);
+		callback(_elm_lang$core$Native_Scheduler.succeed(_elm_lang$core$Native_Utils.Tuple0));
+	});
+}
+
+function setLocation(url)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		try
+		{
+			window.location = url;
+		}
+		catch(err)
+		{
+			// Only Firefox can throw a NS_ERROR_MALFORMED_URI exception here.
+			// Other browsers reload the page, so let's be consistent about that.
+			document.location.reload(false);
+		}
+		callback(_elm_lang$core$Native_Scheduler.succeed(_elm_lang$core$Native_Utils.Tuple0));
+	});
+}
+
+
+// GET LOCATION
+
+function getLocation()
+{
+	var location = document.location;
+
+	return {
+		href: location.href,
+		host: location.host,
+		hostname: location.hostname,
+		protocol: location.protocol,
+		origin: location.origin,
+		port_: location.port,
+		pathname: location.pathname,
+		search: location.search,
+		hash: location.hash,
+		username: location.username,
+		password: location.password
+	};
+}
+
+
+// DETECT IE11 PROBLEMS
+
+function isInternetExplorer11()
+{
+	return window.navigator.userAgent.indexOf('Trident') !== -1;
+}
+
+
+return {
+	go: go,
+	setLocation: setLocation,
+	reloadPage: reloadPage,
+	pushState: pushState,
+	replaceState: replaceState,
+	getLocation: getLocation,
+	isInternetExplorer11: isInternetExplorer11
+};
+
+}();
+
+//import Native.Scheduler //
+
+var _elm_lang$core$Native_Time = function() {
+
+var now = _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+{
+	callback(_elm_lang$core$Native_Scheduler.succeed(Date.now()));
+});
+
+function setInterval_(interval, task)
+{
+	return _elm_lang$core$Native_Scheduler.nativeBinding(function(callback)
+	{
+		var id = setInterval(function() {
+			_elm_lang$core$Native_Scheduler.rawSpawn(task);
+		}, interval);
+
+		return function() { clearInterval(id); };
+	});
+}
+
+return {
+	now: now,
+	setInterval_: F2(setInterval_)
+};
+
+}();
+var _elm_lang$core$Time$setInterval = _elm_lang$core$Native_Time.setInterval_;
+var _elm_lang$core$Time$spawnHelp = F3(
+	function (router, intervals, processes) {
+		var _p0 = intervals;
+		if (_p0.ctor === '[]') {
+			return _elm_lang$core$Task$succeed(processes);
+		} else {
+			var _p1 = _p0._0;
+			var spawnRest = function (id) {
+				return A3(
+					_elm_lang$core$Time$spawnHelp,
+					router,
+					_p0._1,
+					A3(_elm_lang$core$Dict$insert, _p1, id, processes));
+			};
+			var spawnTimer = _elm_lang$core$Native_Scheduler.spawn(
+				A2(
+					_elm_lang$core$Time$setInterval,
+					_p1,
+					A2(_elm_lang$core$Platform$sendToSelf, router, _p1)));
+			return A2(_elm_lang$core$Task$andThen, spawnRest, spawnTimer);
+		}
+	});
+var _elm_lang$core$Time$addMySub = F2(
+	function (_p2, state) {
+		var _p3 = _p2;
+		var _p6 = _p3._1;
+		var _p5 = _p3._0;
+		var _p4 = A2(_elm_lang$core$Dict$get, _p5, state);
+		if (_p4.ctor === 'Nothing') {
+			return A3(
+				_elm_lang$core$Dict$insert,
+				_p5,
+				{
+					ctor: '::',
+					_0: _p6,
+					_1: {ctor: '[]'}
+				},
+				state);
+		} else {
+			return A3(
+				_elm_lang$core$Dict$insert,
+				_p5,
+				{ctor: '::', _0: _p6, _1: _p4._0},
+				state);
+		}
+	});
+var _elm_lang$core$Time$inMilliseconds = function (t) {
+	return t;
+};
+var _elm_lang$core$Time$millisecond = 1;
+var _elm_lang$core$Time$second = 1000 * _elm_lang$core$Time$millisecond;
+var _elm_lang$core$Time$minute = 60 * _elm_lang$core$Time$second;
+var _elm_lang$core$Time$hour = 60 * _elm_lang$core$Time$minute;
+var _elm_lang$core$Time$inHours = function (t) {
+	return t / _elm_lang$core$Time$hour;
+};
+var _elm_lang$core$Time$inMinutes = function (t) {
+	return t / _elm_lang$core$Time$minute;
+};
+var _elm_lang$core$Time$inSeconds = function (t) {
+	return t / _elm_lang$core$Time$second;
+};
+var _elm_lang$core$Time$now = _elm_lang$core$Native_Time.now;
+var _elm_lang$core$Time$onSelfMsg = F3(
+	function (router, interval, state) {
+		var _p7 = A2(_elm_lang$core$Dict$get, interval, state.taggers);
+		if (_p7.ctor === 'Nothing') {
+			return _elm_lang$core$Task$succeed(state);
+		} else {
+			var tellTaggers = function (time) {
+				return _elm_lang$core$Task$sequence(
+					A2(
+						_elm_lang$core$List$map,
+						function (tagger) {
+							return A2(
+								_elm_lang$core$Platform$sendToApp,
+								router,
+								tagger(time));
+						},
+						_p7._0));
+			};
+			return A2(
+				_elm_lang$core$Task$andThen,
+				function (_p8) {
+					return _elm_lang$core$Task$succeed(state);
+				},
+				A2(_elm_lang$core$Task$andThen, tellTaggers, _elm_lang$core$Time$now));
+		}
+	});
+var _elm_lang$core$Time$subscription = _elm_lang$core$Native_Platform.leaf('Time');
+var _elm_lang$core$Time$State = F2(
+	function (a, b) {
+		return {taggers: a, processes: b};
+	});
+var _elm_lang$core$Time$init = _elm_lang$core$Task$succeed(
+	A2(_elm_lang$core$Time$State, _elm_lang$core$Dict$empty, _elm_lang$core$Dict$empty));
+var _elm_lang$core$Time$onEffects = F3(
+	function (router, subs, _p9) {
+		var _p10 = _p9;
+		var rightStep = F3(
+			function (_p12, id, _p11) {
+				var _p13 = _p11;
+				return {
+					ctor: '_Tuple3',
+					_0: _p13._0,
+					_1: _p13._1,
+					_2: A2(
+						_elm_lang$core$Task$andThen,
+						function (_p14) {
+							return _p13._2;
+						},
+						_elm_lang$core$Native_Scheduler.kill(id))
+				};
+			});
+		var bothStep = F4(
+			function (interval, taggers, id, _p15) {
+				var _p16 = _p15;
+				return {
+					ctor: '_Tuple3',
+					_0: _p16._0,
+					_1: A3(_elm_lang$core$Dict$insert, interval, id, _p16._1),
+					_2: _p16._2
+				};
+			});
+		var leftStep = F3(
+			function (interval, taggers, _p17) {
+				var _p18 = _p17;
+				return {
+					ctor: '_Tuple3',
+					_0: {ctor: '::', _0: interval, _1: _p18._0},
+					_1: _p18._1,
+					_2: _p18._2
+				};
+			});
+		var newTaggers = A3(_elm_lang$core$List$foldl, _elm_lang$core$Time$addMySub, _elm_lang$core$Dict$empty, subs);
+		var _p19 = A6(
+			_elm_lang$core$Dict$merge,
+			leftStep,
+			bothStep,
+			rightStep,
+			newTaggers,
+			_p10.processes,
+			{
+				ctor: '_Tuple3',
+				_0: {ctor: '[]'},
+				_1: _elm_lang$core$Dict$empty,
+				_2: _elm_lang$core$Task$succeed(
+					{ctor: '_Tuple0'})
+			});
+		var spawnList = _p19._0;
+		var existingDict = _p19._1;
+		var killTask = _p19._2;
+		return A2(
+			_elm_lang$core$Task$andThen,
+			function (newProcesses) {
+				return _elm_lang$core$Task$succeed(
+					A2(_elm_lang$core$Time$State, newTaggers, newProcesses));
+			},
+			A2(
+				_elm_lang$core$Task$andThen,
+				function (_p20) {
+					return A3(_elm_lang$core$Time$spawnHelp, router, spawnList, existingDict);
+				},
+				killTask));
+	});
+var _elm_lang$core$Time$Every = F2(
+	function (a, b) {
+		return {ctor: 'Every', _0: a, _1: b};
+	});
+var _elm_lang$core$Time$every = F2(
+	function (interval, tagger) {
+		return _elm_lang$core$Time$subscription(
+			A2(_elm_lang$core$Time$Every, interval, tagger));
+	});
+var _elm_lang$core$Time$subMap = F2(
+	function (f, _p21) {
+		var _p22 = _p21;
+		return A2(
+			_elm_lang$core$Time$Every,
+			_p22._0,
+			function (_p23) {
+				return f(
+					_p22._1(_p23));
+			});
+	});
+_elm_lang$core$Native_Platform.effectManagers['Time'] = {pkg: 'elm-lang/core', init: _elm_lang$core$Time$init, onEffects: _elm_lang$core$Time$onEffects, onSelfMsg: _elm_lang$core$Time$onSelfMsg, tag: 'sub', subMap: _elm_lang$core$Time$subMap};
+
+var _elm_lang$core$Process$kill = _elm_lang$core$Native_Scheduler.kill;
+var _elm_lang$core$Process$sleep = _elm_lang$core$Native_Scheduler.sleep;
+var _elm_lang$core$Process$spawn = _elm_lang$core$Native_Scheduler.spawn;
+
+var _elm_lang$navigation$Navigation$replaceState = _elm_lang$navigation$Native_Navigation.replaceState;
+var _elm_lang$navigation$Navigation$pushState = _elm_lang$navigation$Native_Navigation.pushState;
+var _elm_lang$navigation$Navigation$go = _elm_lang$navigation$Native_Navigation.go;
+var _elm_lang$navigation$Navigation$reloadPage = _elm_lang$navigation$Native_Navigation.reloadPage;
+var _elm_lang$navigation$Navigation$setLocation = _elm_lang$navigation$Native_Navigation.setLocation;
+var _elm_lang$navigation$Navigation_ops = _elm_lang$navigation$Navigation_ops || {};
+_elm_lang$navigation$Navigation_ops['&>'] = F2(
+	function (task1, task2) {
+		return A2(
+			_elm_lang$core$Task$andThen,
+			function (_p0) {
+				return task2;
+			},
+			task1);
+	});
+var _elm_lang$navigation$Navigation$notify = F3(
+	function (router, subs, location) {
+		var send = function (_p1) {
+			var _p2 = _p1;
+			return A2(
+				_elm_lang$core$Platform$sendToApp,
+				router,
+				_p2._0(location));
+		};
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			_elm_lang$core$Task$sequence(
+				A2(_elm_lang$core$List$map, send, subs)),
+			_elm_lang$core$Task$succeed(
+				{ctor: '_Tuple0'}));
+	});
+var _elm_lang$navigation$Navigation$cmdHelp = F3(
+	function (router, subs, cmd) {
+		var _p3 = cmd;
+		switch (_p3.ctor) {
+			case 'Jump':
+				return _elm_lang$navigation$Navigation$go(_p3._0);
+			case 'New':
+				return A2(
+					_elm_lang$core$Task$andThen,
+					A2(_elm_lang$navigation$Navigation$notify, router, subs),
+					_elm_lang$navigation$Navigation$pushState(_p3._0));
+			case 'Modify':
+				return A2(
+					_elm_lang$core$Task$andThen,
+					A2(_elm_lang$navigation$Navigation$notify, router, subs),
+					_elm_lang$navigation$Navigation$replaceState(_p3._0));
+			case 'Visit':
+				return _elm_lang$navigation$Navigation$setLocation(_p3._0);
+			default:
+				return _elm_lang$navigation$Navigation$reloadPage(_p3._0);
+		}
+	});
+var _elm_lang$navigation$Navigation$killPopWatcher = function (popWatcher) {
+	var _p4 = popWatcher;
+	if (_p4.ctor === 'Normal') {
+		return _elm_lang$core$Process$kill(_p4._0);
+	} else {
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			_elm_lang$core$Process$kill(_p4._0),
+			_elm_lang$core$Process$kill(_p4._1));
+	}
+};
+var _elm_lang$navigation$Navigation$onSelfMsg = F3(
+	function (router, location, state) {
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			A3(_elm_lang$navigation$Navigation$notify, router, state.subs, location),
+			_elm_lang$core$Task$succeed(state));
+	});
+var _elm_lang$navigation$Navigation$subscription = _elm_lang$core$Native_Platform.leaf('Navigation');
+var _elm_lang$navigation$Navigation$command = _elm_lang$core$Native_Platform.leaf('Navigation');
+var _elm_lang$navigation$Navigation$Location = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return function (k) {
+											return {href: a, host: b, hostname: c, protocol: d, origin: e, port_: f, pathname: g, search: h, hash: i, username: j, password: k};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+var _elm_lang$navigation$Navigation$State = F2(
+	function (a, b) {
+		return {subs: a, popWatcher: b};
+	});
+var _elm_lang$navigation$Navigation$init = _elm_lang$core$Task$succeed(
+	A2(
+		_elm_lang$navigation$Navigation$State,
+		{ctor: '[]'},
+		_elm_lang$core$Maybe$Nothing));
+var _elm_lang$navigation$Navigation$Reload = function (a) {
+	return {ctor: 'Reload', _0: a};
+};
+var _elm_lang$navigation$Navigation$reload = _elm_lang$navigation$Navigation$command(
+	_elm_lang$navigation$Navigation$Reload(false));
+var _elm_lang$navigation$Navigation$reloadAndSkipCache = _elm_lang$navigation$Navigation$command(
+	_elm_lang$navigation$Navigation$Reload(true));
+var _elm_lang$navigation$Navigation$Visit = function (a) {
+	return {ctor: 'Visit', _0: a};
+};
+var _elm_lang$navigation$Navigation$load = function (url) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Visit(url));
+};
+var _elm_lang$navigation$Navigation$Modify = function (a) {
+	return {ctor: 'Modify', _0: a};
+};
+var _elm_lang$navigation$Navigation$modifyUrl = function (url) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Modify(url));
+};
+var _elm_lang$navigation$Navigation$New = function (a) {
+	return {ctor: 'New', _0: a};
+};
+var _elm_lang$navigation$Navigation$newUrl = function (url) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$New(url));
+};
+var _elm_lang$navigation$Navigation$Jump = function (a) {
+	return {ctor: 'Jump', _0: a};
+};
+var _elm_lang$navigation$Navigation$back = function (n) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Jump(0 - n));
+};
+var _elm_lang$navigation$Navigation$forward = function (n) {
+	return _elm_lang$navigation$Navigation$command(
+		_elm_lang$navigation$Navigation$Jump(n));
+};
+var _elm_lang$navigation$Navigation$cmdMap = F2(
+	function (_p5, myCmd) {
+		var _p6 = myCmd;
+		switch (_p6.ctor) {
+			case 'Jump':
+				return _elm_lang$navigation$Navigation$Jump(_p6._0);
+			case 'New':
+				return _elm_lang$navigation$Navigation$New(_p6._0);
+			case 'Modify':
+				return _elm_lang$navigation$Navigation$Modify(_p6._0);
+			case 'Visit':
+				return _elm_lang$navigation$Navigation$Visit(_p6._0);
+			default:
+				return _elm_lang$navigation$Navigation$Reload(_p6._0);
+		}
+	});
+var _elm_lang$navigation$Navigation$Monitor = function (a) {
+	return {ctor: 'Monitor', _0: a};
+};
+var _elm_lang$navigation$Navigation$program = F2(
+	function (locationToMessage, stuff) {
+		var init = stuff.init(
+			_elm_lang$navigation$Native_Navigation.getLocation(
+				{ctor: '_Tuple0'}));
+		var subs = function (model) {
+			return _elm_lang$core$Platform_Sub$batch(
+				{
+					ctor: '::',
+					_0: _elm_lang$navigation$Navigation$subscription(
+						_elm_lang$navigation$Navigation$Monitor(locationToMessage)),
+					_1: {
+						ctor: '::',
+						_0: stuff.subscriptions(model),
+						_1: {ctor: '[]'}
+					}
+				});
+		};
+		return _elm_lang$html$Html$program(
+			{init: init, view: stuff.view, update: stuff.update, subscriptions: subs});
+	});
+var _elm_lang$navigation$Navigation$programWithFlags = F2(
+	function (locationToMessage, stuff) {
+		var init = function (flags) {
+			return A2(
+				stuff.init,
+				flags,
+				_elm_lang$navigation$Native_Navigation.getLocation(
+					{ctor: '_Tuple0'}));
+		};
+		var subs = function (model) {
+			return _elm_lang$core$Platform_Sub$batch(
+				{
+					ctor: '::',
+					_0: _elm_lang$navigation$Navigation$subscription(
+						_elm_lang$navigation$Navigation$Monitor(locationToMessage)),
+					_1: {
+						ctor: '::',
+						_0: stuff.subscriptions(model),
+						_1: {ctor: '[]'}
+					}
+				});
+		};
+		return _elm_lang$html$Html$programWithFlags(
+			{init: init, view: stuff.view, update: stuff.update, subscriptions: subs});
+	});
+var _elm_lang$navigation$Navigation$subMap = F2(
+	function (func, _p7) {
+		var _p8 = _p7;
+		return _elm_lang$navigation$Navigation$Monitor(
+			function (_p9) {
+				return func(
+					_p8._0(_p9));
+			});
+	});
+var _elm_lang$navigation$Navigation$InternetExplorer = F2(
+	function (a, b) {
+		return {ctor: 'InternetExplorer', _0: a, _1: b};
+	});
+var _elm_lang$navigation$Navigation$Normal = function (a) {
+	return {ctor: 'Normal', _0: a};
+};
+var _elm_lang$navigation$Navigation$spawnPopWatcher = function (router) {
+	var reportLocation = function (_p10) {
+		return A2(
+			_elm_lang$core$Platform$sendToSelf,
+			router,
+			_elm_lang$navigation$Native_Navigation.getLocation(
+				{ctor: '_Tuple0'}));
+	};
+	return _elm_lang$navigation$Native_Navigation.isInternetExplorer11(
+		{ctor: '_Tuple0'}) ? A3(
+		_elm_lang$core$Task$map2,
+		_elm_lang$navigation$Navigation$InternetExplorer,
+		_elm_lang$core$Process$spawn(
+			A3(_elm_lang$dom$Dom_LowLevel$onWindow, 'popstate', _elm_lang$core$Json_Decode$value, reportLocation)),
+		_elm_lang$core$Process$spawn(
+			A3(_elm_lang$dom$Dom_LowLevel$onWindow, 'hashchange', _elm_lang$core$Json_Decode$value, reportLocation))) : A2(
+		_elm_lang$core$Task$map,
+		_elm_lang$navigation$Navigation$Normal,
+		_elm_lang$core$Process$spawn(
+			A3(_elm_lang$dom$Dom_LowLevel$onWindow, 'popstate', _elm_lang$core$Json_Decode$value, reportLocation)));
+};
+var _elm_lang$navigation$Navigation$onEffects = F4(
+	function (router, cmds, subs, _p11) {
+		var _p12 = _p11;
+		var _p15 = _p12.popWatcher;
+		var stepState = function () {
+			var _p13 = {ctor: '_Tuple2', _0: subs, _1: _p15};
+			_v6_2:
+			do {
+				if (_p13._0.ctor === '[]') {
+					if (_p13._1.ctor === 'Just') {
+						return A2(
+							_elm_lang$navigation$Navigation_ops['&>'],
+							_elm_lang$navigation$Navigation$killPopWatcher(_p13._1._0),
+							_elm_lang$core$Task$succeed(
+								A2(_elm_lang$navigation$Navigation$State, subs, _elm_lang$core$Maybe$Nothing)));
+					} else {
+						break _v6_2;
+					}
+				} else {
+					if (_p13._1.ctor === 'Nothing') {
+						return A2(
+							_elm_lang$core$Task$map,
+							function (_p14) {
+								return A2(
+									_elm_lang$navigation$Navigation$State,
+									subs,
+									_elm_lang$core$Maybe$Just(_p14));
+							},
+							_elm_lang$navigation$Navigation$spawnPopWatcher(router));
+					} else {
+						break _v6_2;
+					}
+				}
+			} while(false);
+			return _elm_lang$core$Task$succeed(
+				A2(_elm_lang$navigation$Navigation$State, subs, _p15));
+		}();
+		return A2(
+			_elm_lang$navigation$Navigation_ops['&>'],
+			_elm_lang$core$Task$sequence(
+				A2(
+					_elm_lang$core$List$map,
+					A2(_elm_lang$navigation$Navigation$cmdHelp, router, subs),
+					cmds)),
+			stepState);
+	});
+_elm_lang$core$Native_Platform.effectManagers['Navigation'] = {pkg: 'elm-lang/navigation', init: _elm_lang$navigation$Navigation$init, onEffects: _elm_lang$navigation$Navigation$onEffects, onSelfMsg: _elm_lang$navigation$Navigation$onSelfMsg, tag: 'fx', cmdMap: _elm_lang$navigation$Navigation$cmdMap, subMap: _elm_lang$navigation$Navigation$subMap};
+
+var _danielnarey$elm_semantic_effects$Effect_Routing$customWithFlags = _elm_lang$navigation$Navigation$programWithFlags;
+var _danielnarey$elm_semantic_effects$Effect_Routing$custom = _elm_lang$navigation$Navigation$program;
+var _danielnarey$elm_semantic_effects$Effect_Routing$runWithFlags = F2(
+	function (_p0, programSetup) {
+		var _p1 = _p0;
+		var _p2 = programSetup.init;
+		var initialModel = _p2._0;
+		var loadCmd = _p2._1;
+		var withDefaultModel = F3(
+			function (initializer, flags, location) {
+				return A3(
+					_elm_lang$core$Basics$flip,
+					F2(
+						function (v0, v1) {
+							return {ctor: '_Tuple2', _0: v0, _1: v1};
+						}),
+					loadCmd,
+					A2(
+						_elm_lang$core$Maybe$withDefault,
+						initialModel,
+						A2(initializer, flags, location)));
+			});
+		return A2(
+			_elm_lang$navigation$Navigation$programWithFlags,
+			_p1._1,
+			{
+				init: withDefaultModel(_p1._0),
+				update: programSetup.update,
+				subscriptions: programSetup.subscriptions,
+				view: programSetup.view
+			});
+	});
+var _danielnarey$elm_semantic_effects$Effect_Routing$run = F2(
+	function (_p3, programSetup) {
+		var _p4 = _p3;
+		var _p5 = programSetup.init;
+		var initialModel = _p5._0;
+		var loadCmd = _p5._1;
+		return A2(
+			_elm_lang$navigation$Navigation$program,
+			_p4._1,
+			{
+				init: function (_p6) {
+					return A3(
+						_elm_lang$core$Basics$flip,
+						F2(
+							function (v0, v1) {
+								return {ctor: '_Tuple2', _0: v0, _1: v1};
+							}),
+						loadCmd,
+						A2(
+							_elm_lang$core$Maybe$withDefault,
+							initialModel,
+							_p4._0(_p6)));
+				},
+				update: programSetup.update,
+				subscriptions: programSetup.subscriptions,
+				view: programSetup.view
+			});
+	});
+var _danielnarey$elm_semantic_effects$Effect_Routing$Setup = F4(
+	function (a, b, c, d) {
+		return {init: a, update: b, subscriptions: c, view: d};
+	});
+
+var _danielnarey$elm_modular_ui$Model$initial = {currentPage: _danielnarey$elm_modular_ui$Page$Home, alertText: '', alertIsVisible: false, userName: '', userBio: '', userAge: _elm_lang$core$Maybe$Nothing, packageWeight: _elm_lang$core$Maybe$Nothing, backgroundColor: _elm_lang$core$Maybe$Nothing, starRating: 3, brightness: 1, textColor: '#000000', userAgrees: false, emailFrequency: _danielnarey$elm_modular_ui$Option$Weekly, shippingDestination: _elm_lang$core$Maybe$Nothing};
+var _danielnarey$elm_modular_ui$Model$fromLocation = function (location) {
+	var updatePage = F2(
+		function (model, page) {
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{currentPage: page});
+		});
+	return A2(
+		_elm_lang$core$Maybe$map,
+		updatePage(_danielnarey$elm_modular_ui$Model$initial),
+		_danielnarey$elm_modular_ui$Page$fromHash(location.hash));
+};
+var _danielnarey$elm_modular_ui$Model$Model = function (a) {
+	return function (b) {
+		return function (c) {
+			return function (d) {
+				return function (e) {
+					return function (f) {
+						return function (g) {
+							return function (h) {
+								return function (i) {
+									return function (j) {
+										return function (k) {
+											return function (l) {
+												return function (m) {
+													return function (n) {
+														return {currentPage: a, alertText: b, alertIsVisible: c, userName: d, userBio: e, userAge: f, packageWeight: g, backgroundColor: h, starRating: i, brightness: j, textColor: k, userAgrees: l, emailFrequency: m, shippingDestination: n};
+													};
+												};
+											};
+										};
+									};
+								};
+							};
+						};
+					};
+				};
+			};
+		};
+	};
+};
+
+var _danielnarey$elm_modular_ui$Msg$UpdateShippingDestination = function (a) {
+	return {ctor: 'UpdateShippingDestination', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$UpdateEmailFrequency = function (a) {
+	return {ctor: 'UpdateEmailFrequency', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$ToggleUserAgrees = {ctor: 'ToggleUserAgrees'};
+var _danielnarey$elm_modular_ui$Msg$UpdateTextColor = function (a) {
+	return {ctor: 'UpdateTextColor', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$AdjustBrightness = function (a) {
+	return {ctor: 'AdjustBrightness', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$UpdateStarRating = function (a) {
+	return {ctor: 'UpdateStarRating', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$UpdateBackgroundColor = function (a) {
+	return {ctor: 'UpdateBackgroundColor', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$UpdatePackageWeight = function (a) {
+	return {ctor: 'UpdatePackageWeight', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$UpdateUserAge = function (a) {
+	return {ctor: 'UpdateUserAge', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$UpdateUserBio = function (a) {
+	return {ctor: 'UpdateUserBio', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$UpdateUserName = function (a) {
+	return {ctor: 'UpdateUserName', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$Disappear = {ctor: 'Disappear'};
+var _danielnarey$elm_modular_ui$Msg$NavTo = function (a) {
+	return {ctor: 'NavTo', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$Alert = function (a) {
+	return {ctor: 'Alert', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$Load = function (a) {
+	return {ctor: 'Load', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$Route = function (a) {
+	return {ctor: 'Route', _0: a};
+};
+
+var _danielnarey$elm_semantic_effects$Effect_Url$displayAs = _elm_lang$navigation$Navigation$modifyUrl;
+var _danielnarey$elm_semantic_effects$Effect_Url$stepTo = _elm_lang$navigation$Navigation$newUrl;
+
+var _danielnarey$elm_modular_ui$Update$update = F2(
+	function (msg, model) {
+		var noCmd = A2(
+			_elm_lang$core$Basics$flip,
+			F2(
+				function (v0, v1) {
+					return {ctor: '_Tuple2', _0: v0, _1: v1};
+				}),
+			_elm_lang$core$Platform_Cmd$none);
+		var _p0 = msg;
+		switch (_p0.ctor) {
+			case 'Route':
+				return noCmd(
+					A2(
+						_elm_lang$core$Maybe$withDefault,
+						_danielnarey$elm_modular_ui$Model$initial,
+						_danielnarey$elm_modular_ui$Model$fromLocation(_p0._0)));
+			case 'Load':
+				var _p1 = _p0._0;
+				return A3(
+					_elm_lang$core$Basics$flip,
+					F2(
+						function (v0, v1) {
+							return {ctor: '_Tuple2', _0: v0, _1: v1};
+						}),
+					_danielnarey$elm_semantic_effects$Effect_Url$stepTo(
+						_danielnarey$elm_modular_ui$Page$hash(_p1)),
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{currentPage: _p1}));
+			case 'Alert':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{alertText: _p0._0, alertIsVisible: true}));
+			case 'NavTo':
+				return noCmd(model);
+			case 'Disappear':
+				return noCmd(model);
+			case 'UpdateUserName':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{userName: _p0._0}));
+			case 'UpdateUserBio':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{userBio: _p0._0}));
+			case 'UpdateUserAge':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{userAge: _p0._0}));
+			case 'UpdatePackageWeight':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{packageWeight: _p0._0}));
+			case 'UpdateBackgroundColor':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{backgroundColor: _p0._0}));
+			case 'UpdateStarRating':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{starRating: _p0._0}));
+			case 'AdjustBrightness':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{brightness: _p0._0}));
+			case 'UpdateTextColor':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{textColor: _p0._0}));
+			case 'ToggleUserAgrees':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{userAgrees: !model.userAgrees}));
+			case 'UpdateEmailFrequency':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{emailFrequency: _p0._0}));
+			default:
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{shippingDestination: _p0._0}));
+		}
+	});
 
 var _elm_tools$parser_primitives$Native_ParserPrimitives = function() {
 
@@ -17255,143 +19110,6 @@ var _danielnarey$elm_modular_ui$View_Component$example = F2(
 			});
 	});
 
-var _danielnarey$elm_semantic_dom$Dom_Attribute$namespaced = F3(
-	function (_p0, value, key) {
-		var _p1 = _p0;
-		return A3(
-			_elm_lang$virtual_dom$VirtualDom$attributeNS,
-			_p1._1,
-			A2(
-				_elm_lang$core$Basics_ops['++'],
-				_p1._0,
-				A2(_elm_lang$core$Basics_ops['++'], ':', key)),
-			value);
-	});
-var _danielnarey$elm_semantic_dom$Dom_Attribute$float = F2(
-	function (value, key) {
-		return A2(
-			_elm_lang$virtual_dom$VirtualDom$attribute,
-			key,
-			_elm_lang$core$Basics$toString(value));
-	});
-var _danielnarey$elm_semantic_dom$Dom_Attribute$int = F2(
-	function (value, key) {
-		return A2(
-			_elm_lang$virtual_dom$VirtualDom$attribute,
-			key,
-			_elm_lang$core$Basics$toString(value));
-	});
-var _danielnarey$elm_semantic_dom$Dom_Attribute$string = F2(
-	function (value, key) {
-		return A2(_elm_lang$virtual_dom$VirtualDom$attribute, key, value);
-	});
-
-var _danielnarey$elm_semantic_dom$Dom_Event$customWithOptions = F3(
-	function (decoder, options, string) {
-		return A3(_elm_lang$virtual_dom$VirtualDom$onWithOptions, string, options, decoder);
-	});
-var _danielnarey$elm_semantic_dom$Dom_Event$custom = F2(
-	function (decoder, string) {
-		return A2(_elm_lang$virtual_dom$VirtualDom$on, string, decoder);
-	});
-var _danielnarey$elm_semantic_dom$Dom_Event$submit = F2(
-	function (captureKey, idList) {
-		var mapDictInsert = F2(
-			function (dict, _p0) {
-				var _p1 = _p0;
-				return A4(_elm_lang$core$Json_Decode$map3, _elm_lang$core$Dict$insert, _p1._0, _p1._1, dict);
-			});
-		var inputDecoder = function (idString) {
-			return A2(
-				_elm_lang$core$Json_Decode$at,
-				{
-					ctor: '::',
-					_0: 'target',
-					_1: {
-						ctor: '::',
-						_0: 'elements',
-						_1: {
-							ctor: '::',
-							_0: idString,
-							_1: {
-								ctor: '::',
-								_0: 'value',
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				},
-				_elm_lang$core$Json_Decode$string);
-		};
-		var buildDecoder = F2(
-			function (idList, dictDecoder) {
-				buildDecoder:
-				while (true) {
-					var _p2 = idList;
-					if (_p2.ctor === '[]') {
-						return dictDecoder;
-					} else {
-						var _p3 = _p2._0;
-						var _v2 = _p2._1,
-							_v3 = A2(
-							mapDictInsert,
-							dictDecoder,
-							{
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Json_Decode$succeed(_p3),
-								_1: inputDecoder(_p3)
-							});
-						idList = _v2;
-						dictDecoder = _v3;
-						continue buildDecoder;
-					}
-				}
-			});
-		return A3(
-			_elm_lang$virtual_dom$VirtualDom$onWithOptions,
-			'submit',
-			{stopPropagation: false, preventDefault: true},
-			A2(
-				_elm_lang$core$Json_Decode$map,
-				captureKey,
-				A2(
-					buildDecoder,
-					idList,
-					_elm_lang$core$Json_Decode$succeed(_elm_lang$core$Dict$empty))));
-	});
-var _danielnarey$elm_semantic_dom$Dom_Event$capture = F2(
-	function (captureKey, event) {
-		return A2(
-			_elm_lang$virtual_dom$VirtualDom$on,
-			event,
-			A2(
-				_elm_lang$core$Json_Decode$map,
-				captureKey,
-				A2(
-					_elm_lang$core$Json_Decode$at,
-					{
-						ctor: '::',
-						_0: 'target',
-						_1: {
-							ctor: '::',
-							_0: 'value',
-							_1: {ctor: '[]'}
-						}
-					},
-					_elm_lang$core$Json_Decode$string)));
-	});
-var _danielnarey$elm_semantic_dom$Dom_Event$action = F2(
-	function (msg, event) {
-		return A2(
-			_elm_lang$virtual_dom$VirtualDom$on,
-			event,
-			_elm_lang$core$Json_Decode$succeed(msg));
-	});
-var _danielnarey$elm_semantic_dom$Dom_Event$Options = F2(
-	function (a, b) {
-		return {stopPropagation: a, preventDefault: b};
-	});
-
 var _danielnarey$elm_modular_ui$Ui_Button$delete = function (msg) {
 	return A2(
 		_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
@@ -17470,35 +19188,6 @@ var _danielnarey$elm_semantic_dom$Dom_Node$leaf = F2(
 			htmlTag,
 			attributeList,
 			{ctor: '[]'});
-	});
-
-var _danielnarey$elm_semantic_dom$Dom_Property$float = F2(
-	function (value, key) {
-		return A2(
-			_elm_lang$virtual_dom$VirtualDom$property,
-			key,
-			_elm_lang$core$Json_Encode$float(value));
-	});
-var _danielnarey$elm_semantic_dom$Dom_Property$int = F2(
-	function (value, key) {
-		return A2(
-			_elm_lang$virtual_dom$VirtualDom$property,
-			key,
-			_elm_lang$core$Json_Encode$int(value));
-	});
-var _danielnarey$elm_semantic_dom$Dom_Property$string = F2(
-	function (value, key) {
-		return A2(
-			_elm_lang$virtual_dom$VirtualDom$property,
-			key,
-			_elm_lang$core$Json_Encode$string(value));
-	});
-var _danielnarey$elm_semantic_dom$Dom_Property$bool = F2(
-	function (value, key) {
-		return A2(
-			_elm_lang$virtual_dom$VirtualDom$property,
-			key,
-			_elm_lang$core$Json_Encode$bool(value));
 	});
 
 var _danielnarey$elm_semantic_dom$Dom_Text$node = _elm_lang$virtual_dom$VirtualDom$text;
@@ -18530,6 +20219,109 @@ var _danielnarey$elm_modular_ui$View_Interactive$button = function () {
 		});
 }();
 
+var _danielnarey$elm_modular_ui$View_Navigation$breadcrumbs = function (model) {
+	return _danielnarey$elm_modular_ui$Component_Breadcrumb$container(
+		{
+			ancestors: _danielnarey$elm_modular_ui$Page$ancestors(model.currentPage),
+			navigation: _danielnarey$elm_modular_ui$Msg$Load
+		});
+};
+
+var _danielnarey$elm_modular_ui$View_Home$page = function () {
+	var customizeLinks = A2(
+		_danielnarey$elm_modular_ui$Component$navList,
+		_danielnarey$elm_modular_ui$Msg$Load,
+		A2(
+			_elm_lang$core$List$map,
+			_danielnarey$elm_toolkit$Toolkit_Function$apply2(
+				{ctor: '_Tuple2', _0: _danielnarey$elm_modular_ui$Page_Customize$title, _1: _danielnarey$elm_modular_ui$Page$Customize}),
+			{
+				ctor: '::',
+				_0: _danielnarey$elm_modular_ui$Page_Customize$Modifier,
+				_1: {
+					ctor: '::',
+					_0: _danielnarey$elm_modular_ui$Page_Customize$Attribute,
+					_1: {
+						ctor: '::',
+						_0: _danielnarey$elm_modular_ui$Page_Customize$Action,
+						_1: {
+							ctor: '::',
+							_0: _danielnarey$elm_modular_ui$Page_Customize$Style,
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}));
+	var contentLinks = A2(
+		_danielnarey$elm_modular_ui$Component$navList,
+		_danielnarey$elm_modular_ui$Msg$Load,
+		A2(
+			_elm_lang$core$List$map,
+			_danielnarey$elm_toolkit$Toolkit_Function$apply2(
+				{ctor: '_Tuple2', _0: _danielnarey$elm_modular_ui$Page_Content$title, _1: _danielnarey$elm_modular_ui$Page$Content}),
+			{
+				ctor: '::',
+				_0: _danielnarey$elm_modular_ui$Page_Content$Text,
+				_1: {
+					ctor: '::',
+					_0: _danielnarey$elm_modular_ui$Page_Content$Heading,
+					_1: {
+						ctor: '::',
+						_0: _danielnarey$elm_modular_ui$Page_Content$Icon,
+						_1: {
+							ctor: '::',
+							_0: _danielnarey$elm_modular_ui$Page_Content$Media,
+							_1: {
+								ctor: '::',
+								_0: _danielnarey$elm_modular_ui$Page_Content$Source,
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			}));
+	var interactiveLinks = A2(
+		_danielnarey$elm_modular_ui$Component$navList,
+		_danielnarey$elm_modular_ui$Msg$Load,
+		A2(
+			_elm_lang$core$List$map,
+			_danielnarey$elm_toolkit$Toolkit_Function$apply2(
+				{ctor: '_Tuple2', _0: _danielnarey$elm_modular_ui$Page_Interactive$title, _1: _danielnarey$elm_modular_ui$Page$Interactive}),
+			{
+				ctor: '::',
+				_0: _danielnarey$elm_modular_ui$Page_Interactive$Buttons,
+				_1: {
+					ctor: '::',
+					_0: _danielnarey$elm_modular_ui$Page_Interactive$Input,
+					_1: {
+						ctor: '::',
+						_0: _danielnarey$elm_modular_ui$Page_Interactive$Selectors,
+						_1: {
+							ctor: '::',
+							_0: _danielnarey$elm_modular_ui$Page_Interactive$Indicators,
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}));
+	return A2(
+		_danielnarey$elm_modular_ui$Ui$container,
+		'div',
+		{
+			ctor: '::',
+			_0: interactiveLinks,
+			_1: {
+				ctor: '::',
+				_0: contentLinks,
+				_1: {
+					ctor: '::',
+					_0: customizeLinks,
+					_1: {ctor: '[]'}
+				}
+			}
+		});
+}();
+
 var _danielnarey$elm_semantic_dom$Dom_Style$toProperty = _elm_lang$virtual_dom$VirtualDom$style;
 
 var _danielnarey$elm_modular_ui$Ui_Style$toRgbaString = function (colorValue) {
@@ -18987,6 +20779,28 @@ var _danielnarey$elm_modular_ui$Ui_Selector$checkbox = F2(
 	});
 
 var _danielnarey$elm_modular_ui$View$view = function (model) {
+	var pageContent = function () {
+		var _p0 = model.currentPage;
+		_v0_3:
+		do {
+			switch (_p0.ctor) {
+				case 'Home':
+					return _danielnarey$elm_modular_ui$View_Home$page;
+				case 'Interactive':
+					switch (_p0._0.ctor) {
+						case 'Buttons':
+							return _danielnarey$elm_modular_ui$View_Interactive$button;
+						case 'Input':
+							return _danielnarey$elm_modular_ui$View_Interactive$input(model);
+						default:
+							break _v0_3;
+					}
+				default:
+					break _v0_3;
+			}
+		} while(false);
+		return _danielnarey$elm_modular_ui$Ui$leaf('div');
+	}();
 	return _danielnarey$elm_modular_ui$Ui$render(
 		A2(
 			_danielnarey$elm_modular_ui$Ui_Style$add,
@@ -18996,10 +20810,10 @@ var _danielnarey$elm_modular_ui$View$view = function (model) {
 				'div',
 				{
 					ctor: '::',
-					_0: _danielnarey$elm_modular_ui$View_Interactive$button,
+					_0: _danielnarey$elm_modular_ui$View_Navigation$breadcrumbs(model),
 					_1: {
 						ctor: '::',
-						_0: _danielnarey$elm_modular_ui$View_Interactive$input(model),
+						_0: pageContent,
 						_1: {ctor: '[]'}
 					}
 				})));
@@ -19107,9 +20921,11 @@ var _danielnarey$elm_semantic_dom$Dom_Program$Setup = F4(
 		return {init: a, update: b, subscriptions: c, view: d};
 	});
 
-var _danielnarey$elm_modular_ui$Main$main = _danielnarey$elm_semantic_dom$Dom_Program$run(
+var _danielnarey$elm_modular_ui$Main$main = A2(
+	_danielnarey$elm_semantic_effects$Effect_Routing$run,
+	{ctor: '_Tuple2', _0: _danielnarey$elm_modular_ui$Model$fromLocation, _1: _danielnarey$elm_modular_ui$Msg$Route},
 	A2(
-		_danielnarey$elm_semantic_dom$Dom_Program$update,
+		_danielnarey$elm_semantic_dom$Dom_Program$updateWithCmds,
 		_danielnarey$elm_modular_ui$Update$update,
 		A2(_danielnarey$elm_semantic_dom$Dom_Program$setup, _danielnarey$elm_modular_ui$View$view, _danielnarey$elm_modular_ui$Model$initial)))();
 

@@ -3,6 +3,7 @@ module Msg exposing
 
 
 -- Project
+import Page
 import Option
 -- Frameworks
 import Effect.Routing
@@ -11,6 +12,7 @@ import Color exposing (Color)
 
 type Msg
   = Route Effect.Routing.Location
+  | Load Page.Id
   | Alert String
   | NavTo String
   | Disappear

@@ -1,6 +1,7 @@
 module Page.Customize exposing
   ( Id(..)
-  , url, fromPath
+  , hash, title, ancestors
+  , fromHash
   )
 
 
@@ -13,8 +14,8 @@ type Id
   | Style
 
 
-url : Id -> String
-url id =
+hash : Id -> String
+hash id =
   case id of
     Index ->
       "/"
@@ -32,8 +33,37 @@ url id =
       "/style"
 
 
-fromPath : List String -> Maybe Id
-fromPath parsed =
+title : Id -> String
+title id =
+  case id of
+    Index ->
+      "Customize"
+
+    Modifier ->
+      "Modifier"
+
+    Attribute ->
+      "Attribute"
+
+    Action ->
+      "Action"
+
+    Style ->
+      "Style"
+
+
+ancestors : Id -> List (String, Id)
+ancestors id =
+  case id of
+    Index ->
+      []
+
+    _ ->
+      [ ( Index |> title, Index) ]
+
+
+fromHash : List String -> Maybe Id
+fromHash parsed =
   case (parsed |> List.head) of
     Nothing ->
       Just Index

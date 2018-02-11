@@ -3,10 +3,16 @@ module View exposing
 
 
 -- Project
+import Page
+import Page.Interactive
+import Page.Content
+import Page.Customize
 import Option
 import Model
 import Msg
 import View.Interactive
+import View.Navigation
+import View.Home
 -- Framework
 import Ui
 import Ui.Modifier
@@ -19,15 +25,31 @@ import VirtualDom
 
 view : Model.Model -> VirtualDom.Node Msg.Msg
 view model =
-  [ View.Interactive.button
+  let
+    pageContent =
+      case model.currentPage of
+        Page.Home ->
+          View.Home.page
 
-  , model
-    |> View.Interactive.input
+        Page.Interactive Page.Interactive.Buttons ->
+          View.Interactive.button
 
-  ]
-    |> Ui.container "div"
-    |> Ui.Style.add ("background-color", "#dbdbdb")
-    |> Ui.render
+        Page.Interactive Page.Interactive.Input ->
+          model
+            |> View.Interactive.input
+
+        _ ->
+          Ui.leaf "div"
+  in
+    [ model
+      |> View.Navigation.breadcrumbs
+
+    , pageContent
+
+    ]
+      |> Ui.container "div"
+      |> Ui.Style.add ("background-color", "#dbdbdb")
+      |> Ui.render
 
 
 -- view model =
