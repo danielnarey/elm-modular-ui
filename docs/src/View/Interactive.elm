@@ -1,58 +1,70 @@
 module View.Interactive exposing
-  ( button, input )
+  ( buttons, input, selectors, indicators )
 
 
 -- Project
+import Option
 import Model
 import Msg
-import View.Component
+import View.Layout
 -- Frameworks
 import Ui
 import Ui.Modifier
 import Ui.Button
 import Ui.Input
+import Ui.Selector
+import Ui.Indicator
+import Component.Layout
 import Component.Grid
 -- Helpers
 import ColorMath.Hex
 import Toolkit.List.Operators exposing ( (:|>), (.|>) )
 
 
-button : Ui.Element Msg.Msg
-button =
+buttons : Model.Model -> Ui.Element Msg.Msg
+buttons model =
   let
-    action =
-      ( "\"Click Here\"\n  |> Ui.Button.action (Msg.Alert \"You Clicked!\")\n  |> Ui.render"
+    actionCode =
+      "\"Click Here\"\n  |> Ui.Button.action\n    ( Msg.Alert \"You Clicked!\" )"
 
-      , "Click Here"
+    actionElement =
+      "Click Here"
         |> Ui.Button.action (Msg.Alert "You Clicked!")
 
-      )
-        |> View.Component.example "Action Button"
+    navigationCode =
+      "\"Elm Website\"\n  |> Ui.Button.navigation\n    ( Msg.LoadUrl \"http://elm-lang.org\" )"
 
-    navigation =
-      ( "\"Go to Top\"\n  |> Ui.Button.navigation (Msg.NavTo \"#\")\n  |> Ui.render"
+    navigationElement =
+      "Elm Website"
+        |> Ui.Button.navigation (Msg.LoadUrl "http://elm-lang.org")
 
-      , "Go to Top"
-        |> Ui.Button.navigation (Msg.NavTo "#")
+    deleteCode =
+      "Ui.Button.delete Msg.Disappear"
 
-      )
-        |> View.Component.example "Navigation Button"
-
-
-    delete =
-      ( "Ui.Button.delete Msg.Disappear\n  |> Ui.render"
-
-      , Ui.Button.delete Msg.Disappear
-
-      )
-        |> View.Component.example "Delete Button"
+    deleteElement =
+      Ui.Button.delete Msg.Disappear
+        |> Ui.Modifier.conditional
+          ( "is-invisible", model.deleteIsHidden )
 
   in
-    [ action
-    , navigation
-    , delete
+    [ ( actionCode
+      , actionElement
+      )
+        |> View.Layout.example "Action Button"
+
+    , ( navigationCode
+      , navigationElement
+      )
+        |> View.Layout.example "Navigation Button"
+
+    , ( deleteCode
+      , deleteElement
+      )
+        |> View.Layout.example "Delete Button"
+
     ]
-      |> View.Component.section "Buttons"
+      |> Component.Layout.container
+     :|> Component.Layout.section
 
 
 input : Model.Model -> Ui.Element Msg.Msg
@@ -75,7 +87,7 @@ input model =
        :|> Ui.container "div"
 
       ]
-        |> View.Component.equalColumns "is-7"
+        |> Component.Grid.equalColumns "is-7"
         |> Ui.Modifier.add "is-multiline"
 
     textAreaCode =
@@ -96,7 +108,7 @@ input model =
        :|> Ui.container "div"
 
       ]
-        |> View.Component.equalColumns "is-7"
+        |> Component.Grid.equalColumns "is-7"
         |> Ui.Modifier.add "is-multiline"
 
     intCode =
@@ -117,17 +129,17 @@ input model =
        :|> Ui.container "div"
 
       ]
-        |> View.Component.equalColumns "is-7"
+        |> Component.Grid.equalColumns "is-7"
         |> Ui.Modifier.add "is-multiline"
 
     floatCode =
-      "{ id = 4\n, placeholder = \"\"\n, value = model.packageWeight\n, minMaxStep = (0, 1, 0.01)\n}\n  |> Ui.Input.float Msg.UpdatePackageWeight"
+      "{ id = 4\n, placeholder = \"\"\n, value = model.packageWeight\n, minMaxStep = (0, 25, 0.01)\n}\n  |> Ui.Input.float Msg.UpdatePackageWeight"
 
     floatElement =
       [ { id = 4
         , placeholder = ""
         , value = model.packageWeight
-        , minMaxStep = (0, 1, 0.01)
+        , minMaxStep = (0, 25, 0.1)
         }
           |> Ui.Input.float Msg.UpdatePackageWeight
          :|> Ui.container "div"
@@ -138,7 +150,7 @@ input model =
        :|> Ui.container "div"
 
       ]
-        |> View.Component.equalColumns "is-7"
+        |> Component.Grid.equalColumns "is-7"
         |> Ui.Modifier.add "is-multiline"
 
     customCode =
@@ -160,7 +172,7 @@ input model =
        :|> Ui.container "div"
 
       ]
-        |> View.Component.equalColumns "is-7"
+        |> Component.Grid.equalColumns "is-7"
         |> Ui.Modifier.add "is-multiline"
 
     intSliderCode =
@@ -180,7 +192,7 @@ input model =
        :|> Ui.container "div"
 
       ]
-        |> View.Component.equalColumns "is-7"
+        |> Component.Grid.equalColumns "is-7"
         |> Ui.Modifier.add "is-multiline"
 
     floatSliderCode =
@@ -200,7 +212,7 @@ input model =
        :|> Ui.container "div"
 
       ]
-        |> View.Component.equalColumns "is-7"
+        |> Component.Grid.equalColumns "is-7"
         |> Ui.Modifier.add "is-multiline"
 
     colorPickerCode =
@@ -219,55 +231,197 @@ input model =
        :|> Ui.container "div"
 
       ]
-        |> View.Component.equalColumns "is-7"
+        |> Component.Grid.equalColumns "is-7"
         |> Ui.Modifier.add "is-multiline"
 
   in
     [ ( stringCode
       , stringElement
       )
-        |> View.Component.example "String Input"
+        |> View.Layout.example "String Input"
 
     , ( textAreaCode
       , textAreaElement
       )
-        |> View.Component.example "Text Area"
+        |> View.Layout.example "Text Area"
 
     , ( intCode
       , intElement
       )
-        |> View.Component.example "Int Input"
+        |> View.Layout.example "Int Input"
 
     , ( floatCode
       , floatElement
       )
-        |> View.Component.example "Float Input"
+        |> View.Layout.example "Float Input"
 
     , ( customCode
       , customElement
       )
-        |> View.Component.example "Custom Input"
+        |> View.Layout.example "Custom Input"
 
     , ( intSliderCode
       , intSliderElement
       )
-        |> View.Component.example "Int Slider"
+        |> View.Layout.example "Int Slider"
 
     , ( floatSliderCode
       , floatSliderElement
       )
-        |> View.Component.example "Float Slider"
+        |> View.Layout.example "Float Slider"
 
     , ( colorPickerCode
       , colorPickerElement
       )
-        |> View.Component.example "Color Picker"
+        |> View.Layout.example "Color Picker"
 
     ]
-      |> View.Component.section "Input"
+      |> Component.Layout.container
+     :|> Component.Layout.section
 
 
---
--- selector
---
--- indicator
+selectors : Model.Model -> Ui.Element Msg.Msg
+selectors model =
+  let
+    checkboxCode =
+      "{ id = 9\n, label = \"I agree to the terms and conditions\"\n, checked = model.userAgrees\n}\n  |> Ui.Selector.checkbox Msg.ToggleUserAgrees"
+
+    checkboxElement =
+      [ { id = 9
+        , label = "I agree to the terms and conditions"
+        , checked = model.userAgrees
+        }
+          |> Ui.Selector.checkbox Msg.ToggleUserAgrees
+
+      , model.userAgrees
+        |> Basics.toString
+        |> Ui.textWrapper "code"
+       :|> Ui.container "div"
+
+      ]
+        |> Component.Grid.equalColumns "is-7"
+        |> Ui.Modifier.add "is-multiline"
+
+    radioButtonsCode =
+      "{ id = 10\n, options =\n  [ (\"Every day\", Option.Daily)\n  , (\"Every week\", Option.Weekly)\n  , (\"Every month\", Option.Monthly)\n  ]\n\n, selected = model.emailFrequency\n}\n  |> Ui.Selector.radioButtons Msg.UpdateEmailFrequency"
+
+    radioButtonsElement =
+      [ { id = 10
+        , options =
+          [ ("Every day", Option.Daily)
+          , ("Every week", Option.Weekly)
+          , ("Every month", Option.Monthly)
+          ]
+
+        , selected = model.emailFrequency
+        }
+          |> Ui.Selector.radioButtons Msg.UpdateEmailFrequency
+          |> Ui.container "div"
+
+      , model.emailFrequency
+        |> Basics.toString
+        |> Ui.textWrapper "code"
+       :|> Ui.container "div"
+
+      ]
+        |> Component.Grid.equalColumns "is-12"
+        |> Ui.Modifier.add "is-multiline"
+
+    dropdownCode =
+      "{ id = 11\n, placeholder = \"Select shipping destination\"\n, options =\n  [ (\"United States\", Option.UnitedStates)\n  , (\"Canada\", Option.Canada)\n  , (\"Global\", Option.Global)\n  ]\n\n, selected = model.shippingDestination\n}\n  |> Ui.Selector.dropdown Msg.UpdateShippingDestination"
+
+    dropdownElement =
+      [ { id = 11
+        , placeholder = "Select shipping destination"
+        , options =
+            [ ("United States", Option.UnitedStates)
+            , ("Canada", Option.Canada)
+            , ("Global", Option.Global)
+            ]
+
+        , selected = model.shippingDestination
+        }
+          |> Ui.Selector.dropdown Msg.UpdateShippingDestination
+         :|> Ui.container "div"
+
+      , model.shippingDestination
+        |> Basics.toString
+        |> Ui.textWrapper "code"
+       :|> Ui.container "div"
+
+      ]
+        |> Component.Grid.equalColumns "is-7"
+        |> Ui.Modifier.add "is-multiline"
+
+  in
+    [ ( checkboxCode
+      , checkboxElement
+      )
+        |> View.Layout.example "Checkbox"
+
+    , ( radioButtonsCode
+      , radioButtonsElement
+      )
+        |> View.Layout.example "Radio Buttons"
+
+    , ( dropdownCode
+      , dropdownElement
+      )
+        |> View.Layout.example "Select Dropdown"
+
+    ]
+      |> Component.Layout.container
+     :|> Component.Layout.section
+
+
+indicators : Model.Model -> Ui.Element Msg.Msg
+indicators model =
+  let
+    tagCode =
+      "\"2.7.1\"\n  |> Ui.Indicator.tag"
+
+    tagElement =
+      "2.7.1"
+        |> Ui.Indicator.tag
+
+    notificationCode =
+      "\"You are awesome.\"\n  |> Ui.Indicator.notification\n  |> Ui.Indicator.withDelete Msg.HideNotification"
+
+
+    notificationElement =
+      "You are awesome."
+        |> Ui.Indicator.notification
+        |> Ui.Indicator.withDelete Msg.HideNotification
+        |> Ui.Modifier.conditional
+          ( "is-invisible", model.notificationIsHidden )
+       :|> Ui.container "div"
+       :|> Component.Grid.equalColumns "is-7"
+
+    progressCode =
+      "65\n  |> Ui.Indicator.progress"
+
+    progressElement =
+      65
+        |> Ui.Indicator.progress
+       :|> Ui.container "div"
+       :|> Component.Grid.equalColumns "is-7"
+
+  in
+    [ ( tagCode
+      , tagElement
+      )
+        |> View.Layout.example "Tag"
+
+    , ( notificationCode
+      , notificationElement
+      )
+        |> View.Layout.example "Notification"
+
+    , ( progressCode
+      , progressElement
+      )
+        |> View.Layout.example "Progress Bar"
+
+    ]
+      |> Component.Layout.container
+     :|> Component.Layout.section

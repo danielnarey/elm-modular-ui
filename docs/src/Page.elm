@@ -1,11 +1,11 @@
 module Page exposing
   ( Id(..)
-  , hash, title, ancestors
+  , hash, title
   , fromHash
   )
 
 
-
+-- Project
 import Page.Interactive
 import Page.Content
 import Page.Customize
@@ -44,7 +44,7 @@ title : Id -> String
 title id =
   case id of
     Home ->
-      "Ui"
+      "Overview"
 
     Interactive subId ->
       subId
@@ -57,41 +57,6 @@ title id =
     Customize subId ->
       subId
         |> Page.Customize.title
-
-
-ancestors : Id -> List (String, Id)
-ancestors id =
-  let
-    ancestorList =
-      case id of
-        Home ->
-          []
-
-        Interactive subId ->
-          subId
-            |> Page.Interactive.ancestors
-            |> List.map (Tuple.mapSecond Interactive)
-            |> (::) ("Ui", Home)
-
-        Content subId ->
-          subId
-            |> Page.Content.ancestors
-            |> List.map (Tuple.mapSecond Content)
-            |> (::) ("Ui", Home)
-
-        Customize subId ->
-          subId
-            |> Page.Customize.ancestors
-            |> List.map (Tuple.mapSecond Customize)
-            |> (::) ("Ui", Home)
-
-  in
-    [ ( id |> title
-      , id
-      )
-
-    ]
-      |> List.append ancestorList
 
 
 fromHash : String -> Maybe Id

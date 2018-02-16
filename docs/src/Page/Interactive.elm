@@ -1,14 +1,12 @@
 module Page.Interactive exposing
   ( Id(..)
-  , hash, title, ancestors
+  , hash, title
   , fromHash
   )
 
 
-
 type Id
-  = Index
-  | Buttons
+  = Buttons
   | Input
   | Selectors
   | Indicators
@@ -17,9 +15,6 @@ type Id
 hash : Id -> String
 hash id =
   case id of
-    Index ->
-      "/"
-
     Buttons ->
       "/buttons"
 
@@ -36,9 +31,6 @@ hash id =
 title : Id -> String
 title id =
   case id of
-    Index ->
-      "Interactive"
-
     Buttons ->
       "Buttons"
 
@@ -52,26 +44,16 @@ title id =
       "Indicators"
 
 
-ancestors : Id -> List (String, Id)
-ancestors id =
-  case id of
-    Index ->
-      []
-
-    _ ->
-      [ ( Index |> title, Index) ]
-
-
 fromHash : List String -> Maybe Id
 fromHash parsed =
   case (parsed |> List.head) of
     Nothing ->
-      Just Index
+      Just Buttons
 
     Just next ->
       ( case next of
         "" ->
-          Just Index
+          Just Buttons
 
         "buttons" ->
           Just Buttons

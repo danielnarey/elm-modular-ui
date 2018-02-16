@@ -160,11 +160,11 @@ withDelete msg indicator =
 
     deleteButton =
       Ui.Button.delete msg
-        |> Dom.Element.withAttributes
-          [ "aria-label"
+        |> Dom.Element.addAttribute
+          ( "aria-label"
             |> Dom.Attribute.string label
 
-          ]
+          )
 
         |> Dom.Element.toNode
 

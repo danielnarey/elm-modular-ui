@@ -1,13 +1,12 @@
 module Page.Content exposing
   ( Id(..)
-  , hash, title, ancestors
+  , hash, title
   , fromHash
   )
 
 
 type Id
-  = Index
-  | Text
+  = Text
   | Heading
   | Icon
   | Media
@@ -17,9 +16,6 @@ type Id
 hash : Id -> String
 hash id =
   case id of
-    Index ->
-      "/"
-
     Text ->
       "/text"
 
@@ -39,9 +35,6 @@ hash id =
 title : Id -> String
 title id =
   case id of
-    Index ->
-      "Content"
-
     Text ->
       "Text"
 
@@ -58,26 +51,19 @@ title id =
       "Source"
 
 
-ancestors : Id -> List (String, Id)
-ancestors id =
-  case id of
-    Index ->
-      []
-
-    _ ->
-      [ ( Index |> title, Index) ]
-
-
 fromHash : List String -> Maybe Id
 fromHash parsed =
   case (parsed |> List.head) of
     Nothing ->
-      Just Index
+      Just Text
 
     Just next ->
       ( case next of
         "" ->
-          Just Index
+          Just Text
+
+        "text" ->
+          Just Text
 
         "heading" ->
           Just Heading

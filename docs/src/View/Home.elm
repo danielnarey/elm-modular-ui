@@ -1,55 +1,58 @@
 module View.Home exposing
-  ( page )
+  ( overview )
 
 
-import Msg
-import Page
-import Page.Interactive
-import Page.Content
-import Page.Customize
-
-import Component
+-- Frameworks
 import Ui
-import Toolkit.Function
+import Ui.Modifier
+import Ui.Text
+import Component.Layout
+-- Helpers
+import Toolkit.List.Operators exposing ( (:|>), (.|>) )
 
 
-page : Ui.Element Msg.Msg
-page =
-  let
-    interactiveLinks =
-      [ Page.Interactive.Buttons
-      , Page.Interactive.Input
-      , Page.Interactive.Selectors
-      , Page.Interactive.Indicators
-      ]
-        |> List.map
-          ( Toolkit.Function.apply2 (Page.Interactive.title, Page.Interactive) )
-        |> Component.navList Msg.Load
+overview : Ui.Element msg
+overview =
+  [ [ "Modular UI is a framework for building a modern user interface in Elm "
+      ++ "that abstracts out a lot of the details of the underlying HTML and "
+      ++ "CSS. It's partially inspired by and designed to be used with the "
+      |> Ui.Text.plain
 
-    contentLinks =
-      [ Page.Content.Text
-      , Page.Content.Heading
-      , Page.Content.Icon
-      , Page.Content.Media
-      , Page.Content.Source
-      ]
-        |> List.map
-          ( Toolkit.Function.apply2 (Page.Content.title, Page.Content) )
-        |> Component.navList Msg.Load
+    , "Bulma CSS "
+      |> Ui.Text.link ("http://bulma.io", True)
 
-    customizeLinks =
-      [ Page.Customize.Modifier
-      , Page.Customize.Attribute
-      , Page.Customize.Action
-      , Page.Customize.Style
-      ]
-        |> List.map
-          ( Toolkit.Function.apply2 (Page.Customize.title, Page.Customize) )
-        |> Component.navList Msg.Load
+    , "framework."
+      |> Ui.Text.plain
 
-  in
-    [ interactiveLinks
-    , contentLinks
-    , customizeLinks
     ]
-      |> Ui.container "div"
+      |> Ui.container "p"
+
+  , [ "This site features live code examples that show Modular UI in action. "
+      ++ "The full package documentation is available "
+        |> Ui.Text.plain
+
+    , "here"
+      |> Ui.Text.link
+        ( "http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest"
+        , True
+        )
+
+    , "."
+      |> Ui.Text.plain
+
+    ]
+      |> Ui.container "p"
+
+  , Ui.leaf "hr"
+
+  ]
+    |> Ui.container "div"
+    |> Ui.Modifier.addList
+      [ "content"
+      , "is-size-4"
+      , "has-text-bold"
+      , "has-text-dark"
+      ]
+
+   :|> Component.Layout.container
+   :|> Component.Layout.section

@@ -1,6 +1,8 @@
 # Modular UI for Elm
 ### A friendly UI development framework based on Bulma CSS
 
+**New:** Live example code at http://danielnarey.com/elm-modular-ui
+
 + Modular UI is a framework for building a modern user interface in Elm that
 abstracts out a lot of the details of the underlying HTML and CSS. It also provides a set of helpers for updating
 an element's
@@ -34,6 +36,7 @@ before they are rendered to unmodifiable VirtualDom nodes.
 ## Versions
 - 1.0.0: Complete with respect to features; in-browser testing is ongoing
 - 1.0.1: Documentation fixes; minor change in event handling for `Ui.Input.float`
+- 1.0.2: Bug fixes for delete button and SVG icon constructors
 
 ## Package Modules
 

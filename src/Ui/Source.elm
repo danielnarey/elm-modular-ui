@@ -33,7 +33,7 @@ to load.
     { path = "files/myfile.pdf"
     , mediaType = "application/pdf"
     , altText = "Load report from PDF file"
-    )
+    }
       |> Ui.Source.object
       |> Ui.render
 
@@ -94,7 +94,7 @@ string argument gives the URL or relative file path to the source.
 
     { path = "http://elm-lang.org"
     , altText = "The Elm language home page"
-    )
+    }
       |> Ui.Source.iframe
       |> Ui.Render
 

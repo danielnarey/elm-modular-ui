@@ -6,7 +6,9 @@ module Update exposing
 import Page
 import Model
 import Msg
+-- Frameworks
 import Effect.Url
+import Effect.Page
 
 
 update : Msg.Msg -> Model.Model -> (Model.Model, Cmd Msg.Msg)
@@ -16,99 +18,132 @@ update msg model =
       flip (,) Cmd.none
 
   in
-  case msg of
-    Msg.Route location ->
-      location
-        |> Model.fromLocation
-        |> Maybe.withDefault Model.initial
-        |> noCmd
+    case msg of
+      Msg.Route location ->
+        location
+          |> Model.fromLocation
+          |> Maybe.withDefault Model.initial
+          |> noCmd
 
-    Msg.Load page ->
-      { model
-      | currentPage = page
-      }
-        |> flip (,)
-          ( Effect.Url.stepTo (page |> Page.hash) )
+      Msg.Load page ->
+        ( model
+        , Effect.Url.stepTo (page |> Page.hash)
+        )
 
-    Msg.Alert text ->
-      { model
-      | alertText = text
-      , alertIsVisible = True
-      }
-        |> noCmd
+      Msg.SelectTab tab ->
+        { model
+        | currentTab = tab
+        }
+          |> noCmd
 
-    Msg.NavTo path ->
-      model
-        |> noCmd
+      Msg.Alert text ->
+        { model
+        | alertText = text
+        , alertIsVisible = True
+        }
+          |> noCmd
 
-    Msg.Disappear ->
-      model
-        |> noCmd
+      Msg.DismissAlert ->
+        { model
+        | alertIsVisible = False
+        }
+          |> noCmd
 
-    Msg.UpdateUserName value ->
-      { model
-      | userName = value
-      }
-        |> noCmd
+      Msg.LoadUrl path ->
+        ( model
+        , Effect.Page.load path
+        )
 
-    Msg.UpdateUserBio value ->
-      { model
-      | userBio = value
-      }
-        |> noCmd
+      Msg.Disappear ->
+        { model
+        | deleteIsHidden = True
+        }
+          |> noCmd
 
-    Msg.UpdateUserAge value ->
-      { model
-      | userAge = value
-      }
-        |> noCmd
+      Msg.UpdateUserName value ->
+        { model
+        | userName = value
+        }
+          |> noCmd
 
-    Msg.UpdatePackageWeight value ->
-      { model
-      | packageWeight = value
-      }
-        |> noCmd
+      Msg.UpdateUserBio value ->
+        { model
+        | userBio = value
+        }
+          |> noCmd
 
-    Msg.UpdateBackgroundColor value ->
-      { model
-      | backgroundColor = value
-      }
-        |> noCmd
+      Msg.UpdateUserAge value ->
+        { model
+        | userAge = value
+        }
+          |> noCmd
 
-    Msg.UpdateStarRating value ->
-      { model
-      | starRating = value
-      }
-        |> noCmd
+      Msg.UpdatePackageWeight value ->
+        { model
+        | packageWeight = value
+        }
+          |> noCmd
 
-    Msg.AdjustBrightness value ->
-      { model
-      | brightness = value
-      }
-        |> noCmd
+      Msg.UpdateBackgroundColor value ->
+        { model
+        | backgroundColor = value
+        }
+          |> noCmd
 
-    Msg.UpdateTextColor value ->
-      { model
-      | textColor = value
-      }
-        |> noCmd
+      Msg.UpdateStarRating value ->
+        { model
+        | starRating = value
+        }
+          |> noCmd
 
-    Msg.ToggleUserAgrees ->
-      { model
-      | userAgrees =
-          model.userAgrees
-            |> Basics.not
-      }
-        |> noCmd
+      Msg.AdjustBrightness value ->
+        { model
+        | brightness = value
+        }
+          |> noCmd
 
-    Msg.UpdateEmailFrequency option ->
-      { model
-      | emailFrequency = option
-      }
-        |> noCmd
+      Msg.UpdateTextColor value ->
+        { model
+        | textColor = value
+        }
+          |> noCmd
 
-    Msg.UpdateShippingDestination value ->
-      { model
-      | shippingDestination = value
-      }
-        |> noCmd
+      Msg.ToggleUserAgrees ->
+        { model
+        | userAgrees =
+            model.userAgrees
+              |> Basics.not
+        }
+          |> noCmd
+
+      Msg.UpdateEmailFrequency option ->
+        { model
+        | emailFrequency = option
+        }
+          |> noCmd
+
+      Msg.UpdateShippingDestination value ->
+        { model
+        | shippingDestination = value
+        }
+          |> noCmd
+
+      Msg.HideNotification ->
+        { model
+        | notificationIsHidden = True
+        }
+          |> noCmd
+
+      Msg.ToggleTag ->
+        { model
+        | tagIsActive =
+            model.tagIsActive
+              |> Basics.not
+        }
+          |> noCmd
+
+      Msg.Hover state ->
+        { model
+        | tagIsHovered = state
+        }
+          |> noCmd

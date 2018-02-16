@@ -1,5 +1,5 @@
 module Component.Grid exposing
-  ( columns, column, singleColumn )
+  ( columns, column, singleColumn, equalColumns )
 
 import Ui
 import Ui.Modifier
@@ -21,3 +21,17 @@ singleColumn =
     >> List.singleton
     >> Ui.container "div"
     >> Ui.Modifier.add "columns"
+
+
+equalColumns : String -> List (Ui.Element msg) -> Ui.Element msg
+equalColumns modifier =
+  List.map
+    ( column
+      >> Ui.Modifier.add modifier
+    )
+
+   >> columns
+   >> Ui.Modifier.addList
+     [ "is-centered"
+     , "is-vcentered"
+     ]

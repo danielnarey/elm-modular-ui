@@ -9372,23 +9372,6 @@ var _danielnarey$elm_modular_ui$Ui_Modifier$addList = F2(
 	});
 var _danielnarey$elm_modular_ui$Ui_Modifier$add = _danielnarey$elm_semantic_dom$Dom_Element$addClass;
 
-var _danielnarey$elm_modular_ui$Component_Breadcrumb$container = function (args) {
-	return A2(
-		_danielnarey$elm_modular_ui$Ui_Attribute$ariaLabel,
-		'breadcrumbs',
-		A2(
-			_danielnarey$elm_modular_ui$Ui_Modifier$add,
-			'breadcrumb',
-			A2(
-				_danielnarey$elm_modular_ui$Ui$container,
-				'nav',
-				{
-					ctor: '::',
-					_0: A2(_danielnarey$elm_modular_ui$Component$navList, args.navigation, args.ancestors),
-					_1: {ctor: '[]'}
-				})));
-};
-
 var _danielnarey$elm_modular_ui$Component_Grid$singleColumn = function (_p0) {
 	return A2(
 		_danielnarey$elm_modular_ui$Ui_Modifier$add,
@@ -9405,6 +9388,31 @@ var _danielnarey$elm_modular_ui$Component_Grid$columns = function (_p1) {
 		_danielnarey$elm_modular_ui$Ui_Modifier$add,
 		'columns',
 		A2(_danielnarey$elm_modular_ui$Ui$container, 'div', _p1));
+};
+var _danielnarey$elm_modular_ui$Component_Grid$equalColumns = function (modifier) {
+	return function (_p2) {
+		return A2(
+			_danielnarey$elm_modular_ui$Ui_Modifier$addList,
+			{
+				ctor: '::',
+				_0: 'is-centered',
+				_1: {
+					ctor: '::',
+					_0: 'is-vcentered',
+					_1: {ctor: '[]'}
+				}
+			},
+			_danielnarey$elm_modular_ui$Component_Grid$columns(
+				A2(
+					_elm_lang$core$List$map,
+					function (_p3) {
+						return A2(
+							_danielnarey$elm_modular_ui$Ui_Modifier$add,
+							modifier,
+							_danielnarey$elm_modular_ui$Component_Grid$column(_p3));
+					},
+					_p2)));
+	};
 };
 
 var _danielnarey$elm_modular_ui$Ui_Heading$subtitle = function (htmlTag) {
@@ -9432,124 +9440,16 @@ var _danielnarey$elm_modular_ui$Ui_Heading$title = function (htmlTag) {
 	};
 };
 
-var _danielnarey$elm_modular_ui$Component_Layout$footer = function (content) {
-	return A2(
-		_danielnarey$elm_modular_ui$Ui_Modifier$add,
-		'footer',
-		A2(
-			_danielnarey$elm_modular_ui$Ui$container,
-			'div',
-			{
-				ctor: '::',
-				_0: A2(
-					_danielnarey$elm_modular_ui$Ui_Modifier$add,
-					'container',
-					A2(
-						_danielnarey$elm_modular_ui$Ui$container,
-						'div',
-						{
-							ctor: '::',
-							_0: content,
-							_1: {ctor: '[]'}
-						})),
-				_1: {ctor: '[]'}
-			}));
-};
-var _danielnarey$elm_modular_ui$Component_Layout$level = function (args) {
-	var withRight = function () {
-		var _p0 = args.right;
-		if (_p0.ctor === '[]') {
-			return _elm_lang$core$Basics$identity;
-		} else {
-			return A2(
-				_elm_lang$core$Basics$flip,
-				_elm_lang$core$List$append,
-				_elm_lang$core$List$singleton(
-					A2(
-						_danielnarey$elm_modular_ui$Ui_Modifier$add,
-						'level-left',
-						A2(
-							_danielnarey$elm_modular_ui$Ui$container,
-							'div',
-							A2(
-								_elm_lang$core$List$map,
-								function (_p1) {
-									return A2(
-										_danielnarey$elm_modular_ui$Ui_Modifier$add,
-										'level-item',
-										A2(
-											_danielnarey$elm_modular_ui$Ui$container,
-											'div',
-											_elm_lang$core$List$singleton(_p1)));
-								},
-								args.right)))));
-		}
-	}();
-	var withCentered = A2(
-		_elm_lang$core$Basics$flip,
-		_elm_lang$core$List$append,
-		A2(
-			_elm_lang$core$List$map,
-			function (_p2) {
-				return A2(
-					_danielnarey$elm_modular_ui$Ui_Modifier$add,
-					'level-item',
-					A2(
-						_danielnarey$elm_modular_ui$Ui$container,
-						'div',
-						_elm_lang$core$List$singleton(_p2)));
-			},
-			args.centered));
-	var withLeft = function () {
-		var _p3 = args.left;
-		if (_p3.ctor === '[]') {
-			return _elm_lang$core$Basics$identity;
-		} else {
-			return F2(
-				function (x, y) {
-					return {ctor: '::', _0: x, _1: y};
-				})(
-				A2(
-					_danielnarey$elm_modular_ui$Ui_Modifier$add,
-					'level-left',
-					A2(
-						_danielnarey$elm_modular_ui$Ui$container,
-						'div',
-						A2(
-							_elm_lang$core$List$map,
-							function (_p4) {
-								return A2(
-									_danielnarey$elm_modular_ui$Ui_Modifier$add,
-									'level-item',
-									A2(
-										_danielnarey$elm_modular_ui$Ui$container,
-										'div',
-										_elm_lang$core$List$singleton(_p4)));
-							},
-							args.left))));
-		}
-	}();
-	return A2(
-		_danielnarey$elm_modular_ui$Ui_Modifier$add,
-		'level',
-		A2(
-			_danielnarey$elm_modular_ui$Ui$container,
-			'nav',
-			withRight(
-				withCentered(
-					withLeft(
-						{ctor: '[]'})))));
-};
-var _danielnarey$elm_modular_ui$Component_Layout$hero = function (args) {
+var _danielnarey$elm_modular_ui$Component_Hero$container = function (args) {
 	var withFoot = function () {
-		var _p5 = args.foot;
-		if (_p5.ctor === 'Just') {
+		var _p0 = args.foot;
+		if (_p0.ctor === 'Just') {
 			return A2(
 				_elm_lang$core$Basics$flip,
 				_elm_lang$core$List$append,
 				{
 					ctor: '::',
-					_0: _p5._0,
+					_0: _p0._0,
 					_1: {ctor: '[]'}
 				});
 		} else {
@@ -9557,12 +9457,12 @@ var _danielnarey$elm_modular_ui$Component_Layout$hero = function (args) {
 		}
 	}();
 	var withHead = function () {
-		var _p6 = args.head;
-		if (_p6.ctor === 'Just') {
+		var _p1 = args.head;
+		if (_p1.ctor === 'Just') {
 			return F2(
 				function (x, y) {
 					return {ctor: '::', _0: x, _1: y};
-				})(_p6._0);
+				})(_p1._0);
 		} else {
 			return _elm_lang$core$Basics$identity;
 		}
@@ -9606,24 +9506,325 @@ var _danielnarey$elm_modular_ui$Component_Layout$hero = function (args) {
 						_1: {ctor: '[]'}
 					}))));
 };
-var _danielnarey$elm_modular_ui$Component_Layout$container = function (_p7) {
+
+var _danielnarey$elm_modular_ui$Component_Layout$footer = function (content) {
+	return A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'footer',
+		A2(
+			_danielnarey$elm_modular_ui$Ui$container,
+			'div',
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$Ui_Modifier$add,
+					'container',
+					A2(
+						_danielnarey$elm_modular_ui$Ui$container,
+						'div',
+						{
+							ctor: '::',
+							_0: content,
+							_1: {ctor: '[]'}
+						})),
+				_1: {ctor: '[]'}
+			}));
+};
+var _danielnarey$elm_modular_ui$Component_Layout$container = function (_p0) {
 	return A2(
 		_danielnarey$elm_modular_ui$Ui_Modifier$add,
 		'container',
-		A2(_danielnarey$elm_modular_ui$Ui$container, 'div', _p7));
+		A2(_danielnarey$elm_modular_ui$Ui$container, 'div', _p0));
 };
-var _danielnarey$elm_modular_ui$Component_Layout$section = function (_p8) {
+var _danielnarey$elm_modular_ui$Component_Layout$section = function (_p1) {
 	return A2(
 		_danielnarey$elm_modular_ui$Ui_Modifier$add,
 		'section',
-		A2(_danielnarey$elm_modular_ui$Ui$container, 'section', _p8));
+		A2(_danielnarey$elm_modular_ui$Ui$container, 'section', _p1));
+};
+
+var _danielnarey$elm_modular_ui$Ui_Button$delete = function (msg) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+		{
+			ctor: '::',
+			_0: A2(_danielnarey$elm_semantic_dom$Dom_Event$action, msg, 'click'),
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+			{
+				ctor: '::',
+				_0: 'delete',
+				_1: {ctor: '[]'}
+			},
+			_danielnarey$elm_semantic_dom$Dom_Element$leaf('button')));
+};
+var _danielnarey$elm_modular_ui$Ui_Button$navigation = F2(
+	function (msg, label) {
+		return A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'link', 'role'),
+				_1: {
+					ctor: '::',
+					_0: A2(_danielnarey$elm_semantic_dom$Dom_Event$action, msg, 'click'),
+					_1: {ctor: '[]'}
+				}
+			},
+			A2(
+				_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+				{
+					ctor: '::',
+					_0: 'button',
+					_1: {ctor: '[]'}
+				},
+				A2(_danielnarey$elm_semantic_dom$Dom_Element$textWrapper, 'a', label)));
+	});
+var _danielnarey$elm_modular_ui$Ui_Button$action = F2(
+	function (msg, label) {
+		return A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Event$action, msg, 'click'),
+				_1: {ctor: '[]'}
+			},
+			A2(
+				_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+				{
+					ctor: '::',
+					_0: 'button',
+					_1: {ctor: '[]'}
+				},
+				A2(_danielnarey$elm_semantic_dom$Dom_Element$textWrapper, 'button', label)));
+	});
+
+var _danielnarey$elm_modular_ui$Component_Modal$card = function (args) {
+	var withBody = A2(
+		_elm_lang$core$Basics$flip,
+		_elm_lang$core$List$append,
+		_elm_lang$core$List$singleton(
+			A2(
+				_danielnarey$elm_modular_ui$Ui_Modifier$add,
+				'modal-card-body',
+				A2(
+					_danielnarey$elm_modular_ui$Ui$container,
+					'div',
+					{
+						ctor: '::',
+						_0: args.body,
+						_1: {ctor: '[]'}
+					}))));
+	var withFooter = function () {
+		var _p0 = args.footerItems;
+		if (_p0.ctor === '[]') {
+			return _elm_lang$core$Basics$identity;
+		} else {
+			return A2(
+				_elm_lang$core$Basics$flip,
+				_elm_lang$core$List$append,
+				_elm_lang$core$List$singleton(
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Modifier$add,
+						'modal-card-foot',
+						A2(_danielnarey$elm_modular_ui$Ui$container, 'footer', args.footerItems))));
+		}
+	}();
+	var withHeader = function () {
+		var _p1 = {ctor: '_Tuple2', _0: args.heading, _1: args.close};
+		if (_p1._1.ctor === 'Nothing') {
+			if (_p1._0 === '') {
+				return _elm_lang$core$Basics$identity;
+			} else {
+				return A2(
+					_elm_lang$core$Basics$flip,
+					_elm_lang$core$List$append,
+					_elm_lang$core$List$singleton(
+						A2(
+							_danielnarey$elm_modular_ui$Ui_Modifier$add,
+							'modal-card-head',
+							A2(
+								_danielnarey$elm_modular_ui$Ui$container,
+								'header',
+								{
+									ctor: '::',
+									_0: A2(
+										_danielnarey$elm_modular_ui$Ui_Modifier$add,
+										'modal-card-title',
+										A2(_danielnarey$elm_modular_ui$Ui$textWrapper, 'p', args.heading)),
+									_1: {ctor: '[]'}
+								}))));
+			}
+		} else {
+			return A2(
+				_elm_lang$core$Basics$flip,
+				_elm_lang$core$List$append,
+				_elm_lang$core$List$singleton(
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Modifier$add,
+						'modal-card-head',
+						A2(
+							_danielnarey$elm_modular_ui$Ui$container,
+							'header',
+							{
+								ctor: '::',
+								_0: A2(
+									_danielnarey$elm_modular_ui$Ui_Modifier$add,
+									'modal-card-title',
+									A2(_danielnarey$elm_modular_ui$Ui$textWrapper, 'p', args.heading)),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_danielnarey$elm_modular_ui$Ui_Attribute$ariaLabel,
+										'close',
+										_danielnarey$elm_modular_ui$Ui_Button$delete(_p1._1._0)),
+									_1: {ctor: '[]'}
+								}
+							}))));
+		}
+	}();
+	return A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'modal',
+		A2(
+			_danielnarey$elm_modular_ui$Ui$container,
+			'div',
+			withFooter(
+				withBody(
+					withHeader(
+						{
+							ctor: '::',
+							_0: A2(
+								_danielnarey$elm_modular_ui$Ui_Modifier$add,
+								'modal-background',
+								_danielnarey$elm_modular_ui$Ui$leaf('div')),
+							_1: {ctor: '[]'}
+						})))));
+};
+var _danielnarey$elm_modular_ui$Component_Modal$container = function (args) {
+	var withClose = function () {
+		var _p2 = args.close;
+		if (_p2.ctor === 'Nothing') {
+			return _elm_lang$core$Basics$identity;
+		} else {
+			return A2(
+				_elm_lang$core$Basics$flip,
+				_elm_lang$core$List$append,
+				_elm_lang$core$List$singleton(
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Attribute$ariaLabel,
+						'close',
+						A2(
+							_danielnarey$elm_modular_ui$Ui_Action$onClick,
+							_p2._0,
+							A2(
+								_danielnarey$elm_modular_ui$Ui_Modifier$addList,
+								{
+									ctor: '::',
+									_0: 'modal-close',
+									_1: {
+										ctor: '::',
+										_0: 'is-large',
+										_1: {ctor: '[]'}
+									}
+								},
+								_danielnarey$elm_modular_ui$Ui$leaf('button'))))));
+		}
+	}();
+	return A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'modal',
+		A2(
+			_danielnarey$elm_modular_ui$Ui$container,
+			'div',
+			withClose(
+				{
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$Ui_Modifier$add,
+						'modal-background',
+						_danielnarey$elm_modular_ui$Ui$leaf('div')),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_danielnarey$elm_modular_ui$Ui_Modifier$add,
+							'modal-content',
+							A2(
+								_danielnarey$elm_modular_ui$Ui$container,
+								'div',
+								{
+									ctor: '::',
+									_0: args.content,
+									_1: {ctor: '[]'}
+								})),
+						_1: {ctor: '[]'}
+					}
+				})));
+};
+
+var _danielnarey$elm_modular_ui$Component_Tabs$container = function (args) {
+	var toTab = function (_p0) {
+		var _p1 = _p0;
+		var _p4 = _p1._1;
+		return function () {
+			var _p2 = _elm_lang$core$Native_Utils.eq(_p4, args.selected);
+			if (_p2 === true) {
+				return function (_p3) {
+					return A2(
+						_danielnarey$elm_modular_ui$Ui_Modifier$add,
+						'is-active',
+						A2(
+							_danielnarey$elm_modular_ui$Ui_Attribute$add,
+							{
+								ctor: '_Tuple2',
+								_0: 'aria-selected',
+								_1: _danielnarey$elm_semantic_dom$Dom_Attribute$string('true')
+							},
+							_p3));
+				};
+			} else {
+				return _elm_lang$core$Basics$identity;
+			}
+		}()(
+			A2(
+				_danielnarey$elm_modular_ui$Ui_Attribute$role,
+				'tab',
+				A2(
+					_danielnarey$elm_modular_ui$Ui_Action$onClick,
+					args.$switch(_p4),
+					A2(
+						_danielnarey$elm_modular_ui$Ui$container,
+						'li',
+						{
+							ctor: '::',
+							_0: A2(_danielnarey$elm_modular_ui$Ui$textWrapper, 'a', _p1._0),
+							_1: {ctor: '[]'}
+						}))));
+	};
+	return A2(
+		_danielnarey$elm_modular_ui$Ui_Attribute$role,
+		'tablist',
+		A2(
+			_danielnarey$elm_modular_ui$Ui_Modifier$add,
+			'tabs',
+			A2(
+				_danielnarey$elm_modular_ui$Ui$container,
+				'div',
+				{
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$Ui$container,
+						'ul',
+						A2(_elm_lang$core$List$map, toTab, args.options)),
+					_1: {ctor: '[]'}
+				})));
 };
 
 var _danielnarey$elm_modular_ui$Page_Interactive$title = function (id) {
 	var _p0 = id;
 	switch (_p0.ctor) {
-		case 'Index':
-			return 'Interactive';
 		case 'Buttons':
 			return 'Buttons';
 		case 'Input':
@@ -9637,8 +9838,6 @@ var _danielnarey$elm_modular_ui$Page_Interactive$title = function (id) {
 var _danielnarey$elm_modular_ui$Page_Interactive$hash = function (id) {
 	var _p1 = id;
 	switch (_p1.ctor) {
-		case 'Index':
-			return '/';
 		case 'Buttons':
 			return '/buttons';
 		case 'Input':
@@ -9653,32 +9852,15 @@ var _danielnarey$elm_modular_ui$Page_Interactive$Indicators = {ctor: 'Indicators
 var _danielnarey$elm_modular_ui$Page_Interactive$Selectors = {ctor: 'Selectors'};
 var _danielnarey$elm_modular_ui$Page_Interactive$Input = {ctor: 'Input'};
 var _danielnarey$elm_modular_ui$Page_Interactive$Buttons = {ctor: 'Buttons'};
-var _danielnarey$elm_modular_ui$Page_Interactive$Index = {ctor: 'Index'};
-var _danielnarey$elm_modular_ui$Page_Interactive$ancestors = function (id) {
-	var _p2 = id;
-	if (_p2.ctor === 'Index') {
-		return {ctor: '[]'};
-	} else {
-		return {
-			ctor: '::',
-			_0: {
-				ctor: '_Tuple2',
-				_0: _danielnarey$elm_modular_ui$Page_Interactive$title(_danielnarey$elm_modular_ui$Page_Interactive$Index),
-				_1: _danielnarey$elm_modular_ui$Page_Interactive$Index
-			},
-			_1: {ctor: '[]'}
-		};
-	}
-};
 var _danielnarey$elm_modular_ui$Page_Interactive$fromHash = function (parsed) {
-	var _p3 = _elm_lang$core$List$head(parsed);
-	if (_p3.ctor === 'Nothing') {
-		return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Interactive$Index);
+	var _p2 = _elm_lang$core$List$head(parsed);
+	if (_p2.ctor === 'Nothing') {
+		return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Interactive$Buttons);
 	} else {
-		var _p4 = _p3._0;
-		switch (_p4) {
+		var _p3 = _p2._0;
+		switch (_p3) {
 			case '':
-				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Interactive$Index);
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Interactive$Buttons);
 			case 'buttons':
 				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Interactive$Buttons);
 			case 'input':
@@ -9696,8 +9878,6 @@ var _danielnarey$elm_modular_ui$Page_Interactive$fromHash = function (parsed) {
 var _danielnarey$elm_modular_ui$Page_Content$title = function (id) {
 	var _p0 = id;
 	switch (_p0.ctor) {
-		case 'Index':
-			return 'Content';
 		case 'Text':
 			return 'Text';
 		case 'Heading':
@@ -9713,8 +9893,6 @@ var _danielnarey$elm_modular_ui$Page_Content$title = function (id) {
 var _danielnarey$elm_modular_ui$Page_Content$hash = function (id) {
 	var _p1 = id;
 	switch (_p1.ctor) {
-		case 'Index':
-			return '/';
 		case 'Text':
 			return '/text';
 		case 'Heading':
@@ -9732,32 +9910,17 @@ var _danielnarey$elm_modular_ui$Page_Content$Media = {ctor: 'Media'};
 var _danielnarey$elm_modular_ui$Page_Content$Icon = {ctor: 'Icon'};
 var _danielnarey$elm_modular_ui$Page_Content$Heading = {ctor: 'Heading'};
 var _danielnarey$elm_modular_ui$Page_Content$Text = {ctor: 'Text'};
-var _danielnarey$elm_modular_ui$Page_Content$Index = {ctor: 'Index'};
-var _danielnarey$elm_modular_ui$Page_Content$ancestors = function (id) {
-	var _p2 = id;
-	if (_p2.ctor === 'Index') {
-		return {ctor: '[]'};
-	} else {
-		return {
-			ctor: '::',
-			_0: {
-				ctor: '_Tuple2',
-				_0: _danielnarey$elm_modular_ui$Page_Content$title(_danielnarey$elm_modular_ui$Page_Content$Index),
-				_1: _danielnarey$elm_modular_ui$Page_Content$Index
-			},
-			_1: {ctor: '[]'}
-		};
-	}
-};
 var _danielnarey$elm_modular_ui$Page_Content$fromHash = function (parsed) {
-	var _p3 = _elm_lang$core$List$head(parsed);
-	if (_p3.ctor === 'Nothing') {
-		return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Content$Index);
+	var _p2 = _elm_lang$core$List$head(parsed);
+	if (_p2.ctor === 'Nothing') {
+		return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Content$Text);
 	} else {
-		var _p4 = _p3._0;
-		switch (_p4) {
+		var _p3 = _p2._0;
+		switch (_p3) {
 			case '':
-				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Content$Index);
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Content$Text);
+			case 'text':
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Content$Text);
 			case 'heading':
 				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Content$Heading);
 			case 'icon':
@@ -9775,8 +9938,6 @@ var _danielnarey$elm_modular_ui$Page_Content$fromHash = function (parsed) {
 var _danielnarey$elm_modular_ui$Page_Customize$title = function (id) {
 	var _p0 = id;
 	switch (_p0.ctor) {
-		case 'Index':
-			return 'Customize';
 		case 'Modifier':
 			return 'Modifier';
 		case 'Attribute':
@@ -9790,8 +9951,6 @@ var _danielnarey$elm_modular_ui$Page_Customize$title = function (id) {
 var _danielnarey$elm_modular_ui$Page_Customize$hash = function (id) {
 	var _p1 = id;
 	switch (_p1.ctor) {
-		case 'Index':
-			return '/';
 		case 'Modifier':
 			return '/modifier';
 		case 'Attribute':
@@ -9806,32 +9965,15 @@ var _danielnarey$elm_modular_ui$Page_Customize$Style = {ctor: 'Style'};
 var _danielnarey$elm_modular_ui$Page_Customize$Action = {ctor: 'Action'};
 var _danielnarey$elm_modular_ui$Page_Customize$Attribute = {ctor: 'Attribute'};
 var _danielnarey$elm_modular_ui$Page_Customize$Modifier = {ctor: 'Modifier'};
-var _danielnarey$elm_modular_ui$Page_Customize$Index = {ctor: 'Index'};
-var _danielnarey$elm_modular_ui$Page_Customize$ancestors = function (id) {
-	var _p2 = id;
-	if (_p2.ctor === 'Index') {
-		return {ctor: '[]'};
-	} else {
-		return {
-			ctor: '::',
-			_0: {
-				ctor: '_Tuple2',
-				_0: _danielnarey$elm_modular_ui$Page_Customize$title(_danielnarey$elm_modular_ui$Page_Customize$Index),
-				_1: _danielnarey$elm_modular_ui$Page_Customize$Index
-			},
-			_1: {ctor: '[]'}
-		};
-	}
-};
 var _danielnarey$elm_modular_ui$Page_Customize$fromHash = function (parsed) {
-	var _p3 = _elm_lang$core$List$head(parsed);
-	if (_p3.ctor === 'Nothing') {
-		return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Customize$Index);
+	var _p2 = _elm_lang$core$List$head(parsed);
+	if (_p2.ctor === 'Nothing') {
+		return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Customize$Modifier);
 	} else {
-		var _p4 = _p3._0;
-		switch (_p4) {
+		var _p3 = _p2._0;
+		switch (_p3) {
 			case '':
-				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Customize$Index);
+				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Customize$Modifier);
 			case 'modifier':
 				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page_Customize$Modifier);
 			case 'attribute':
@@ -9850,7 +9992,7 @@ var _danielnarey$elm_modular_ui$Page$title = function (id) {
 	var _p0 = id;
 	switch (_p0.ctor) {
 		case 'Home':
-			return 'Ui';
+			return 'Overview';
 		case 'Interactive':
 			return _danielnarey$elm_modular_ui$Page_Interactive$title(_p0._0);
 		case 'Content':
@@ -9891,71 +10033,17 @@ var _danielnarey$elm_modular_ui$Page$Interactive = function (a) {
 	return {ctor: 'Interactive', _0: a};
 };
 var _danielnarey$elm_modular_ui$Page$Home = {ctor: 'Home'};
-var _danielnarey$elm_modular_ui$Page$ancestors = function (id) {
-	var ancestorList = function () {
-		var _p2 = id;
-		switch (_p2.ctor) {
-			case 'Home':
-				return {ctor: '[]'};
-			case 'Interactive':
-				return A2(
-					F2(
-						function (x, y) {
-							return {ctor: '::', _0: x, _1: y};
-						}),
-					{ctor: '_Tuple2', _0: 'Ui', _1: _danielnarey$elm_modular_ui$Page$Home},
-					A2(
-						_elm_lang$core$List$map,
-						_elm_lang$core$Tuple$mapSecond(_danielnarey$elm_modular_ui$Page$Interactive),
-						_danielnarey$elm_modular_ui$Page_Interactive$ancestors(_p2._0)));
-			case 'Content':
-				return A2(
-					F2(
-						function (x, y) {
-							return {ctor: '::', _0: x, _1: y};
-						}),
-					{ctor: '_Tuple2', _0: 'Ui', _1: _danielnarey$elm_modular_ui$Page$Home},
-					A2(
-						_elm_lang$core$List$map,
-						_elm_lang$core$Tuple$mapSecond(_danielnarey$elm_modular_ui$Page$Content),
-						_danielnarey$elm_modular_ui$Page_Content$ancestors(_p2._0)));
-			default:
-				return A2(
-					F2(
-						function (x, y) {
-							return {ctor: '::', _0: x, _1: y};
-						}),
-					{ctor: '_Tuple2', _0: 'Ui', _1: _danielnarey$elm_modular_ui$Page$Home},
-					A2(
-						_elm_lang$core$List$map,
-						_elm_lang$core$Tuple$mapSecond(_danielnarey$elm_modular_ui$Page$Customize),
-						_danielnarey$elm_modular_ui$Page_Customize$ancestors(_p2._0)));
-		}
-	}();
-	return A2(
-		_elm_lang$core$List$append,
-		ancestorList,
-		{
-			ctor: '::',
-			_0: {
-				ctor: '_Tuple2',
-				_0: _danielnarey$elm_modular_ui$Page$title(id),
-				_1: id
-			},
-			_1: {ctor: '[]'}
-		});
-};
 var _danielnarey$elm_modular_ui$Page$fromHash = function (path) {
 	var parsed = A2(
 		_elm_lang$core$List$drop,
 		1,
 		A2(_elm_lang$core$String$split, '/', path));
-	var _p3 = _elm_lang$core$List$head(parsed);
-	if (_p3.ctor === 'Nothing') {
+	var _p2 = _elm_lang$core$List$head(parsed);
+	if (_p2.ctor === 'Nothing') {
 		return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page$Home);
 	} else {
-		var _p4 = _p3._0;
-		switch (_p4) {
+		var _p3 = _p2._0;
+		switch (_p3) {
 			case '':
 				return _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Page$Home);
 			case 'interactive-elements':
@@ -9979,6 +10067,23 @@ var _danielnarey$elm_modular_ui$Page$fromHash = function (path) {
 			default:
 				return _elm_lang$core$Maybe$Nothing;
 		}
+	}
+};
+
+var _danielnarey$elm_modular_ui$Tab$Customize = {ctor: 'Customize'};
+var _danielnarey$elm_modular_ui$Tab$Content = {ctor: 'Content'};
+var _danielnarey$elm_modular_ui$Tab$Interactive = {ctor: 'Interactive'};
+var _danielnarey$elm_modular_ui$Tab$fromPage = function (page) {
+	var _p0 = page;
+	switch (_p0.ctor) {
+		case 'Home':
+			return _danielnarey$elm_modular_ui$Tab$Interactive;
+		case 'Interactive':
+			return _danielnarey$elm_modular_ui$Tab$Interactive;
+		case 'Content':
+			return _danielnarey$elm_modular_ui$Tab$Content;
+		default:
+			return _danielnarey$elm_modular_ui$Tab$Customize;
 	}
 };
 
@@ -11183,13 +11288,16 @@ var _danielnarey$elm_semantic_effects$Effect_Routing$Setup = F4(
 		return {init: a, update: b, subscriptions: c, view: d};
 	});
 
-var _danielnarey$elm_modular_ui$Model$initial = {currentPage: _danielnarey$elm_modular_ui$Page$Home, alertText: '', alertIsVisible: false, userName: '', userBio: '', userAge: _elm_lang$core$Maybe$Nothing, packageWeight: _elm_lang$core$Maybe$Nothing, backgroundColor: _elm_lang$core$Maybe$Nothing, starRating: 3, brightness: 1, textColor: '#000000', userAgrees: false, emailFrequency: _danielnarey$elm_modular_ui$Option$Weekly, shippingDestination: _elm_lang$core$Maybe$Nothing};
+var _danielnarey$elm_modular_ui$Model$initial = {currentPage: _danielnarey$elm_modular_ui$Page$Home, currentTab: _danielnarey$elm_modular_ui$Tab$Interactive, deleteIsHidden: false, alertText: '', alertIsVisible: false, userName: '', userBio: '', userAge: _elm_lang$core$Maybe$Nothing, packageWeight: _elm_lang$core$Maybe$Nothing, backgroundColor: _elm_lang$core$Maybe$Nothing, starRating: 3, brightness: 1, textColor: '#000000', userAgrees: false, emailFrequency: _danielnarey$elm_modular_ui$Option$Weekly, shippingDestination: _elm_lang$core$Maybe$Nothing, notificationIsHidden: false, tagIsActive: false, tagIsHovered: false};
 var _danielnarey$elm_modular_ui$Model$fromLocation = function (location) {
 	var updatePage = F2(
 		function (model, page) {
 			return _elm_lang$core$Native_Utils.update(
 				model,
-				{currentPage: page});
+				{
+					currentPage: page,
+					currentTab: _danielnarey$elm_modular_ui$Tab$fromPage(page)
+				});
 		});
 	return A2(
 		_elm_lang$core$Maybe$map,
@@ -11210,7 +11318,17 @@ var _danielnarey$elm_modular_ui$Model$Model = function (a) {
 											return function (l) {
 												return function (m) {
 													return function (n) {
-														return {currentPage: a, alertText: b, alertIsVisible: c, userName: d, userBio: e, userAge: f, packageWeight: g, backgroundColor: h, starRating: i, brightness: j, textColor: k, userAgrees: l, emailFrequency: m, shippingDestination: n};
+														return function (o) {
+															return function (p) {
+																return function (q) {
+																	return function (r) {
+																		return function (s) {
+																			return {currentPage: a, currentTab: b, alertText: c, alertIsVisible: d, deleteIsHidden: e, userName: f, userBio: g, userAge: h, packageWeight: i, backgroundColor: j, starRating: k, brightness: l, textColor: m, userAgrees: n, emailFrequency: o, shippingDestination: p, notificationIsHidden: q, tagIsActive: r, tagIsHovered: s};
+																		};
+																	};
+																};
+															};
+														};
 													};
 												};
 											};
@@ -11226,6 +11344,11 @@ var _danielnarey$elm_modular_ui$Model$Model = function (a) {
 	};
 };
 
+var _danielnarey$elm_modular_ui$Msg$Hover = function (a) {
+	return {ctor: 'Hover', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$ToggleTag = {ctor: 'ToggleTag'};
+var _danielnarey$elm_modular_ui$Msg$HideNotification = {ctor: 'HideNotification'};
 var _danielnarey$elm_modular_ui$Msg$UpdateShippingDestination = function (a) {
 	return {ctor: 'UpdateShippingDestination', _0: a};
 };
@@ -11258,11 +11381,15 @@ var _danielnarey$elm_modular_ui$Msg$UpdateUserName = function (a) {
 	return {ctor: 'UpdateUserName', _0: a};
 };
 var _danielnarey$elm_modular_ui$Msg$Disappear = {ctor: 'Disappear'};
-var _danielnarey$elm_modular_ui$Msg$NavTo = function (a) {
-	return {ctor: 'NavTo', _0: a};
+var _danielnarey$elm_modular_ui$Msg$LoadUrl = function (a) {
+	return {ctor: 'LoadUrl', _0: a};
 };
+var _danielnarey$elm_modular_ui$Msg$DismissAlert = {ctor: 'DismissAlert'};
 var _danielnarey$elm_modular_ui$Msg$Alert = function (a) {
 	return {ctor: 'Alert', _0: a};
+};
+var _danielnarey$elm_modular_ui$Msg$SelectTab = function (a) {
+	return {ctor: 'SelectTab', _0: a};
 };
 var _danielnarey$elm_modular_ui$Msg$Load = function (a) {
 	return {ctor: 'Load', _0: a};
@@ -11273,6 +11400,12 @@ var _danielnarey$elm_modular_ui$Msg$Route = function (a) {
 
 var _danielnarey$elm_semantic_effects$Effect_Url$displayAs = _elm_lang$navigation$Navigation$modifyUrl;
 var _danielnarey$elm_semantic_effects$Effect_Url$stepTo = _elm_lang$navigation$Navigation$newUrl;
+
+var _danielnarey$elm_semantic_effects$Effect_Page$forward = _elm_lang$navigation$Navigation$forward;
+var _danielnarey$elm_semantic_effects$Effect_Page$back = _elm_lang$navigation$Navigation$back;
+var _danielnarey$elm_semantic_effects$Effect_Page$cleanReload = _elm_lang$navigation$Navigation$reloadAndSkipCache;
+var _danielnarey$elm_semantic_effects$Effect_Page$reload = _elm_lang$navigation$Navigation$reload;
+var _danielnarey$elm_semantic_effects$Effect_Page$load = _elm_lang$navigation$Navigation$load;
 
 var _danielnarey$elm_modular_ui$Update$update = F2(
 	function (msg, model) {
@@ -11292,27 +11425,38 @@ var _danielnarey$elm_modular_ui$Update$update = F2(
 						_danielnarey$elm_modular_ui$Model$initial,
 						_danielnarey$elm_modular_ui$Model$fromLocation(_p0._0)));
 			case 'Load':
-				var _p1 = _p0._0;
-				return A3(
-					_elm_lang$core$Basics$flip,
-					F2(
-						function (v0, v1) {
-							return {ctor: '_Tuple2', _0: v0, _1: v1};
-						}),
-					_danielnarey$elm_semantic_effects$Effect_Url$stepTo(
-						_danielnarey$elm_modular_ui$Page$hash(_p1)),
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _danielnarey$elm_semantic_effects$Effect_Url$stepTo(
+						_danielnarey$elm_modular_ui$Page$hash(_p0._0))
+				};
+			case 'SelectTab':
+				return noCmd(
 					_elm_lang$core$Native_Utils.update(
 						model,
-						{currentPage: _p1}));
+						{currentTab: _p0._0}));
 			case 'Alert':
 				return noCmd(
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{alertText: _p0._0, alertIsVisible: true}));
-			case 'NavTo':
-				return noCmd(model);
+			case 'DismissAlert':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{alertIsVisible: false}));
+			case 'LoadUrl':
+				return {
+					ctor: '_Tuple2',
+					_0: model,
+					_1: _danielnarey$elm_semantic_effects$Effect_Page$load(_p0._0)
+				};
 			case 'Disappear':
-				return noCmd(model);
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{deleteIsHidden: true}));
 			case 'UpdateUserName':
 				return noCmd(
 					_elm_lang$core$Native_Utils.update(
@@ -11363,13 +11507,232 @@ var _danielnarey$elm_modular_ui$Update$update = F2(
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{emailFrequency: _p0._0}));
-			default:
+			case 'UpdateShippingDestination':
 				return noCmd(
 					_elm_lang$core$Native_Utils.update(
 						model,
 						{shippingDestination: _p0._0}));
+			case 'HideNotification':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{notificationIsHidden: true}));
+			case 'ToggleTag':
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{tagIsActive: !model.tagIsActive}));
+			default:
+				return noCmd(
+					_elm_lang$core$Native_Utils.update(
+						model,
+						{tagIsHovered: _p0._0}));
 		}
 	});
+
+var _danielnarey$elm_modular_ui$Ui_Text$light = function (_p0) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'has-text-weight-light',
+			_1: {ctor: '[]'}
+		},
+		A2(_danielnarey$elm_semantic_dom$Dom_Element$textWrapper, 'span', _p0));
+};
+var _danielnarey$elm_modular_ui$Ui_Text$semibold = function (_p1) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'has-text-weight-semibold',
+			_1: {ctor: '[]'}
+		},
+		A2(_danielnarey$elm_semantic_dom$Dom_Element$textWrapper, 'span', _p1));
+};
+var _danielnarey$elm_modular_ui$Ui_Text$bold = function (_p2) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'has-text-weight-bold',
+			_1: {ctor: '[]'}
+		},
+		A2(_danielnarey$elm_semantic_dom$Dom_Element$textWrapper, 'span', _p2));
+};
+var _danielnarey$elm_modular_ui$Ui_Text$italic = function (_p3) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'is-italic',
+			_1: {ctor: '[]'}
+		},
+		A2(_danielnarey$elm_semantic_dom$Dom_Element$textWrapper, 'span', _p3));
+};
+var _danielnarey$elm_modular_ui$Ui_Text$link = function (_p4) {
+	var _p5 = _p4;
+	var attrs = A2(
+		_elm_lang$core$List$append,
+		{
+			ctor: '::',
+			_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, _p5._0, 'href'),
+			_1: {ctor: '[]'}
+		},
+		function () {
+			var _p6 = _p5._1;
+			if (_p6 === true) {
+				return {
+					ctor: '::',
+					_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, '_blank', 'target'),
+					_1: {ctor: '[]'}
+				};
+			} else {
+				return {ctor: '[]'};
+			}
+		}());
+	return function (_p7) {
+		return A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+			attrs,
+			A2(_danielnarey$elm_semantic_dom$Dom_Element$textWrapper, 'a', _p7));
+	};
+};
+var _danielnarey$elm_modular_ui$Ui_Text$plain = _danielnarey$elm_semantic_dom$Dom_Element$textWrapper('span');
+
+var _danielnarey$elm_toolkit$Toolkit_List_Operators_ops = _danielnarey$elm_toolkit$Toolkit_List_Operators_ops || {};
+_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'] = F2(
+	function (a, f) {
+		return f(
+			{
+				ctor: '::',
+				_0: a,
+				_1: {ctor: '[]'}
+			});
+	});
+var _danielnarey$elm_toolkit$Toolkit_List_Operators_ops = _danielnarey$elm_toolkit$Toolkit_List_Operators_ops || {};
+_danielnarey$elm_toolkit$Toolkit_List_Operators_ops['.|>'] = F2(
+	function (list, f) {
+		return A2(_elm_lang$core$List$map, f, list);
+	});
+var _danielnarey$elm_toolkit$Toolkit_List_Operators_ops = _danielnarey$elm_toolkit$Toolkit_List_Operators_ops || {};
+_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|::'] = F2(
+	function (a, b) {
+		return {
+			ctor: '::',
+			_0: a,
+			_1: {
+				ctor: '::',
+				_0: b,
+				_1: {ctor: '[]'}
+			}
+		};
+	});
+var _danielnarey$elm_toolkit$Toolkit_List_Operators_ops = _danielnarey$elm_toolkit$Toolkit_List_Operators_ops || {};
+_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|++'] = F2(
+	function (a, list) {
+		return {ctor: '::', _0: a, _1: list};
+	});
+var _danielnarey$elm_toolkit$Toolkit_List_Operators_ops = _danielnarey$elm_toolkit$Toolkit_List_Operators_ops || {};
+_danielnarey$elm_toolkit$Toolkit_List_Operators_ops['|::'] = F2(
+	function (list, a) {
+		return A2(
+			_elm_lang$core$Basics_ops['++'],
+			list,
+			{
+				ctor: '::',
+				_0: a,
+				_1: {ctor: '[]'}
+			});
+	});
+var _danielnarey$elm_toolkit$Toolkit_List_Operators_ops = _danielnarey$elm_toolkit$Toolkit_List_Operators_ops || {};
+_danielnarey$elm_toolkit$Toolkit_List_Operators_ops['|++'] = F2(
+	function (a, b) {
+		return A2(_elm_lang$core$Basics_ops['++'], a, b);
+	});
+
+var _danielnarey$elm_modular_ui$View_Home$overview = A2(
+	_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+	A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		A2(
+			_danielnarey$elm_modular_ui$Ui_Modifier$addList,
+			{
+				ctor: '::',
+				_0: 'content',
+				_1: {
+					ctor: '::',
+					_0: 'is-size-4',
+					_1: {
+						ctor: '::',
+						_0: 'has-text-bold',
+						_1: {
+							ctor: '::',
+							_0: 'has-text-dark',
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			},
+			A2(
+				_danielnarey$elm_modular_ui$Ui$container,
+				'div',
+				{
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$Ui$container,
+						'p',
+						{
+							ctor: '::',
+							_0: _danielnarey$elm_modular_ui$Ui_Text$plain(
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									'Modular UI is a framework for building a modern user interface in Elm ',
+									A2(_elm_lang$core$Basics_ops['++'], 'that abstracts out a lot of the details of the underlying HTML and ', 'CSS. It\'s partially inspired by and designed to be used with the '))),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_danielnarey$elm_modular_ui$Ui_Text$link,
+									{ctor: '_Tuple2', _0: 'http://bulma.io', _1: true},
+									'Bulma CSS '),
+								_1: {
+									ctor: '::',
+									_0: _danielnarey$elm_modular_ui$Ui_Text$plain('framework.'),
+									_1: {ctor: '[]'}
+								}
+							}
+						}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_danielnarey$elm_modular_ui$Ui$container,
+							'p',
+							{
+								ctor: '::',
+								_0: _danielnarey$elm_modular_ui$Ui_Text$plain(
+									A2(_elm_lang$core$Basics_ops['++'], 'This site features live code examples that show Modular UI in action. ', 'The full package documentation is available ')),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_danielnarey$elm_modular_ui$Ui_Text$link,
+										{ctor: '_Tuple2', _0: 'http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest', _1: true},
+										'here'),
+									_1: {
+										ctor: '::',
+										_0: _danielnarey$elm_modular_ui$Ui_Text$plain('.'),
+										_1: {ctor: '[]'}
+									}
+								}
+							}),
+						_1: {
+							ctor: '::',
+							_0: _danielnarey$elm_modular_ui$Ui$leaf('hr'),
+							_1: {ctor: '[]'}
+						}
+					}
+				})),
+		_danielnarey$elm_modular_ui$Component_Layout$container),
+	_danielnarey$elm_modular_ui$Component_Layout$section);
 
 var _elm_tools$parser_primitives$Native_ParserPrimitives = function() {
 
@@ -18940,117 +19303,37 @@ var _pablohirafuji$elm_syntax_highlight$SyntaxHighlight$Del = {ctor: 'Del'};
 var _pablohirafuji$elm_syntax_highlight$SyntaxHighlight$Add = {ctor: 'Add'};
 var _pablohirafuji$elm_syntax_highlight$SyntaxHighlight$Highlight = {ctor: 'Highlight'};
 
-var _danielnarey$elm_toolkit$Toolkit_List_Operators_ops = _danielnarey$elm_toolkit$Toolkit_List_Operators_ops || {};
-_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'] = F2(
-	function (a, f) {
-		return f(
-			{
-				ctor: '::',
-				_0: a,
-				_1: {ctor: '[]'}
-			});
-	});
-var _danielnarey$elm_toolkit$Toolkit_List_Operators_ops = _danielnarey$elm_toolkit$Toolkit_List_Operators_ops || {};
-_danielnarey$elm_toolkit$Toolkit_List_Operators_ops['.|>'] = F2(
-	function (list, f) {
-		return A2(_elm_lang$core$List$map, f, list);
-	});
-var _danielnarey$elm_toolkit$Toolkit_List_Operators_ops = _danielnarey$elm_toolkit$Toolkit_List_Operators_ops || {};
-_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|::'] = F2(
-	function (a, b) {
-		return {
-			ctor: '::',
-			_0: a,
-			_1: {
-				ctor: '::',
-				_0: b,
-				_1: {ctor: '[]'}
-			}
-		};
-	});
-var _danielnarey$elm_toolkit$Toolkit_List_Operators_ops = _danielnarey$elm_toolkit$Toolkit_List_Operators_ops || {};
-_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|++'] = F2(
-	function (a, list) {
-		return {ctor: '::', _0: a, _1: list};
-	});
-var _danielnarey$elm_toolkit$Toolkit_List_Operators_ops = _danielnarey$elm_toolkit$Toolkit_List_Operators_ops || {};
-_danielnarey$elm_toolkit$Toolkit_List_Operators_ops['|::'] = F2(
-	function (list, a) {
-		return A2(
-			_elm_lang$core$Basics_ops['++'],
-			list,
-			{
-				ctor: '::',
-				_0: a,
-				_1: {ctor: '[]'}
-			});
-	});
-var _danielnarey$elm_toolkit$Toolkit_List_Operators_ops = _danielnarey$elm_toolkit$Toolkit_List_Operators_ops || {};
-_danielnarey$elm_toolkit$Toolkit_List_Operators_ops['|++'] = F2(
-	function (a, b) {
-		return A2(_elm_lang$core$Basics_ops['++'], a, b);
-	});
-
-var _danielnarey$elm_modular_ui$View_Component$section = F2(
-	function (label, examples) {
-		var heading = A2(
-			_danielnarey$elm_modular_ui$Ui_Modifier$addList,
-			{
-				ctor: '::',
-				_0: 'is-2',
-				_1: {
+var _danielnarey$elm_modular_ui$View_Layout$alertModal = function (model) {
+	return _danielnarey$elm_modular_ui$Component_Modal$container(
+		{
+			content: A2(
+				_danielnarey$elm_modular_ui$Ui_Modifier$addList,
+				{
 					ctor: '::',
-					_0: 'has-text-black',
-					_1: {ctor: '[]'}
-				}
-			},
-			A2(_danielnarey$elm_modular_ui$Ui_Heading$title, 'h2', label));
-		return A2(
-			_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-			_danielnarey$elm_modular_ui$Component_Layout$container(
-				A2(
-					F2(
-						function (x, y) {
-							return {ctor: '::', _0: x, _1: y};
-						}),
-					heading,
-					examples)),
-			_danielnarey$elm_modular_ui$Component_Layout$section);
-	});
-var _danielnarey$elm_modular_ui$View_Component$equalColumns = function (modifier) {
-	return function (_p0) {
-		return A2(
-			_danielnarey$elm_modular_ui$Ui_Modifier$addList,
-			{
-				ctor: '::',
-				_0: 'is-centered',
-				_1: {
-					ctor: '::',
-					_0: 'is-vcentered',
-					_1: {ctor: '[]'}
-				}
-			},
-			_danielnarey$elm_modular_ui$Component_Grid$columns(
-				A2(
-					_elm_lang$core$List$map,
-					function (_p1) {
-						return A2(
-							_danielnarey$elm_modular_ui$Ui_Modifier$add,
-							modifier,
-							_danielnarey$elm_modular_ui$Component_Grid$column(_p1));
-					},
-					_p0)));
-	};
+					_0: 'is-size-1',
+					_1: {
+						ctor: '::',
+						_0: 'has-text-danger',
+						_1: {
+							ctor: '::',
+							_0: 'has-text-centered',
+							_1: {ctor: '[]'}
+						}
+					}
+				},
+				A2(_danielnarey$elm_modular_ui$Ui$textWrapper, 'p', model.alertText)),
+			close: _elm_lang$core$Maybe$Just(_danielnarey$elm_modular_ui$Msg$DismissAlert)
+		});
 };
-var _danielnarey$elm_modular_ui$View_Component$example = F2(
-	function (label, _p2) {
-		var _p3 = _p2;
-		var _p4 = _p3._0;
+var _danielnarey$elm_modular_ui$View_Layout$example = F2(
+	function (label, _p0) {
+		var _p1 = _p0;
+		var _p2 = _p1._0;
 		var snippet = A2(
 			_danielnarey$elm_modular_ui$Ui_Modifier$add,
 			'box',
 			A2(
-				_danielnarey$elm_modular_ui$View_Component$equalColumns,
+				_danielnarey$elm_modular_ui$Component_Grid$equalColumns,
 				'is-half',
 				{
 					ctor: '::',
@@ -19061,12 +19344,12 @@ var _danielnarey$elm_modular_ui$View_Component$example = F2(
 							_danielnarey$elm_modular_ui$Ui$render(
 								A2(
 									_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-									A2(_danielnarey$elm_modular_ui$Ui$textWrapper, 'code', _p4),
+									A2(_danielnarey$elm_modular_ui$Ui$textWrapper, 'code', _p2),
 									_danielnarey$elm_modular_ui$Ui$container('pre'))),
 							A2(
 								_elm_lang$core$Result$map,
 								_pablohirafuji$elm_syntax_highlight$SyntaxHighlight$toBlockHtml(_elm_lang$core$Maybe$Nothing),
-								_pablohirafuji$elm_syntax_highlight$SyntaxHighlight$elm(_p4))),
+								_pablohirafuji$elm_syntax_highlight$SyntaxHighlight$elm(_p2))),
 						_danielnarey$elm_semantic_dom$Dom_Element$wrapNodes('div')),
 					_1: {
 						ctor: '::',
@@ -19075,7 +19358,7 @@ var _danielnarey$elm_modular_ui$View_Component$example = F2(
 							'has-text-centered',
 							A2(
 								_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-								_p3._1,
+								_p1._1,
 								_danielnarey$elm_modular_ui$Ui$container('div'))),
 						_1: {ctor: '[]'}
 					}
@@ -19109,64 +19392,15 @@ var _danielnarey$elm_modular_ui$View_Component$example = F2(
 				}
 			});
 	});
-
-var _danielnarey$elm_modular_ui$Ui_Button$delete = function (msg) {
-	return A2(
-		_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+var _danielnarey$elm_modular_ui$View_Layout$pageHeader = function (model) {
+	return _danielnarey$elm_modular_ui$Component_Hero$container(
 		{
-			ctor: '::',
-			_0: A2(_danielnarey$elm_semantic_dom$Dom_Event$action, msg, 'click'),
-			_1: {ctor: '[]'}
-		},
-		A2(
-			_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
-			{
-				ctor: '::',
-				_0: 'delete',
-				_1: {ctor: '[]'}
-			},
-			_danielnarey$elm_semantic_dom$Dom_Element$leaf('button')));
+			title: _danielnarey$elm_modular_ui$Page$title(model.currentPage),
+			subtitle: '',
+			head: _elm_lang$core$Maybe$Nothing,
+			foot: _elm_lang$core$Maybe$Nothing
+		});
 };
-var _danielnarey$elm_modular_ui$Ui_Button$navigation = F2(
-	function (msg, label) {
-		return A2(
-			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
-			{
-				ctor: '::',
-				_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'link', 'role'),
-				_1: {
-					ctor: '::',
-					_0: A2(_danielnarey$elm_semantic_dom$Dom_Event$action, msg, 'click'),
-					_1: {ctor: '[]'}
-				}
-			},
-			A2(
-				_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
-				{
-					ctor: '::',
-					_0: 'button',
-					_1: {ctor: '[]'}
-				},
-				A2(_danielnarey$elm_semantic_dom$Dom_Element$textWrapper, 'a', label)));
-	});
-var _danielnarey$elm_modular_ui$Ui_Button$action = F2(
-	function (msg, label) {
-		return A2(
-			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
-			{
-				ctor: '::',
-				_0: A2(_danielnarey$elm_semantic_dom$Dom_Event$action, msg, 'click'),
-				_1: {ctor: '[]'}
-			},
-			A2(
-				_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
-				{
-					ctor: '::',
-					_0: 'button',
-					_1: {ctor: '[]'}
-				},
-				A2(_danielnarey$elm_semantic_dom$Dom_Element$textWrapper, 'button', label)));
-	});
 
 var _danielnarey$elm_semantic_dom$Dom_Node$container = _elm_lang$virtual_dom$VirtualDom$node;
 var _danielnarey$elm_semantic_dom$Dom_Node$textWrapper = F3(
@@ -19852,683 +20086,6 @@ var _danielnarey$elm_modular_ui$Ui_Input$string = F2(
 					_danielnarey$elm_semantic_dom$Dom_Element$leaf('input'))));
 	});
 
-var _danielnarey$elm_modular_ui$View_Interactive$input = function (model) {
-	var colorPickerElement = A2(
-		_danielnarey$elm_modular_ui$Ui_Modifier$add,
-		'is-multiline',
-		A2(
-			_danielnarey$elm_modular_ui$View_Component$equalColumns,
-			'is-7',
-			{
-				ctor: '::',
-				_0: A2(
-					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-					A2(
-						_danielnarey$elm_modular_ui$Ui_Input$colorPicker,
-						_danielnarey$elm_modular_ui$Msg$UpdateTextColor,
-						{id: 8, value: model.textColor}),
-					_danielnarey$elm_modular_ui$Ui$container('div')),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-						A2(
-							_danielnarey$elm_modular_ui$Ui$textWrapper,
-							'code',
-							_elm_lang$core$Basics$toString(model.textColor)),
-						_danielnarey$elm_modular_ui$Ui$container('div')),
-					_1: {ctor: '[]'}
-				}
-			}));
-	var colorPickerCode = '{ id = 8\n, value = model.textColor\n}\n  |> Ui.Input.colorPicker Msg.UpdateTextColor';
-	var floatSliderElement = A2(
-		_danielnarey$elm_modular_ui$Ui_Modifier$add,
-		'is-multiline',
-		A2(
-			_danielnarey$elm_modular_ui$View_Component$equalColumns,
-			'is-7',
-			{
-				ctor: '::',
-				_0: A2(
-					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-					A2(
-						_danielnarey$elm_modular_ui$Ui_Input$floatSlider,
-						_danielnarey$elm_modular_ui$Msg$AdjustBrightness,
-						{
-							id: 7,
-							value: model.brightness,
-							minMaxStep: {ctor: '_Tuple3', _0: 0, _1: 1, _2: 1.0e-2}
-						}),
-					_danielnarey$elm_modular_ui$Ui$container('div')),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-						A2(
-							_danielnarey$elm_modular_ui$Ui$textWrapper,
-							'code',
-							_elm_lang$core$Basics$toString(model.brightness)),
-						_danielnarey$elm_modular_ui$Ui$container('div')),
-					_1: {ctor: '[]'}
-				}
-			}));
-	var floatSliderCode = '{ id = 7\n, value = model.brightness\n, minMaxStep = (0, 1, 0.01)\n}\n  |> Ui.Input.floatSlider Msg.AdjustBrightness';
-	var intSliderElement = A2(
-		_danielnarey$elm_modular_ui$Ui_Modifier$add,
-		'is-multiline',
-		A2(
-			_danielnarey$elm_modular_ui$View_Component$equalColumns,
-			'is-7',
-			{
-				ctor: '::',
-				_0: A2(
-					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-					A2(
-						_danielnarey$elm_modular_ui$Ui_Input$intSlider,
-						_danielnarey$elm_modular_ui$Msg$UpdateStarRating,
-						{
-							id: 6,
-							value: model.starRating,
-							minMaxStep: {ctor: '_Tuple3', _0: 1, _1: 5, _2: 1}
-						}),
-					_danielnarey$elm_modular_ui$Ui$container('div')),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-						A2(
-							_danielnarey$elm_modular_ui$Ui$textWrapper,
-							'code',
-							_elm_lang$core$Basics$toString(model.starRating)),
-						_danielnarey$elm_modular_ui$Ui$container('div')),
-					_1: {ctor: '[]'}
-				}
-			}));
-	var intSliderCode = '{ id = 6\n, value = model.starRating\n, minMaxStep = (1, 5, 1)\n}\n  |> Ui.Input.intSlider Msg.UpdateStarRating';
-	var customElement = A2(
-		_danielnarey$elm_modular_ui$Ui_Modifier$add,
-		'is-multiline',
-		A2(
-			_danielnarey$elm_modular_ui$View_Component$equalColumns,
-			'is-7',
-			{
-				ctor: '::',
-				_0: A2(
-					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-					A2(
-						_danielnarey$elm_modular_ui$Ui_Input$custom,
-						_danielnarey$elm_modular_ui$Msg$UpdateBackgroundColor,
-						{
-							id: 5,
-							placeholder: '#FFFFFF',
-							value: model.backgroundColor,
-							encoder: _danielnarey$elm_color_math$ColorMath_Hex$toColor,
-							decoder: function (_p0) {
-								return _elm_lang$core$Result$Ok(
-									_danielnarey$elm_color_math$ColorMath_Hex$fromColor(_p0));
-							}
-						}),
-					_danielnarey$elm_modular_ui$Ui$container('div')),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-						A2(
-							_danielnarey$elm_modular_ui$Ui$textWrapper,
-							'code',
-							_elm_lang$core$Basics$toString(model.backgroundColor)),
-						_danielnarey$elm_modular_ui$Ui$container('div')),
-					_1: {ctor: '[]'}
-				}
-			}));
-	var customCode = '{ id = 5\n, placeholder = \"#FFFFFF\"\n, value = model.backgroundColor\n, encoder = ColorMath.Hex.toColor\n, decoder = ColorMath.Hex.fromColor >> Ok\n}\n  |> Ui.Input.custom Msg.UpdateBackgroundColor';
-	var floatElement = A2(
-		_danielnarey$elm_modular_ui$Ui_Modifier$add,
-		'is-multiline',
-		A2(
-			_danielnarey$elm_modular_ui$View_Component$equalColumns,
-			'is-7',
-			{
-				ctor: '::',
-				_0: A2(
-					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-					A2(
-						_danielnarey$elm_modular_ui$Ui_Input$float,
-						_danielnarey$elm_modular_ui$Msg$UpdatePackageWeight,
-						{
-							id: 4,
-							placeholder: '',
-							value: model.packageWeight,
-							minMaxStep: {ctor: '_Tuple3', _0: 0, _1: 1, _2: 1.0e-2}
-						}),
-					_danielnarey$elm_modular_ui$Ui$container('div')),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-						A2(
-							_danielnarey$elm_modular_ui$Ui$textWrapper,
-							'code',
-							_elm_lang$core$Basics$toString(model.packageWeight)),
-						_danielnarey$elm_modular_ui$Ui$container('div')),
-					_1: {ctor: '[]'}
-				}
-			}));
-	var floatCode = '{ id = 4\n, placeholder = \"\"\n, value = model.packageWeight\n, minMaxStep = (0, 1, 0.01)\n}\n  |> Ui.Input.float Msg.UpdatePackageWeight';
-	var intElement = A2(
-		_danielnarey$elm_modular_ui$Ui_Modifier$add,
-		'is-multiline',
-		A2(
-			_danielnarey$elm_modular_ui$View_Component$equalColumns,
-			'is-7',
-			{
-				ctor: '::',
-				_0: A2(
-					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-					A2(
-						_danielnarey$elm_modular_ui$Ui_Input$int,
-						_danielnarey$elm_modular_ui$Msg$UpdateUserAge,
-						{
-							id: 3,
-							placeholder: '35',
-							value: model.userAge,
-							minMaxStep: {ctor: '_Tuple3', _0: 0, _1: 117, _2: 1}
-						}),
-					_danielnarey$elm_modular_ui$Ui$container('div')),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-						A2(
-							_danielnarey$elm_modular_ui$Ui$textWrapper,
-							'code',
-							_elm_lang$core$Basics$toString(model.userAge)),
-						_danielnarey$elm_modular_ui$Ui$container('div')),
-					_1: {ctor: '[]'}
-				}
-			}));
-	var intCode = '{ id = 3\n, placeholder = \"35\"\n, value = model.userAge\n, minMaxStep = (0, 117, 1)\n}\n  |> Ui.Input.int Msg.UpdateUserAge';
-	var textAreaElement = A2(
-		_danielnarey$elm_modular_ui$Ui_Modifier$add,
-		'is-multiline',
-		A2(
-			_danielnarey$elm_modular_ui$View_Component$equalColumns,
-			'is-7',
-			{
-				ctor: '::',
-				_0: A2(
-					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-					A2(
-						_danielnarey$elm_modular_ui$Ui_Input$textArea,
-						_danielnarey$elm_modular_ui$Msg$UpdateUserBio,
-						{
-							id: 2,
-							placeholder: 'Tell us about yourself.',
-							value: model.userBio,
-							rows: _elm_lang$core$Maybe$Just(10)
-						}),
-					_danielnarey$elm_modular_ui$Ui$container('div')),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-						A2(
-							_danielnarey$elm_modular_ui$Ui$textWrapper,
-							'code',
-							_elm_lang$core$Basics$toString(model.userBio)),
-						_danielnarey$elm_modular_ui$Ui$container('div')),
-					_1: {ctor: '[]'}
-				}
-			}));
-	var textAreaCode = '{ id = 2\n, placeholder = \"Tell us about yourself.\"\n, value = model.userBio\n, rows = Just 10\n}\n  |> Ui.Input.textArea Msg.UpdateUserBio';
-	var stringElement = A2(
-		_danielnarey$elm_modular_ui$Ui_Modifier$add,
-		'is-multiline',
-		A2(
-			_danielnarey$elm_modular_ui$View_Component$equalColumns,
-			'is-7',
-			{
-				ctor: '::',
-				_0: A2(
-					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-					A2(
-						_danielnarey$elm_modular_ui$Ui_Input$string,
-						_danielnarey$elm_modular_ui$Msg$UpdateUserName,
-						{id: 1, placeholder: 'first last', value: model.userName}),
-					_danielnarey$elm_modular_ui$Ui$container('div')),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
-						A2(
-							_danielnarey$elm_modular_ui$Ui$textWrapper,
-							'code',
-							_elm_lang$core$Basics$toString(model.userName)),
-						_danielnarey$elm_modular_ui$Ui$container('div')),
-					_1: {ctor: '[]'}
-				}
-			}));
-	var stringCode = '{ id = 1\n, placeholder = \"first last\"\n, value = model.userName\n}\n  |> Ui.Input.string Msg.UpdateUserName';
-	return A2(
-		_danielnarey$elm_modular_ui$View_Component$section,
-		'Input',
-		{
-			ctor: '::',
-			_0: A2(
-				_danielnarey$elm_modular_ui$View_Component$example,
-				'String Input',
-				{ctor: '_Tuple2', _0: stringCode, _1: stringElement}),
-			_1: {
-				ctor: '::',
-				_0: A2(
-					_danielnarey$elm_modular_ui$View_Component$example,
-					'Text Area',
-					{ctor: '_Tuple2', _0: textAreaCode, _1: textAreaElement}),
-				_1: {
-					ctor: '::',
-					_0: A2(
-						_danielnarey$elm_modular_ui$View_Component$example,
-						'Int Input',
-						{ctor: '_Tuple2', _0: intCode, _1: intElement}),
-					_1: {
-						ctor: '::',
-						_0: A2(
-							_danielnarey$elm_modular_ui$View_Component$example,
-							'Float Input',
-							{ctor: '_Tuple2', _0: floatCode, _1: floatElement}),
-						_1: {
-							ctor: '::',
-							_0: A2(
-								_danielnarey$elm_modular_ui$View_Component$example,
-								'Custom Input',
-								{ctor: '_Tuple2', _0: customCode, _1: customElement}),
-							_1: {
-								ctor: '::',
-								_0: A2(
-									_danielnarey$elm_modular_ui$View_Component$example,
-									'Int Slider',
-									{ctor: '_Tuple2', _0: intSliderCode, _1: intSliderElement}),
-								_1: {
-									ctor: '::',
-									_0: A2(
-										_danielnarey$elm_modular_ui$View_Component$example,
-										'Float Slider',
-										{ctor: '_Tuple2', _0: floatSliderCode, _1: floatSliderElement}),
-									_1: {
-										ctor: '::',
-										_0: A2(
-											_danielnarey$elm_modular_ui$View_Component$example,
-											'Color Picker',
-											{ctor: '_Tuple2', _0: colorPickerCode, _1: colorPickerElement}),
-										_1: {ctor: '[]'}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		});
-};
-var _danielnarey$elm_modular_ui$View_Interactive$button = function () {
-	var $delete = A2(
-		_danielnarey$elm_modular_ui$View_Component$example,
-		'Delete Button',
-		{
-			ctor: '_Tuple2',
-			_0: 'Ui.Button.delete Msg.Disappear\n  |> Ui.render',
-			_1: _danielnarey$elm_modular_ui$Ui_Button$delete(_danielnarey$elm_modular_ui$Msg$Disappear)
-		});
-	var navigation = A2(
-		_danielnarey$elm_modular_ui$View_Component$example,
-		'Navigation Button',
-		{
-			ctor: '_Tuple2',
-			_0: '\"Go to Top\"\n  |> Ui.Button.navigation (Msg.NavTo \"#\")\n  |> Ui.render',
-			_1: A2(
-				_danielnarey$elm_modular_ui$Ui_Button$navigation,
-				_danielnarey$elm_modular_ui$Msg$NavTo('#'),
-				'Go to Top')
-		});
-	var action = A2(
-		_danielnarey$elm_modular_ui$View_Component$example,
-		'Action Button',
-		{
-			ctor: '_Tuple2',
-			_0: '\"Click Here\"\n  |> Ui.Button.action (Msg.Alert \"You Clicked!\")\n  |> Ui.render',
-			_1: A2(
-				_danielnarey$elm_modular_ui$Ui_Button$action,
-				_danielnarey$elm_modular_ui$Msg$Alert('You Clicked!'),
-				'Click Here')
-		});
-	return A2(
-		_danielnarey$elm_modular_ui$View_Component$section,
-		'Buttons',
-		{
-			ctor: '::',
-			_0: action,
-			_1: {
-				ctor: '::',
-				_0: navigation,
-				_1: {
-					ctor: '::',
-					_0: $delete,
-					_1: {ctor: '[]'}
-				}
-			}
-		});
-}();
-
-var _danielnarey$elm_modular_ui$View_Navigation$breadcrumbs = function (model) {
-	return _danielnarey$elm_modular_ui$Component_Breadcrumb$container(
-		{
-			ancestors: _danielnarey$elm_modular_ui$Page$ancestors(model.currentPage),
-			navigation: _danielnarey$elm_modular_ui$Msg$Load
-		});
-};
-
-var _danielnarey$elm_modular_ui$View_Home$page = function () {
-	var customizeLinks = A2(
-		_danielnarey$elm_modular_ui$Component$navList,
-		_danielnarey$elm_modular_ui$Msg$Load,
-		A2(
-			_elm_lang$core$List$map,
-			_danielnarey$elm_toolkit$Toolkit_Function$apply2(
-				{ctor: '_Tuple2', _0: _danielnarey$elm_modular_ui$Page_Customize$title, _1: _danielnarey$elm_modular_ui$Page$Customize}),
-			{
-				ctor: '::',
-				_0: _danielnarey$elm_modular_ui$Page_Customize$Modifier,
-				_1: {
-					ctor: '::',
-					_0: _danielnarey$elm_modular_ui$Page_Customize$Attribute,
-					_1: {
-						ctor: '::',
-						_0: _danielnarey$elm_modular_ui$Page_Customize$Action,
-						_1: {
-							ctor: '::',
-							_0: _danielnarey$elm_modular_ui$Page_Customize$Style,
-							_1: {ctor: '[]'}
-						}
-					}
-				}
-			}));
-	var contentLinks = A2(
-		_danielnarey$elm_modular_ui$Component$navList,
-		_danielnarey$elm_modular_ui$Msg$Load,
-		A2(
-			_elm_lang$core$List$map,
-			_danielnarey$elm_toolkit$Toolkit_Function$apply2(
-				{ctor: '_Tuple2', _0: _danielnarey$elm_modular_ui$Page_Content$title, _1: _danielnarey$elm_modular_ui$Page$Content}),
-			{
-				ctor: '::',
-				_0: _danielnarey$elm_modular_ui$Page_Content$Text,
-				_1: {
-					ctor: '::',
-					_0: _danielnarey$elm_modular_ui$Page_Content$Heading,
-					_1: {
-						ctor: '::',
-						_0: _danielnarey$elm_modular_ui$Page_Content$Icon,
-						_1: {
-							ctor: '::',
-							_0: _danielnarey$elm_modular_ui$Page_Content$Media,
-							_1: {
-								ctor: '::',
-								_0: _danielnarey$elm_modular_ui$Page_Content$Source,
-								_1: {ctor: '[]'}
-							}
-						}
-					}
-				}
-			}));
-	var interactiveLinks = A2(
-		_danielnarey$elm_modular_ui$Component$navList,
-		_danielnarey$elm_modular_ui$Msg$Load,
-		A2(
-			_elm_lang$core$List$map,
-			_danielnarey$elm_toolkit$Toolkit_Function$apply2(
-				{ctor: '_Tuple2', _0: _danielnarey$elm_modular_ui$Page_Interactive$title, _1: _danielnarey$elm_modular_ui$Page$Interactive}),
-			{
-				ctor: '::',
-				_0: _danielnarey$elm_modular_ui$Page_Interactive$Buttons,
-				_1: {
-					ctor: '::',
-					_0: _danielnarey$elm_modular_ui$Page_Interactive$Input,
-					_1: {
-						ctor: '::',
-						_0: _danielnarey$elm_modular_ui$Page_Interactive$Selectors,
-						_1: {
-							ctor: '::',
-							_0: _danielnarey$elm_modular_ui$Page_Interactive$Indicators,
-							_1: {ctor: '[]'}
-						}
-					}
-				}
-			}));
-	return A2(
-		_danielnarey$elm_modular_ui$Ui$container,
-		'div',
-		{
-			ctor: '::',
-			_0: interactiveLinks,
-			_1: {
-				ctor: '::',
-				_0: contentLinks,
-				_1: {
-					ctor: '::',
-					_0: customizeLinks,
-					_1: {ctor: '[]'}
-				}
-			}
-		});
-}();
-
-var _danielnarey$elm_semantic_dom$Dom_Style$toProperty = _elm_lang$virtual_dom$VirtualDom$style;
-
-var _danielnarey$elm_modular_ui$Ui_Style$toRgbaString = function (colorValue) {
-	var roundTo2 = function (number) {
-		return A3(
-			_elm_lang$core$Basics$flip,
-			F2(
-				function (x, y) {
-					return x / y;
-				}),
-			100,
-			_elm_lang$core$Basics$toFloat(
-				_elm_lang$core$Basics$round(number * 100)));
-	};
-	var rgba = _elm_lang$core$Color$toRgb(colorValue);
-	return _elm_lang$core$String$concat(
-		{
-			ctor: '::',
-			_0: 'rgba(',
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$core$Basics$toString(rgba.red),
-				_1: {
-					ctor: '::',
-					_0: ',',
-					_1: {
-						ctor: '::',
-						_0: _elm_lang$core$Basics$toString(rgba.green),
-						_1: {
-							ctor: '::',
-							_0: ',',
-							_1: {
-								ctor: '::',
-								_0: _elm_lang$core$Basics$toString(rgba.blue),
-								_1: {
-									ctor: '::',
-									_0: ',',
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$core$Basics$toString(
-											roundTo2(rgba.alpha)),
-										_1: {
-											ctor: '::',
-											_0: ')',
-											_1: {ctor: '[]'}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
-		});
-};
-var _danielnarey$elm_modular_ui$Ui_Style$boxShadow = function (args) {
-	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
-		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(
-			{
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple2',
-					_0: 'box-shadow',
-					_1: function () {
-						var _p0 = args.inset;
-						if (_p0 === true) {
-							return A2(_elm_lang$core$Basics$flip, _elm_lang$core$String$append, ' inset');
-						} else {
-							return _elm_lang$core$Basics$identity;
-						}
-					}()(
-						_elm_lang$core$String$concat(
-							{
-								ctor: '::',
-								_0: _elm_lang$core$Basics$toString(
-									_elm_lang$core$Tuple$first(args.offset)),
-								_1: {
-									ctor: '::',
-									_0: 'px ',
-									_1: {
-										ctor: '::',
-										_0: _elm_lang$core$Basics$toString(
-											_elm_lang$core$Tuple$second(args.offset)),
-										_1: {
-											ctor: '::',
-											_0: 'px ',
-											_1: {
-												ctor: '::',
-												_0: _elm_lang$core$Basics$toString(args.blur),
-												_1: {
-													ctor: '::',
-													_0: 'px ',
-													_1: {
-														ctor: '::',
-														_0: _elm_lang$core$Basics$toString(args.spread),
-														_1: {
-															ctor: '::',
-															_0: 'px ',
-															_1: {
-																ctor: '::',
-																_0: _danielnarey$elm_modular_ui$Ui_Style$toRgbaString(args.color),
-																_1: {ctor: '[]'}
-															}
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}))
-				},
-				_1: {ctor: '[]'}
-			}));
-};
-var _danielnarey$elm_modular_ui$Ui_Style$borderRadius = function (value) {
-	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
-		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(
-			{
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple2',
-					_0: 'border-radius',
-					_1: A3(
-						_elm_lang$core$Basics$flip,
-						_elm_lang$core$String$append,
-						'px',
-						_elm_lang$core$Basics$toString(value))
-				},
-				_1: {ctor: '[]'}
-			}));
-};
-var _danielnarey$elm_modular_ui$Ui_Style$border = function (_p1) {
-	var _p2 = _p1;
-	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
-		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(
-			{
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple2',
-					_0: 'border',
-					_1: _elm_lang$core$String$concat(
-						{
-							ctor: '::',
-							_0: _elm_lang$core$Basics$toString(_p2._0),
-							_1: {
-								ctor: '::',
-								_0: 'px ',
-								_1: {
-									ctor: '::',
-									_0: _p2._1,
-									_1: {
-										ctor: '::',
-										_0: ' ',
-										_1: {
-											ctor: '::',
-											_0: _danielnarey$elm_modular_ui$Ui_Style$toRgbaString(_p2._2),
-											_1: {ctor: '[]'}
-										}
-									}
-								}
-							}
-						})
-				},
-				_1: {ctor: '[]'}
-			}));
-};
-var _danielnarey$elm_modular_ui$Ui_Style$backgroundColor = function (colorValue) {
-	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
-		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(
-			{
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple2',
-					_0: 'background-color',
-					_1: _danielnarey$elm_modular_ui$Ui_Style$toRgbaString(colorValue)
-				},
-				_1: {ctor: '[]'}
-			}));
-};
-var _danielnarey$elm_modular_ui$Ui_Style$color = function (colorValue) {
-	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
-		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(
-			{
-				ctor: '::',
-				_0: {
-					ctor: '_Tuple2',
-					_0: 'color',
-					_1: _danielnarey$elm_modular_ui$Ui_Style$toRgbaString(colorValue)
-				},
-				_1: {ctor: '[]'}
-			}));
-};
-var _danielnarey$elm_modular_ui$Ui_Style$addList = function (keyValueList) {
-	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
-		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(keyValueList));
-};
-var _danielnarey$elm_modular_ui$Ui_Style$add = function (keyValue) {
-	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
-		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(
-			{
-				ctor: '::',
-				_0: keyValue,
-				_1: {ctor: '[]'}
-			}));
-};
-
 var _danielnarey$elm_modular_ui$Ui_Selector$dropdown = F2(
 	function (token, args) {
 		var getNth = F2(
@@ -20778,43 +20335,2217 @@ var _danielnarey$elm_modular_ui$Ui_Selector$checkbox = F2(
 						}))));
 	});
 
+var _danielnarey$elm_modular_ui$Ui_Indicator$withDelete = F2(
+	function (msg, indicator) {
+		var internalText = _danielnarey$elm_semantic_dom$Dom_Text$node(indicator.text);
+		var label = A2(_danielnarey$elm_semantic_dom$Dom_Element$hasClass, 'tag', indicator) ? 'Remove tag' : (A2(_danielnarey$elm_semantic_dom$Dom_Element$hasClass, 'notification', indicator) ? 'Dismiss notification' : 'Delete');
+		var deleteButton = _danielnarey$elm_semantic_dom$Dom_Element$toNode(
+			A2(
+				_danielnarey$elm_semantic_dom$Dom_Element$addAttribute,
+				A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, label, 'aria-label'),
+				_danielnarey$elm_modular_ui$Ui_Button$delete(msg)));
+		return A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withChildNodes,
+			{
+				ctor: '::',
+				_0: deleteButton,
+				_1: {ctor: '::', _0: internalText, _1: indicator.children}
+			},
+			A2(_danielnarey$elm_semantic_dom$Dom_Element$withText, '', indicator));
+	});
+var _danielnarey$elm_modular_ui$Ui_Indicator$progress = function (currentValue) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+		{
+			ctor: '::',
+			_0: A2(
+				_danielnarey$elm_semantic_dom$Dom_Property$int,
+				A3(_elm_lang$core$Basics$clamp, 0, 100, currentValue),
+				'value'),
+			_1: {
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$int, 100, 'max'),
+				_1: {ctor: '[]'}
+			}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+			{
+				ctor: '::',
+				_0: 'progress',
+				_1: {ctor: '[]'}
+			},
+			A2(
+				_danielnarey$elm_semantic_dom$Dom_Element$textWrapper,
+				'progress',
+				A3(
+					_elm_lang$core$Basics$flip,
+					_elm_lang$core$String$append,
+					'%',
+					_elm_lang$core$Basics$toString(currentValue)))));
+};
+var _danielnarey$elm_modular_ui$Ui_Indicator$notification = function (_p0) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'notification',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'alert', 'role'),
+				_1: {ctor: '[]'}
+			},
+			A2(_danielnarey$elm_semantic_dom$Dom_Element$textWrapper, 'div', _p0)));
+};
+var _danielnarey$elm_modular_ui$Ui_Indicator$tag = function (_p1) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'tag',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'note', 'role'),
+				_1: {ctor: '[]'}
+			},
+			A2(_danielnarey$elm_semantic_dom$Dom_Element$textWrapper, 'span', _p1)));
+};
+
+var _danielnarey$elm_modular_ui$View_Interactive$indicators = function (model) {
+	var progressElement = A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		A2(
+			_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+			_danielnarey$elm_modular_ui$Ui_Indicator$progress(65),
+			_danielnarey$elm_modular_ui$Ui$container('div')),
+		_danielnarey$elm_modular_ui$Component_Grid$equalColumns('is-7'));
+	var progressCode = '65\n  |> Ui.Indicator.progress';
+	var notificationElement = A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		A2(
+			_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+			A2(
+				_danielnarey$elm_modular_ui$Ui_Modifier$conditional,
+				{ctor: '_Tuple2', _0: 'is-invisible', _1: model.notificationIsHidden},
+				A2(
+					_danielnarey$elm_modular_ui$Ui_Indicator$withDelete,
+					_danielnarey$elm_modular_ui$Msg$HideNotification,
+					_danielnarey$elm_modular_ui$Ui_Indicator$notification('You are awesome.'))),
+			_danielnarey$elm_modular_ui$Ui$container('div')),
+		_danielnarey$elm_modular_ui$Component_Grid$equalColumns('is-7'));
+	var notificationCode = '\"You are awesome.\"\n  |> Ui.Indicator.notification\n  |> Ui.Indicator.withDelete Msg.HideNotification';
+	var tagElement = _danielnarey$elm_modular_ui$Ui_Indicator$tag('2.7.1');
+	var tagCode = '\"2.7.1\"\n  |> Ui.Indicator.tag';
+	return A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		_danielnarey$elm_modular_ui$Component_Layout$container(
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$View_Layout$example,
+					'Tag',
+					{ctor: '_Tuple2', _0: tagCode, _1: tagElement}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$View_Layout$example,
+						'Notification',
+						{ctor: '_Tuple2', _0: notificationCode, _1: notificationElement}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_danielnarey$elm_modular_ui$View_Layout$example,
+							'Progress Bar',
+							{ctor: '_Tuple2', _0: progressCode, _1: progressElement}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}),
+		_danielnarey$elm_modular_ui$Component_Layout$section);
+};
+var _danielnarey$elm_modular_ui$View_Interactive$selectors = function (model) {
+	var dropdownElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-multiline',
+		A2(
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns,
+			'is-7',
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Selector$dropdown,
+						_danielnarey$elm_modular_ui$Msg$UpdateShippingDestination,
+						{
+							id: 11,
+							placeholder: 'Select shipping destination',
+							options: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'United States', _1: _danielnarey$elm_modular_ui$Option$UnitedStates},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'Canada', _1: _danielnarey$elm_modular_ui$Option$Canada},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'Global', _1: _danielnarey$elm_modular_ui$Option$Global},
+										_1: {ctor: '[]'}
+									}
+								}
+							},
+							selected: model.shippingDestination
+						}),
+					_danielnarey$elm_modular_ui$Ui$container('div')),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+						A2(
+							_danielnarey$elm_modular_ui$Ui$textWrapper,
+							'code',
+							_elm_lang$core$Basics$toString(model.shippingDestination)),
+						_danielnarey$elm_modular_ui$Ui$container('div')),
+					_1: {ctor: '[]'}
+				}
+			}));
+	var dropdownCode = '{ id = 11\n, placeholder = \"Select shipping destination\"\n, options =\n  [ (\"United States\", Option.UnitedStates)\n  , (\"Canada\", Option.Canada)\n  , (\"Global\", Option.Global)\n  ]\n\n, selected = model.shippingDestination\n}\n  |> Ui.Selector.dropdown Msg.UpdateShippingDestination';
+	var radioButtonsElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-multiline',
+		A2(
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns,
+			'is-12',
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$Ui$container,
+					'div',
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Selector$radioButtons,
+						_danielnarey$elm_modular_ui$Msg$UpdateEmailFrequency,
+						{
+							id: 10,
+							options: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'Every day', _1: _danielnarey$elm_modular_ui$Option$Daily},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'Every week', _1: _danielnarey$elm_modular_ui$Option$Weekly},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'Every month', _1: _danielnarey$elm_modular_ui$Option$Monthly},
+										_1: {ctor: '[]'}
+									}
+								}
+							},
+							selected: model.emailFrequency
+						})),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+						A2(
+							_danielnarey$elm_modular_ui$Ui$textWrapper,
+							'code',
+							_elm_lang$core$Basics$toString(model.emailFrequency)),
+						_danielnarey$elm_modular_ui$Ui$container('div')),
+					_1: {ctor: '[]'}
+				}
+			}));
+	var radioButtonsCode = '{ id = 10\n, options =\n  [ (\"Every day\", Option.Daily)\n  , (\"Every week\", Option.Weekly)\n  , (\"Every month\", Option.Monthly)\n  ]\n\n, selected = model.emailFrequency\n}\n  |> Ui.Selector.radioButtons Msg.UpdateEmailFrequency';
+	var checkboxElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-multiline',
+		A2(
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns,
+			'is-7',
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$Ui_Selector$checkbox,
+					_danielnarey$elm_modular_ui$Msg$ToggleUserAgrees,
+					{id: 9, label: 'I agree to the terms and conditions', checked: model.userAgrees}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+						A2(
+							_danielnarey$elm_modular_ui$Ui$textWrapper,
+							'code',
+							_elm_lang$core$Basics$toString(model.userAgrees)),
+						_danielnarey$elm_modular_ui$Ui$container('div')),
+					_1: {ctor: '[]'}
+				}
+			}));
+	var checkboxCode = '{ id = 9\n, label = \"I agree to the terms and conditions\"\n, checked = model.userAgrees\n}\n  |> Ui.Selector.checkbox Msg.ToggleUserAgrees';
+	return A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		_danielnarey$elm_modular_ui$Component_Layout$container(
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$View_Layout$example,
+					'Checkbox',
+					{ctor: '_Tuple2', _0: checkboxCode, _1: checkboxElement}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$View_Layout$example,
+						'Radio Buttons',
+						{ctor: '_Tuple2', _0: radioButtonsCode, _1: radioButtonsElement}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_danielnarey$elm_modular_ui$View_Layout$example,
+							'Select Dropdown',
+							{ctor: '_Tuple2', _0: dropdownCode, _1: dropdownElement}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}),
+		_danielnarey$elm_modular_ui$Component_Layout$section);
+};
+var _danielnarey$elm_modular_ui$View_Interactive$input = function (model) {
+	var colorPickerElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-multiline',
+		A2(
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns,
+			'is-7',
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Input$colorPicker,
+						_danielnarey$elm_modular_ui$Msg$UpdateTextColor,
+						{id: 8, value: model.textColor}),
+					_danielnarey$elm_modular_ui$Ui$container('div')),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+						A2(
+							_danielnarey$elm_modular_ui$Ui$textWrapper,
+							'code',
+							_elm_lang$core$Basics$toString(model.textColor)),
+						_danielnarey$elm_modular_ui$Ui$container('div')),
+					_1: {ctor: '[]'}
+				}
+			}));
+	var colorPickerCode = '{ id = 8\n, value = model.textColor\n}\n  |> Ui.Input.colorPicker Msg.UpdateTextColor';
+	var floatSliderElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-multiline',
+		A2(
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns,
+			'is-7',
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Input$floatSlider,
+						_danielnarey$elm_modular_ui$Msg$AdjustBrightness,
+						{
+							id: 7,
+							value: model.brightness,
+							minMaxStep: {ctor: '_Tuple3', _0: 0, _1: 1, _2: 1.0e-2}
+						}),
+					_danielnarey$elm_modular_ui$Ui$container('div')),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+						A2(
+							_danielnarey$elm_modular_ui$Ui$textWrapper,
+							'code',
+							_elm_lang$core$Basics$toString(model.brightness)),
+						_danielnarey$elm_modular_ui$Ui$container('div')),
+					_1: {ctor: '[]'}
+				}
+			}));
+	var floatSliderCode = '{ id = 7\n, value = model.brightness\n, minMaxStep = (0, 1, 0.01)\n}\n  |> Ui.Input.floatSlider Msg.AdjustBrightness';
+	var intSliderElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-multiline',
+		A2(
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns,
+			'is-7',
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Input$intSlider,
+						_danielnarey$elm_modular_ui$Msg$UpdateStarRating,
+						{
+							id: 6,
+							value: model.starRating,
+							minMaxStep: {ctor: '_Tuple3', _0: 1, _1: 5, _2: 1}
+						}),
+					_danielnarey$elm_modular_ui$Ui$container('div')),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+						A2(
+							_danielnarey$elm_modular_ui$Ui$textWrapper,
+							'code',
+							_elm_lang$core$Basics$toString(model.starRating)),
+						_danielnarey$elm_modular_ui$Ui$container('div')),
+					_1: {ctor: '[]'}
+				}
+			}));
+	var intSliderCode = '{ id = 6\n, value = model.starRating\n, minMaxStep = (1, 5, 1)\n}\n  |> Ui.Input.intSlider Msg.UpdateStarRating';
+	var customElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-multiline',
+		A2(
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns,
+			'is-7',
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Input$custom,
+						_danielnarey$elm_modular_ui$Msg$UpdateBackgroundColor,
+						{
+							id: 5,
+							placeholder: '#FFFFFF',
+							value: model.backgroundColor,
+							encoder: _danielnarey$elm_color_math$ColorMath_Hex$toColor,
+							decoder: function (_p0) {
+								return _elm_lang$core$Result$Ok(
+									_danielnarey$elm_color_math$ColorMath_Hex$fromColor(_p0));
+							}
+						}),
+					_danielnarey$elm_modular_ui$Ui$container('div')),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+						A2(
+							_danielnarey$elm_modular_ui$Ui$textWrapper,
+							'code',
+							_elm_lang$core$Basics$toString(model.backgroundColor)),
+						_danielnarey$elm_modular_ui$Ui$container('div')),
+					_1: {ctor: '[]'}
+				}
+			}));
+	var customCode = '{ id = 5\n, placeholder = \"#FFFFFF\"\n, value = model.backgroundColor\n, encoder = ColorMath.Hex.toColor\n, decoder = ColorMath.Hex.fromColor >> Ok\n}\n  |> Ui.Input.custom Msg.UpdateBackgroundColor';
+	var floatElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-multiline',
+		A2(
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns,
+			'is-7',
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Input$float,
+						_danielnarey$elm_modular_ui$Msg$UpdatePackageWeight,
+						{
+							id: 4,
+							placeholder: '',
+							value: model.packageWeight,
+							minMaxStep: {ctor: '_Tuple3', _0: 0, _1: 25, _2: 0.1}
+						}),
+					_danielnarey$elm_modular_ui$Ui$container('div')),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+						A2(
+							_danielnarey$elm_modular_ui$Ui$textWrapper,
+							'code',
+							_elm_lang$core$Basics$toString(model.packageWeight)),
+						_danielnarey$elm_modular_ui$Ui$container('div')),
+					_1: {ctor: '[]'}
+				}
+			}));
+	var floatCode = '{ id = 4\n, placeholder = \"\"\n, value = model.packageWeight\n, minMaxStep = (0, 25, 0.01)\n}\n  |> Ui.Input.float Msg.UpdatePackageWeight';
+	var intElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-multiline',
+		A2(
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns,
+			'is-7',
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Input$int,
+						_danielnarey$elm_modular_ui$Msg$UpdateUserAge,
+						{
+							id: 3,
+							placeholder: '35',
+							value: model.userAge,
+							minMaxStep: {ctor: '_Tuple3', _0: 0, _1: 117, _2: 1}
+						}),
+					_danielnarey$elm_modular_ui$Ui$container('div')),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+						A2(
+							_danielnarey$elm_modular_ui$Ui$textWrapper,
+							'code',
+							_elm_lang$core$Basics$toString(model.userAge)),
+						_danielnarey$elm_modular_ui$Ui$container('div')),
+					_1: {ctor: '[]'}
+				}
+			}));
+	var intCode = '{ id = 3\n, placeholder = \"35\"\n, value = model.userAge\n, minMaxStep = (0, 117, 1)\n}\n  |> Ui.Input.int Msg.UpdateUserAge';
+	var textAreaElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-multiline',
+		A2(
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns,
+			'is-7',
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Input$textArea,
+						_danielnarey$elm_modular_ui$Msg$UpdateUserBio,
+						{
+							id: 2,
+							placeholder: 'Tell us about yourself.',
+							value: model.userBio,
+							rows: _elm_lang$core$Maybe$Just(10)
+						}),
+					_danielnarey$elm_modular_ui$Ui$container('div')),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+						A2(
+							_danielnarey$elm_modular_ui$Ui$textWrapper,
+							'code',
+							_elm_lang$core$Basics$toString(model.userBio)),
+						_danielnarey$elm_modular_ui$Ui$container('div')),
+					_1: {ctor: '[]'}
+				}
+			}));
+	var textAreaCode = '{ id = 2\n, placeholder = \"Tell us about yourself.\"\n, value = model.userBio\n, rows = Just 10\n}\n  |> Ui.Input.textArea Msg.UpdateUserBio';
+	var stringElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-multiline',
+		A2(
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns,
+			'is-7',
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Input$string,
+						_danielnarey$elm_modular_ui$Msg$UpdateUserName,
+						{id: 1, placeholder: 'first last', value: model.userName}),
+					_danielnarey$elm_modular_ui$Ui$container('div')),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+						A2(
+							_danielnarey$elm_modular_ui$Ui$textWrapper,
+							'code',
+							_elm_lang$core$Basics$toString(model.userName)),
+						_danielnarey$elm_modular_ui$Ui$container('div')),
+					_1: {ctor: '[]'}
+				}
+			}));
+	var stringCode = '{ id = 1\n, placeholder = \"first last\"\n, value = model.userName\n}\n  |> Ui.Input.string Msg.UpdateUserName';
+	return A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		_danielnarey$elm_modular_ui$Component_Layout$container(
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$View_Layout$example,
+					'String Input',
+					{ctor: '_Tuple2', _0: stringCode, _1: stringElement}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$View_Layout$example,
+						'Text Area',
+						{ctor: '_Tuple2', _0: textAreaCode, _1: textAreaElement}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_danielnarey$elm_modular_ui$View_Layout$example,
+							'Int Input',
+							{ctor: '_Tuple2', _0: intCode, _1: intElement}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_danielnarey$elm_modular_ui$View_Layout$example,
+								'Float Input',
+								{ctor: '_Tuple2', _0: floatCode, _1: floatElement}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_danielnarey$elm_modular_ui$View_Layout$example,
+									'Custom Input',
+									{ctor: '_Tuple2', _0: customCode, _1: customElement}),
+								_1: {
+									ctor: '::',
+									_0: A2(
+										_danielnarey$elm_modular_ui$View_Layout$example,
+										'Int Slider',
+										{ctor: '_Tuple2', _0: intSliderCode, _1: intSliderElement}),
+									_1: {
+										ctor: '::',
+										_0: A2(
+											_danielnarey$elm_modular_ui$View_Layout$example,
+											'Float Slider',
+											{ctor: '_Tuple2', _0: floatSliderCode, _1: floatSliderElement}),
+										_1: {
+											ctor: '::',
+											_0: A2(
+												_danielnarey$elm_modular_ui$View_Layout$example,
+												'Color Picker',
+												{ctor: '_Tuple2', _0: colorPickerCode, _1: colorPickerElement}),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}),
+		_danielnarey$elm_modular_ui$Component_Layout$section);
+};
+var _danielnarey$elm_modular_ui$View_Interactive$buttons = function (model) {
+	var deleteElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$conditional,
+		{ctor: '_Tuple2', _0: 'is-invisible', _1: model.deleteIsHidden},
+		_danielnarey$elm_modular_ui$Ui_Button$delete(_danielnarey$elm_modular_ui$Msg$Disappear));
+	var deleteCode = 'Ui.Button.delete Msg.Disappear';
+	var navigationElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Button$navigation,
+		_danielnarey$elm_modular_ui$Msg$LoadUrl('http://elm-lang.org'),
+		'Elm Website');
+	var navigationCode = '\"Elm Website\"\n  |> Ui.Button.navigation\n    ( Msg.LoadUrl \"http://elm-lang.org\" )';
+	var actionElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Button$action,
+		_danielnarey$elm_modular_ui$Msg$Alert('You Clicked!'),
+		'Click Here');
+	var actionCode = '\"Click Here\"\n  |> Ui.Button.action\n    ( Msg.Alert \"You Clicked!\" )';
+	return A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		_danielnarey$elm_modular_ui$Component_Layout$container(
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$View_Layout$example,
+					'Action Button',
+					{ctor: '_Tuple2', _0: actionCode, _1: actionElement}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$View_Layout$example,
+						'Navigation Button',
+						{ctor: '_Tuple2', _0: navigationCode, _1: navigationElement}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_danielnarey$elm_modular_ui$View_Layout$example,
+							'Delete Button',
+							{ctor: '_Tuple2', _0: deleteCode, _1: deleteElement}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}),
+		_danielnarey$elm_modular_ui$Component_Layout$section);
+};
+
+var _danielnarey$elm_modular_ui$Ui_Icon$openIconic = function (args) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'icon',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'img', 'role'),
+				_1: {
+					ctor: '::',
+					_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, args.altText, 'aria-label'),
+					_1: {ctor: '[]'}
+				}
+			},
+			A2(
+				_danielnarey$elm_semantic_dom$Dom_Element$wrapNodes,
+				'span',
+				{
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_semantic_dom$Dom_Node$leaf,
+						'span',
+						{
+							ctor: '::',
+							_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, 'oi', 'className'),
+							_1: {
+								ctor: '::',
+								_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, args.name, 'data-glyph'),
+								_1: {
+									ctor: '::',
+									_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'true', 'aria-hidden'),
+									_1: {ctor: '[]'}
+								}
+							}
+						}),
+					_1: {ctor: '[]'}
+				})));
+};
+var _danielnarey$elm_modular_ui$Ui_Icon$ionicons = function (args) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'icon',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'img', 'role'),
+				_1: {
+					ctor: '::',
+					_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, args.altText, 'aria-label'),
+					_1: {ctor: '[]'}
+				}
+			},
+			A2(
+				_danielnarey$elm_semantic_dom$Dom_Element$wrapNodes,
+				'span',
+				{
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_semantic_dom$Dom_Node$leaf,
+						'i',
+						{
+							ctor: '::',
+							_0: A2(
+								_danielnarey$elm_semantic_dom$Dom_Property$string,
+								A2(_elm_lang$core$Basics_ops['++'], 'ion-', args.name),
+								'className'),
+							_1: {
+								ctor: '::',
+								_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'true', 'aria-hidden'),
+								_1: {ctor: '[]'}
+							}
+						}),
+					_1: {ctor: '[]'}
+				})));
+};
+var _danielnarey$elm_modular_ui$Ui_Icon$material = function (args) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'icon',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'img', 'role'),
+				_1: {
+					ctor: '::',
+					_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, args.altText, 'aria-label'),
+					_1: {ctor: '[]'}
+				}
+			},
+			A2(
+				_danielnarey$elm_semantic_dom$Dom_Element$wrapNodes,
+				'span',
+				{
+					ctor: '::',
+					_0: A3(
+						_danielnarey$elm_semantic_dom$Dom_Node$textWrapper,
+						'i',
+						{
+							ctor: '::',
+							_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, 'material-icons', 'className'),
+							_1: {
+								ctor: '::',
+								_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'true', 'aria-hidden'),
+								_1: {ctor: '[]'}
+							}
+						},
+						args.name),
+					_1: {ctor: '[]'}
+				})));
+};
+var _danielnarey$elm_modular_ui$Ui_Icon$fontAwesome4 = function (args) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'icon',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'img', 'role'),
+				_1: {
+					ctor: '::',
+					_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, args.altText, 'aria-label'),
+					_1: {ctor: '[]'}
+				}
+			},
+			A2(
+				_danielnarey$elm_semantic_dom$Dom_Element$wrapNodes,
+				'span',
+				{
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_semantic_dom$Dom_Node$leaf,
+						'i',
+						{
+							ctor: '::',
+							_0: A2(
+								_danielnarey$elm_semantic_dom$Dom_Property$string,
+								A2(_elm_lang$core$Basics_ops['++'], 'fa fa-', args.name),
+								'className'),
+							_1: {
+								ctor: '::',
+								_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'true', 'aria-hidden'),
+								_1: {ctor: '[]'}
+							}
+						}),
+					_1: {ctor: '[]'}
+				})));
+};
+var _danielnarey$elm_modular_ui$Ui_Icon$svg = function (args) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'icon',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'img', 'role'),
+				_1: {
+					ctor: '::',
+					_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, args.altText, 'aria-label'),
+					_1: {ctor: '[]'}
+				}
+			},
+			A2(
+				_danielnarey$elm_semantic_dom$Dom_Element$wrapNodes,
+				'span',
+				{
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_semantic_dom$Dom_Node$leaf,
+						'img',
+						{
+							ctor: '::',
+							_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, args.path, 'src'),
+							_1: {
+								ctor: '::',
+								_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'true', 'aria-hidden'),
+								_1: {ctor: '[]'}
+							}
+						}),
+					_1: {ctor: '[]'}
+				})));
+};
+
+var _danielnarey$elm_modular_ui$Ui_Media$withCaption = F2(
+	function (args, figureElement) {
+		return A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$addAttribute,
+			A2(
+				_danielnarey$elm_semantic_dom$Dom_Attribute$string,
+				A2(
+					_elm_lang$core$String$append,
+					'caption-',
+					_elm_lang$core$Basics$toString(args.id)),
+				'aria-labelledby'),
+			A2(
+				_danielnarey$elm_semantic_dom$Dom_Element$appendChild,
+				A2(
+					_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+					{
+						ctor: '::',
+						_0: A2(
+							_danielnarey$elm_semantic_dom$Dom_Property$string,
+							A2(
+								_elm_lang$core$String$append,
+								'caption-',
+								_elm_lang$core$Basics$toString(args.id)),
+							'id'),
+						_1: {ctor: '[]'}
+					},
+					A2(_danielnarey$elm_semantic_dom$Dom_Element$textWrapper, 'figcaption', args.text)),
+				figureElement));
+	});
+var _danielnarey$elm_modular_ui$Ui_Media$audio = function (args) {
+	var toErrorMessage = function (_p0) {
+		var _p1 = _p0;
+		return A3(
+			_danielnarey$elm_semantic_dom$Dom_Node$textWrapper,
+			'p',
+			{ctor: '[]'},
+			_elm_lang$core$String$concat(
+				{
+					ctor: '::',
+					_0: 'Audio file \'',
+					_1: {
+						ctor: '::',
+						_0: _p1._0,
+						_1: {
+							ctor: '::',
+							_0: '\' cannot be loaded. ',
+							_1: {
+								ctor: '::',
+								_0: 'Verify that your browser is up to date and can play \'',
+								_1: {
+									ctor: '::',
+									_0: _p1._1,
+									_1: {
+										ctor: '::',
+										_0: '\' files.',
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
+					}
+				}));
+	};
+	var toSourceNode = function (_p2) {
+		var _p3 = _p2;
+		return A2(
+			_danielnarey$elm_semantic_dom$Dom_Node$leaf,
+			'source',
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, _p3._0, 'src'),
+				_1: {
+					ctor: '::',
+					_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, _p3._1, 'type'),
+					_1: {ctor: '[]'}
+				}
+			});
+	};
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'audio',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$wrapNodes,
+			'figure',
+			{
+				ctor: '::',
+				_0: A3(
+					_danielnarey$elm_semantic_dom$Dom_Node$container,
+					'audio',
+					{
+						ctor: '::',
+						_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$bool, args.hasControls, 'controls'),
+						_1: {
+							ctor: '::',
+							_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'application', 'role'),
+							_1: {ctor: '[]'}
+						}
+					},
+					_elm_lang$core$List$concat(
+						{
+							ctor: '::',
+							_0: A2(_elm_lang$core$List$map, toSourceNode, args.sourceList),
+							_1: {
+								ctor: '::',
+								_0: A2(_elm_lang$core$List$map, toErrorMessage, args.sourceList),
+								_1: {ctor: '[]'}
+							}
+						})),
+				_1: {ctor: '[]'}
+			}));
+};
+var _danielnarey$elm_modular_ui$Ui_Media$video = function (args) {
+	var toErrorMessage = function (_p4) {
+		var _p5 = _p4;
+		return A3(
+			_danielnarey$elm_semantic_dom$Dom_Node$textWrapper,
+			'p',
+			{ctor: '[]'},
+			_elm_lang$core$String$concat(
+				{
+					ctor: '::',
+					_0: 'Video file \'',
+					_1: {
+						ctor: '::',
+						_0: _p5._0,
+						_1: {
+							ctor: '::',
+							_0: '\' cannot be loaded. ',
+							_1: {
+								ctor: '::',
+								_0: 'Verify that your browser is up to date and can play \'',
+								_1: {
+									ctor: '::',
+									_0: _p5._1,
+									_1: {
+										ctor: '::',
+										_0: '\' files.',
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
+					}
+				}));
+	};
+	var toSourceNode = function (_p6) {
+		var _p7 = _p6;
+		return A2(
+			_danielnarey$elm_semantic_dom$Dom_Node$leaf,
+			'source',
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, _p7._0, 'src'),
+				_1: {
+					ctor: '::',
+					_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, _p7._1, 'type'),
+					_1: {ctor: '[]'}
+				}
+			});
+	};
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'video',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$wrapNodes,
+			'figure',
+			{
+				ctor: '::',
+				_0: A3(
+					_danielnarey$elm_semantic_dom$Dom_Node$container,
+					'video',
+					{
+						ctor: '::',
+						_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$bool, args.hasControls, 'controls'),
+						_1: {
+							ctor: '::',
+							_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'application', 'role'),
+							_1: {ctor: '[]'}
+						}
+					},
+					_elm_lang$core$List$concat(
+						{
+							ctor: '::',
+							_0: A2(_elm_lang$core$List$map, toSourceNode, args.sourceList),
+							_1: {
+								ctor: '::',
+								_0: A2(_elm_lang$core$List$map, toErrorMessage, args.sourceList),
+								_1: {ctor: '[]'}
+							}
+						})),
+				_1: {ctor: '[]'}
+			}));
+};
+var _danielnarey$elm_modular_ui$Ui_Media$svg = function (args) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'svg-object',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$wrapNodes,
+			'figure',
+			{
+				ctor: '::',
+				_0: A3(
+					_danielnarey$elm_semantic_dom$Dom_Node$container,
+					'object',
+					{
+						ctor: '::',
+						_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, args.path, 'data'),
+						_1: {
+							ctor: '::',
+							_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, 'image/svg+xml', 'type'),
+							_1: {ctor: '[]'}
+						}
+					},
+					{
+						ctor: '::',
+						_0: A2(
+							_danielnarey$elm_semantic_dom$Dom_Node$leaf,
+							'img',
+							{
+								ctor: '::',
+								_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, args.fallback, 'src'),
+								_1: {
+									ctor: '::',
+									_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, args.altText, 'alt'),
+									_1: {ctor: '[]'}
+								}
+							}),
+						_1: {ctor: '[]'}
+					}),
+				_1: {ctor: '[]'}
+			}));
+};
+var _danielnarey$elm_modular_ui$Ui_Media$image = function (args) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'image',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$wrapNodes,
+			'figure',
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_semantic_dom$Dom_Node$leaf,
+					'img',
+					{
+						ctor: '::',
+						_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, args.path, 'src'),
+						_1: {
+							ctor: '::',
+							_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, args.altText, 'alt'),
+							_1: {ctor: '[]'}
+						}
+					}),
+				_1: {ctor: '[]'}
+			}));
+};
+
+var _danielnarey$elm_modular_ui$Ui_Source$embed = function (_p0) {
+	var _p1 = _p0;
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'source',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, _p1._0, 'src'),
+				_1: {
+					ctor: '::',
+					_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, _p1._1, 'type'),
+					_1: {
+						ctor: '::',
+						_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'application', 'role'),
+						_1: {
+							ctor: '::',
+							_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, _p1._2, 'aria-label'),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			},
+			_danielnarey$elm_semantic_dom$Dom_Element$leaf('embed')));
+};
+var _danielnarey$elm_modular_ui$Ui_Source$iframe = function (args) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'source',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, args.path, 'src'),
+				_1: {
+					ctor: '::',
+					_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'document', 'role'),
+					_1: {
+						ctor: '::',
+						_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, args.altText, 'aria-label'),
+						_1: {ctor: '[]'}
+					}
+				}
+			},
+			_danielnarey$elm_semantic_dom$Dom_Element$leaf('iframe')));
+};
+var _danielnarey$elm_modular_ui$Ui_Source$object = function (args) {
+	return A2(
+		_danielnarey$elm_semantic_dom$Dom_Element$withClasses,
+		{
+			ctor: '::',
+			_0: 'source',
+			_1: {ctor: '[]'}
+		},
+		A2(
+			_danielnarey$elm_semantic_dom$Dom_Element$withAttributes,
+			{
+				ctor: '::',
+				_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, args.path, 'data'),
+				_1: {
+					ctor: '::',
+					_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, args.mediaType, 'type'),
+					_1: {
+						ctor: '::',
+						_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, 'document', 'role'),
+						_1: {
+							ctor: '::',
+							_0: A2(_danielnarey$elm_semantic_dom$Dom_Attribute$string, args.altText, 'aria-label'),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			},
+			A2(
+				_danielnarey$elm_semantic_dom$Dom_Element$wrapNodes,
+				'object',
+				{
+					ctor: '::',
+					_0: A3(
+						_danielnarey$elm_semantic_dom$Dom_Node$container,
+						'p',
+						{ctor: '[]'},
+						{
+							ctor: '::',
+							_0: _danielnarey$elm_semantic_dom$Dom_Text$node('Click to load in a new window:'),
+							_1: {
+								ctor: '::',
+								_0: A3(
+									_danielnarey$elm_semantic_dom$Dom_Node$textWrapper,
+									'a',
+									{
+										ctor: '::',
+										_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, args.path, 'href'),
+										_1: {
+											ctor: '::',
+											_0: A2(_danielnarey$elm_semantic_dom$Dom_Property$string, '_blank', 'target'),
+											_1: {ctor: '[]'}
+										}
+									},
+									args.path),
+								_1: {ctor: '[]'}
+							}
+						}),
+					_1: {ctor: '[]'}
+				})));
+};
+
+var _danielnarey$elm_modular_ui$View_Content$source = function () {
+	var iframeElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Attribute$addList,
+		{
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 'width',
+				_1: _danielnarey$elm_semantic_dom$Dom_Property$string('350')
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'height',
+					_1: _danielnarey$elm_semantic_dom$Dom_Property$string('550')
+				},
+				_1: {ctor: '[]'}
+			}
+		},
+		_danielnarey$elm_modular_ui$Ui_Source$iframe(
+			{path: 'http://elm-lang.org', altText: 'The Elm language home page'}));
+	var iframeCode = '{ path = \"http://elm-lang.org\"\n, altText = \"The Elm language home page\"\n}\n  |> Ui.Source.iframe';
+	var objectElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Attribute$addList,
+		{
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 'width',
+				_1: _danielnarey$elm_semantic_dom$Dom_Property$string('350')
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'height',
+					_1: _danielnarey$elm_semantic_dom$Dom_Property$string('550')
+				},
+				_1: {ctor: '[]'}
+			}
+		},
+		_danielnarey$elm_modular_ui$Ui_Source$object(
+			{path: 'media/abc-book.pdf', mediaType: 'application/pdf', altText: 'PDF of an antique children\'s ABC book'}));
+	var objectCode = '{ path = \"media/abc-book.pdf\"\n, mediaType = \"application/pdf\"\n, altText = \"PDF of an antique children\'s ABC book\"\n}\n  |> Ui.Source.object';
+	return A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		_danielnarey$elm_modular_ui$Component_Layout$container(
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$View_Layout$example,
+					'Object',
+					{ctor: '_Tuple2', _0: objectCode, _1: objectElement}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$View_Layout$example,
+						'iframe',
+						{ctor: '_Tuple2', _0: iframeCode, _1: iframeElement}),
+					_1: {ctor: '[]'}
+				}
+			}),
+		_danielnarey$elm_modular_ui$Component_Layout$section);
+}();
+var _danielnarey$elm_modular_ui$View_Content$media = function () {
+	var audioElement = _danielnarey$elm_modular_ui$Ui_Media$audio(
+		{
+			sourceList: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'media/stack-o-lee.mp3', _1: 'audio/mpeg'},
+				_1: {ctor: '[]'}
+			},
+			hasControls: true
+		});
+	var audioCode = '{ sourceList =\n  [ (\"media/stack-o-lee.mp3\", \"audio/mpeg\") ]\n\n, hasControls = True\n}\n  |> Ui.Media.audio';
+	var videoElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-mobile',
+		A2(
+			_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+			A2(
+				_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+				_danielnarey$elm_modular_ui$Ui_Media$video(
+					{
+						sourceList: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'media/train.mp4', _1: 'video/mp4'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'media/train.ogv', _1: 'video/ogg'},
+								_1: {ctor: '[]'}
+							}
+						},
+						hasControls: true
+					}),
+				_danielnarey$elm_modular_ui$Ui$container('div')),
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns('is-half')));
+	var videoCode = '{ sourceList =\n  [ (\"media/train.mp4\", \"video/mp4\")\n  , (\"media/train.ogv\", \"video/ogg\")\n  ]\n\n, hasControls = True\n}\n  |> Ui.Media.video';
+	var svgElement = _danielnarey$elm_modular_ui$Ui_Media$svg(
+		{path: 'media/cc-by-nc-nd.svg', fallback: 'media/cc-by-nc-nd.png', altText: 'Icon for Creative Commons BY-NC-ND license'});
+	var svgCode = '{ path = \"media/cc-by-nc-nd.svg.svg\"\n, fallback = \"media/cc-by-nc-nd.png\"\n, altText = \"Icon for Creative Commons BY-NC-ND license\"\n}\n  |> Ui.Media.svg';
+	var imageElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-mobile',
+		A2(
+			_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+			A2(
+				_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+				A2(
+					_danielnarey$elm_modular_ui$Ui_Modifier$add,
+					'is-3by2',
+					_danielnarey$elm_modular_ui$Ui_Media$image(
+						{path: 'media/denali.jpg', altText: 'Photo of Denali (a.k.a. Mt. McKinley)'})),
+				_danielnarey$elm_modular_ui$Ui$container('div')),
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns('is-half')));
+	var imageCode = '{ path = \"media/denali.jpg\"\n, altText = \"Photo of Denali (a.k.a. Mt. McKinley)\"\n}\n  |> Ui.Media.image';
+	return A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		_danielnarey$elm_modular_ui$Component_Layout$container(
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$View_Layout$example,
+					'Image',
+					{ctor: '_Tuple2', _0: imageCode, _1: imageElement}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$View_Layout$example,
+						'SVG',
+						{ctor: '_Tuple2', _0: svgCode, _1: svgElement}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_danielnarey$elm_modular_ui$View_Layout$example,
+							'Video',
+							{ctor: '_Tuple2', _0: videoCode, _1: videoElement}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_danielnarey$elm_modular_ui$View_Layout$example,
+								'Audio',
+								{ctor: '_Tuple2', _0: audioCode, _1: audioElement}),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}),
+		_danielnarey$elm_modular_ui$Component_Layout$section);
+}();
+var _danielnarey$elm_modular_ui$View_Content$icon = function () {
+	var iconicElement = _danielnarey$elm_modular_ui$Ui_Icon$openIconic(
+		{name: 'map-marker', altText: 'Your current location'});
+	var iconicCode = '{ name = \"map-marker\"\n, altText = \"Your current location\"\n}\n  |> Ui.Icon.openIconic';
+	var ionElement = _danielnarey$elm_modular_ui$Ui_Icon$ionicons(
+		{name: 'android-bicycle', altText: 'Bicycle route to destination'});
+	var ionCode = '{ name = \"android-bicycle\"\n, altText = \"Bicycle route to destination\"\n}\n  |> Ui.Icon.ionicons';
+	var materialElement = _danielnarey$elm_modular_ui$Ui_Icon$material(
+		{name: 'directions_bike', altText: 'Bicycle route to destination'});
+	var materialCode = '{ name = \"directions_bike\"\n, altText = \"Bicycle route to destination\"\n}\n  |> Ui.Icon.material';
+	var faElement = _danielnarey$elm_modular_ui$Ui_Icon$fontAwesome4(
+		{name: 'bicycle', altText: 'Bicycle route to destination'});
+	var faCode = '{ name = \"bicycle\"\n, altText = \"Bicycle route to destination\"\n}\n  |> Ui.Icon.fontAwesome4';
+	var svgElement = _danielnarey$elm_modular_ui$Ui_Icon$svg(
+		{path: 'icons/bicycle.svg', altText: 'Bicycle route to destination'});
+	var svgCode = '{ path = \"icons/bicycle.svg\"\n, altText = \"Bicycle route to destination\"\n}\n  |> Ui.Icon.svg';
+	return A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		_danielnarey$elm_modular_ui$Component_Layout$container(
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$View_Layout$example,
+					'SVG Icon',
+					{ctor: '_Tuple2', _0: svgCode, _1: svgElement}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$View_Layout$example,
+						'Font Awesome 4 Icon',
+						{ctor: '_Tuple2', _0: faCode, _1: faElement}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_danielnarey$elm_modular_ui$View_Layout$example,
+							'Material Design Icon',
+							{ctor: '_Tuple2', _0: materialCode, _1: materialElement}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_danielnarey$elm_modular_ui$View_Layout$example,
+								'Ionicons Icon',
+								{ctor: '_Tuple2', _0: ionCode, _1: ionElement}),
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_danielnarey$elm_modular_ui$View_Layout$example,
+									'Open Iconic Icon',
+									{ctor: '_Tuple2', _0: iconicCode, _1: iconicElement}),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}
+			}),
+		_danielnarey$elm_modular_ui$Component_Layout$section);
+}();
+var _danielnarey$elm_modular_ui$View_Content$heading = function () {
+	var subtitleElement = A2(_danielnarey$elm_modular_ui$Ui_Heading$subtitle, 'h2', 'A History of the World, 1914–1991');
+	var subtitleCode = '\"A History of the World, 1914–1991\"\n  |> Ui.Heading.subtitle \"h2\"';
+	var titleElement = A2(_danielnarey$elm_modular_ui$Ui_Heading$title, 'h1', 'The Age of Extremes');
+	var titleCode = '\"The Age of Extremes\"\n  |> Ui.Heading.title \"h1\"';
+	return A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		_danielnarey$elm_modular_ui$Component_Layout$container(
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$View_Layout$example,
+					'Title',
+					{ctor: '_Tuple2', _0: titleCode, _1: titleElement}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$View_Layout$example,
+						'Subtitle',
+						{ctor: '_Tuple2', _0: subtitleCode, _1: subtitleElement}),
+					_1: {ctor: '[]'}
+				}
+			}),
+		_danielnarey$elm_modular_ui$Component_Layout$section);
+}();
+var _danielnarey$elm_modular_ui$View_Content$text = function () {
+	var typographyElement = A2(
+		_danielnarey$elm_modular_ui$Ui$container,
+		'p',
+		{
+			ctor: '::',
+			_0: _danielnarey$elm_modular_ui$Ui_Text$plain('Helpers to display text as '),
+			_1: {
+				ctor: '::',
+				_0: _danielnarey$elm_modular_ui$Ui_Text$italic('italic, '),
+				_1: {
+					ctor: '::',
+					_0: _danielnarey$elm_modular_ui$Ui_Text$bold('bold, '),
+					_1: {
+						ctor: '::',
+						_0: _danielnarey$elm_modular_ui$Ui_Text$semibold('semibold, '),
+						_1: {
+							ctor: '::',
+							_0: _danielnarey$elm_modular_ui$Ui_Text$light('or light.'),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		});
+	var typographyCode = '[ \"Helpers to display text as \"\n  |> Ui.Text.plain\n\n, \"italic, \"\n  |> Ui.Text.italic\n\n, \"bold, \"\n  |> Ui.Text.bold\n\n, \"semibold, \"\n  |> Ui.Text.semibold\n\n, \"or light.\"\n  |> Ui.Text.light\n\n]\n  |> Ui.container \"p\"';
+	var linkElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Text$link,
+		{ctor: '_Tuple2', _0: 'http://bulma.io', _1: true},
+		'Bulma docs');
+	var linkCode = '\"Bulma docs\"\n  |> Ui.Text.link (\"http://bulma.io\", True)';
+	var plainElement = _danielnarey$elm_modular_ui$Ui_Text$plain('Time to make the donuts!');
+	var plainCode = '\"Time to make the donuts!\"\n  |> Ui.Text.plain';
+	return A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		_danielnarey$elm_modular_ui$Component_Layout$container(
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$View_Layout$example,
+					'Plain Text',
+					{ctor: '_Tuple2', _0: plainCode, _1: plainElement}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$View_Layout$example,
+						'Linked Text',
+						{ctor: '_Tuple2', _0: linkCode, _1: linkElement}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_danielnarey$elm_modular_ui$View_Layout$example,
+							'Typography Helpers',
+							{ctor: '_Tuple2', _0: typographyCode, _1: typographyElement}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}),
+		_danielnarey$elm_modular_ui$Component_Layout$section);
+}();
+
+var _danielnarey$elm_semantic_dom$Dom_Style$toProperty = _elm_lang$virtual_dom$VirtualDom$style;
+
+var _danielnarey$elm_modular_ui$Ui_Style$toRgbaString = function (colorValue) {
+	var roundTo2 = function (number) {
+		return A3(
+			_elm_lang$core$Basics$flip,
+			F2(
+				function (x, y) {
+					return x / y;
+				}),
+			100,
+			_elm_lang$core$Basics$toFloat(
+				_elm_lang$core$Basics$round(number * 100)));
+	};
+	var rgba = _elm_lang$core$Color$toRgb(colorValue);
+	return _elm_lang$core$String$concat(
+		{
+			ctor: '::',
+			_0: 'rgba(',
+			_1: {
+				ctor: '::',
+				_0: _elm_lang$core$Basics$toString(rgba.red),
+				_1: {
+					ctor: '::',
+					_0: ',',
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$core$Basics$toString(rgba.green),
+						_1: {
+							ctor: '::',
+							_0: ',',
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$core$Basics$toString(rgba.blue),
+								_1: {
+									ctor: '::',
+									_0: ',',
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$core$Basics$toString(
+											roundTo2(rgba.alpha)),
+										_1: {
+											ctor: '::',
+											_0: ')',
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		});
+};
+var _danielnarey$elm_modular_ui$Ui_Style$boxShadow = function (args) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'box-shadow',
+					_1: function () {
+						var _p0 = args.inset;
+						if (_p0 === true) {
+							return A2(_elm_lang$core$Basics$flip, _elm_lang$core$String$append, ' inset');
+						} else {
+							return _elm_lang$core$Basics$identity;
+						}
+					}()(
+						_elm_lang$core$String$concat(
+							{
+								ctor: '::',
+								_0: _elm_lang$core$Basics$toString(
+									_elm_lang$core$Tuple$first(args.offset)),
+								_1: {
+									ctor: '::',
+									_0: 'px ',
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$core$Basics$toString(
+											_elm_lang$core$Tuple$second(args.offset)),
+										_1: {
+											ctor: '::',
+											_0: 'px ',
+											_1: {
+												ctor: '::',
+												_0: _elm_lang$core$Basics$toString(args.blur),
+												_1: {
+													ctor: '::',
+													_0: 'px ',
+													_1: {
+														ctor: '::',
+														_0: _elm_lang$core$Basics$toString(args.spread),
+														_1: {
+															ctor: '::',
+															_0: 'px ',
+															_1: {
+																ctor: '::',
+																_0: _danielnarey$elm_modular_ui$Ui_Style$toRgbaString(args.color),
+																_1: {ctor: '[]'}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}))
+				},
+				_1: {ctor: '[]'}
+			}));
+};
+var _danielnarey$elm_modular_ui$Ui_Style$borderRadius = function (value) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'border-radius',
+					_1: A3(
+						_elm_lang$core$Basics$flip,
+						_elm_lang$core$String$append,
+						'px',
+						_elm_lang$core$Basics$toString(value))
+				},
+				_1: {ctor: '[]'}
+			}));
+};
+var _danielnarey$elm_modular_ui$Ui_Style$border = function (_p1) {
+	var _p2 = _p1;
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'border',
+					_1: _elm_lang$core$String$concat(
+						{
+							ctor: '::',
+							_0: _elm_lang$core$Basics$toString(_p2._0),
+							_1: {
+								ctor: '::',
+								_0: 'px ',
+								_1: {
+									ctor: '::',
+									_0: _p2._1,
+									_1: {
+										ctor: '::',
+										_0: ' ',
+										_1: {
+											ctor: '::',
+											_0: _danielnarey$elm_modular_ui$Ui_Style$toRgbaString(_p2._2),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							}
+						})
+				},
+				_1: {ctor: '[]'}
+			}));
+};
+var _danielnarey$elm_modular_ui$Ui_Style$backgroundColor = function (colorValue) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'background-color',
+					_1: _danielnarey$elm_modular_ui$Ui_Style$toRgbaString(colorValue)
+				},
+				_1: {ctor: '[]'}
+			}));
+};
+var _danielnarey$elm_modular_ui$Ui_Style$color = function (colorValue) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(
+			{
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'color',
+					_1: _danielnarey$elm_modular_ui$Ui_Style$toRgbaString(colorValue)
+				},
+				_1: {ctor: '[]'}
+			}));
+};
+var _danielnarey$elm_modular_ui$Ui_Style$addList = function (keyValueList) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(keyValueList));
+};
+var _danielnarey$elm_modular_ui$Ui_Style$add = function (keyValue) {
+	return _danielnarey$elm_semantic_dom$Dom_Element$addAttribute(
+		_danielnarey$elm_semantic_dom$Dom_Style$toProperty(
+			{
+				ctor: '::',
+				_0: keyValue,
+				_1: {ctor: '[]'}
+			}));
+};
+
+var _danielnarey$elm_modular_ui$View_Customize$style = function () {
+	var addListElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Style$addList,
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'border', _1: '1px solid #FF3860'},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'box-shadow', _1: '0 0 2px #FF3860'},
+				_1: {ctor: '[]'}
+			}
+		},
+		_danielnarey$elm_modular_ui$Ui_Indicator$tag('I\'m stylish too'));
+	var addListCode = '\"I\'m stylish too\"\n  |> Ui.Indicator.tag\n  |> Ui.Style.addList\n    [ (\"border\", \"1px solid #FF3860\")\n    , (\"box-shadow\", \"0 0 2px #FF3860\")\n    ]';
+	var addElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Style$add,
+		{ctor: '_Tuple2', _0: 'border', _1: '1px solid #FF3860'},
+		_danielnarey$elm_modular_ui$Ui_Indicator$tag('I\'m stylish'));
+	var addCode = '\"I\'m stylish\"\n  |> Ui.Indicator.tag\n  |> Ui.Style.add (\"border\", \"1px solid #FF3860\")';
+	return A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		_danielnarey$elm_modular_ui$Component_Layout$container(
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$View_Layout$example,
+					'Add a Style Declaration',
+					{ctor: '_Tuple2', _0: addCode, _1: addElement}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$View_Layout$example,
+						'Add a List of Style Declarations',
+						{ctor: '_Tuple2', _0: addListCode, _1: addListElement}),
+					_1: {ctor: '[]'}
+				}
+			}),
+		_danielnarey$elm_modular_ui$Component_Layout$section);
+}();
+var _danielnarey$elm_modular_ui$View_Customize$action = function (model) {
+	var addListElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-unselectable',
+		A2(
+			_danielnarey$elm_modular_ui$Ui_Modifier$conditional,
+			{ctor: '_Tuple2', _0: 'is-primary', _1: model.tagIsHovered},
+			A2(
+				_danielnarey$elm_modular_ui$Ui_Action$addList,
+				{
+					ctor: '::',
+					_0: {
+						ctor: '_Tuple2',
+						_0: 'mouseover',
+						_1: _danielnarey$elm_modular_ui$Msg$Hover(true)
+					},
+					_1: {
+						ctor: '::',
+						_0: {
+							ctor: '_Tuple2',
+							_0: 'mouseout',
+							_1: _danielnarey$elm_modular_ui$Msg$Hover(false)
+						},
+						_1: {ctor: '[]'}
+					}
+				},
+				_danielnarey$elm_modular_ui$Ui_Indicator$tag('I\'m interactive too'))));
+	var addListCode = '\"I\'m interactive too\"\n  |> Ui.Indicator.tag\n  |> Ui.Action.addList\n    [ ( \"mouseover\", Msg.Hover True)\n    , ( \"mouseout\", Msg.Hover False)\n    ]\n\n  |> Ui.Modifier.conditional\n    ( \"is-primary\", model.tagIsHovered )';
+	var addElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-unselectable',
+		A2(
+			_danielnarey$elm_modular_ui$Ui_Modifier$conditional,
+			{ctor: '_Tuple2', _0: 'is-danger', _1: model.tagIsActive},
+			A2(
+				_danielnarey$elm_modular_ui$Ui_Action$add,
+				{ctor: '_Tuple2', _0: 'click', _1: _danielnarey$elm_modular_ui$Msg$ToggleTag},
+				_danielnarey$elm_modular_ui$Ui_Indicator$tag('I\'m interactive'))));
+	var addCode = '\"I\'m interactive\"\n  |> Ui.Indicator.tag\n  |> Ui.Action.add\n    ( \"click\", Msg.ToggleTag )\n  |> Ui.Modifier.conditional\n    ( \"is-danger\", model.tagIsActive )';
+	return A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		_danielnarey$elm_modular_ui$Component_Layout$container(
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$View_Layout$example,
+					'Add a User-Action Handler',
+					{ctor: '_Tuple2', _0: addCode, _1: addElement}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$View_Layout$example,
+						'Add a List of User-Action Handlers',
+						{ctor: '_Tuple2', _0: addListCode, _1: addListElement}),
+					_1: {ctor: '[]'}
+				}
+			}),
+		_danielnarey$elm_modular_ui$Component_Layout$section);
+};
+var _danielnarey$elm_modular_ui$View_Customize$attribute = function () {
+	var addListElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Attribute$addList,
+		{
+			ctor: '::',
+			_0: {
+				ctor: '_Tuple2',
+				_0: 'width',
+				_1: _danielnarey$elm_semantic_dom$Dom_Property$string('350')
+			},
+			_1: {
+				ctor: '::',
+				_0: {
+					ctor: '_Tuple2',
+					_0: 'height',
+					_1: _danielnarey$elm_semantic_dom$Dom_Property$string('250')
+				},
+				_1: {ctor: '[]'}
+			}
+		},
+		_danielnarey$elm_modular_ui$Ui_Source$iframe(
+			{path: 'http://elm-lang.org', altText: 'The Elm language home page'}));
+	var addListCode = '{ path = \"http://elm-lang.org\"\n, altText = \"The Elm language home page\"\n}\n  |> Ui.Source.iframe\n  |> Ui.Attribute.addList\n    [ (\"width\", Dom.Property.string \"350\")\n    , (\"height\", Dom.Property.string \"250\")\n    ]';
+	var addElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-mobile',
+		A2(
+			_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+			A2(
+				_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+				A2(
+					_danielnarey$elm_modular_ui$Ui_Modifier$add,
+					'is-3by2',
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Attribute$add,
+						{
+							ctor: '_Tuple2',
+							_0: 'title',
+							_1: _danielnarey$elm_semantic_dom$Dom_Property$string('Denali (a.k.a. Mt. McKinley)')
+						},
+						_danielnarey$elm_modular_ui$Ui_Media$image(
+							{path: 'media/denali.jpg', altText: 'Photo of Denali (a.k.a. Mt. McKinley)'}))),
+				_danielnarey$elm_modular_ui$Ui$container('div')),
+			_danielnarey$elm_modular_ui$Component_Grid$equalColumns('is-half')));
+	var addCode = '{ path = \"media/denali.jpg\"\n, altText = \"Photo of Denali (a.k.a. Mt. McKinley)\"\n}\n  |> Ui.Media.image\n  |> Ui.Attribute.add\n    ( \"title\"\n    , Dom.Property.string \"Denali (a.k.a. Mt. McKinley)\"\n    )';
+	return A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		_danielnarey$elm_modular_ui$Component_Layout$container(
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$View_Layout$example,
+					'Add an HTML Attribute',
+					{ctor: '_Tuple2', _0: addCode, _1: addElement}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$View_Layout$example,
+						'Add a List of HTML Attributes',
+						{ctor: '_Tuple2', _0: addListCode, _1: addListElement}),
+					_1: {ctor: '[]'}
+				}
+			}),
+		_danielnarey$elm_modular_ui$Component_Layout$section);
+}();
+var _danielnarey$elm_modular_ui$View_Customize$modifier = function (model) {
+	var conditionalElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$conditional,
+		{ctor: '_Tuple2', _0: 'is-invisible', _1: model.deleteIsHidden},
+		_danielnarey$elm_modular_ui$Ui_Button$delete(_danielnarey$elm_modular_ui$Msg$Disappear));
+	var conditionalCode = 'Ui.Button.delete Msg.Disappear\n  |> Ui.Modifier.conditional\n    ( \"is-invisible\", model.deleteIsHidden )';
+	var addListElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$addList,
+		{
+			ctor: '::',
+			_0: 'is-link',
+			_1: {
+				ctor: '::',
+				_0: 'is-small',
+				_1: {ctor: '[]'}
+			}
+		},
+		A2(
+			_danielnarey$elm_modular_ui$Ui_Button$navigation,
+			_danielnarey$elm_modular_ui$Msg$LoadUrl('http://elm-lang.org'),
+			'Elm Website'));
+	var addListCode = '\"Elm Website\"\n  |> Ui.Button.navigation\n    ( Msg.LoadUrl \"http://elm-lang.org\" )\n  |> Ui.Modifier.addList\n    [ \"is-link\"\n    , \"is-small\"\n    ]';
+	var addElement = A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-danger',
+		A2(
+			_danielnarey$elm_modular_ui$Ui_Button$action,
+			_danielnarey$elm_modular_ui$Msg$Alert('You Clicked!'),
+			'Click Here'));
+	var addCode = '\"Click Here\"\n  |> Ui.Button.action\n    ( Msg.Alert \"You Clicked!\" )\n  |> Ui.Modifier.add \"is-danger\"';
+	return A2(
+		_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+		_danielnarey$elm_modular_ui$Component_Layout$container(
+			{
+				ctor: '::',
+				_0: A2(
+					_danielnarey$elm_modular_ui$View_Layout$example,
+					'Add a Modifier Class',
+					{ctor: '_Tuple2', _0: addCode, _1: addElement}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_danielnarey$elm_modular_ui$View_Layout$example,
+						'Add a List of Modifier Classes',
+						{ctor: '_Tuple2', _0: addListCode, _1: addListElement}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_danielnarey$elm_modular_ui$View_Layout$example,
+							'Conditionally Add a Modifier',
+							{ctor: '_Tuple2', _0: conditionalCode, _1: conditionalElement}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}),
+		_danielnarey$elm_modular_ui$Component_Layout$section);
+};
+
+var _danielnarey$elm_modular_ui$View_Navigation$secondaryTabs = function (model) {
+	var options = function () {
+		var _p0 = model.currentTab;
+		switch (_p0.ctor) {
+			case 'Interactive':
+				return A2(
+					_elm_lang$core$List$map,
+					_danielnarey$elm_toolkit$Toolkit_Function$apply2(
+						{ctor: '_Tuple2', _0: _danielnarey$elm_modular_ui$Page_Interactive$title, _1: _danielnarey$elm_modular_ui$Page$Interactive}),
+					{
+						ctor: '::',
+						_0: _danielnarey$elm_modular_ui$Page_Interactive$Buttons,
+						_1: {
+							ctor: '::',
+							_0: _danielnarey$elm_modular_ui$Page_Interactive$Input,
+							_1: {
+								ctor: '::',
+								_0: _danielnarey$elm_modular_ui$Page_Interactive$Selectors,
+								_1: {
+									ctor: '::',
+									_0: _danielnarey$elm_modular_ui$Page_Interactive$Indicators,
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					});
+			case 'Content':
+				return A2(
+					_elm_lang$core$List$map,
+					_danielnarey$elm_toolkit$Toolkit_Function$apply2(
+						{ctor: '_Tuple2', _0: _danielnarey$elm_modular_ui$Page_Content$title, _1: _danielnarey$elm_modular_ui$Page$Content}),
+					{
+						ctor: '::',
+						_0: _danielnarey$elm_modular_ui$Page_Content$Text,
+						_1: {
+							ctor: '::',
+							_0: _danielnarey$elm_modular_ui$Page_Content$Heading,
+							_1: {
+								ctor: '::',
+								_0: _danielnarey$elm_modular_ui$Page_Content$Icon,
+								_1: {
+									ctor: '::',
+									_0: _danielnarey$elm_modular_ui$Page_Content$Media,
+									_1: {
+										ctor: '::',
+										_0: _danielnarey$elm_modular_ui$Page_Content$Source,
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						}
+					});
+			default:
+				return A2(
+					_elm_lang$core$List$map,
+					_danielnarey$elm_toolkit$Toolkit_Function$apply2(
+						{ctor: '_Tuple2', _0: _danielnarey$elm_modular_ui$Page_Customize$title, _1: _danielnarey$elm_modular_ui$Page$Customize}),
+					{
+						ctor: '::',
+						_0: _danielnarey$elm_modular_ui$Page_Customize$Modifier,
+						_1: {
+							ctor: '::',
+							_0: _danielnarey$elm_modular_ui$Page_Customize$Attribute,
+							_1: {
+								ctor: '::',
+								_0: _danielnarey$elm_modular_ui$Page_Customize$Action,
+								_1: {
+									ctor: '::',
+									_0: _danielnarey$elm_modular_ui$Page_Customize$Style,
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					});
+		}
+	}();
+	return A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'container',
+		A2(
+			_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+			A2(
+				_danielnarey$elm_modular_ui$Ui_Modifier$add,
+				'is-medium',
+				_danielnarey$elm_modular_ui$Component_Tabs$container(
+					{options: options, selected: model.currentPage, $switch: _danielnarey$elm_modular_ui$Msg$Load})),
+			_danielnarey$elm_modular_ui$Ui$container('div')));
+};
+var _danielnarey$elm_modular_ui$View_Navigation$headerWithTabs = function (model) {
+	return A2(
+		_danielnarey$elm_modular_ui$Ui_Modifier$add,
+		'is-danger',
+		_danielnarey$elm_modular_ui$Component_Hero$container(
+			{
+				title: 'Elm Modular UI',
+				subtitle: 'A friendly UI development framework based on Bulma CSS',
+				head: _elm_lang$core$Maybe$Nothing,
+				foot: _elm_lang$core$Maybe$Just(
+					A2(
+						_danielnarey$elm_modular_ui$Ui_Modifier$add,
+						'container',
+						A2(
+							_danielnarey$elm_toolkit$Toolkit_List_Operators_ops[':|>'],
+							A2(
+								_danielnarey$elm_modular_ui$Ui_Modifier$addList,
+								{
+									ctor: '::',
+									_0: 'is-boxed',
+									_1: {
+										ctor: '::',
+										_0: 'is-medium',
+										_1: {ctor: '[]'}
+									}
+								},
+								_danielnarey$elm_modular_ui$Component_Tabs$container(
+									{
+										options: {
+											ctor: '::',
+											_0: {ctor: '_Tuple2', _0: 'Interactive Elements', _1: _danielnarey$elm_modular_ui$Tab$Interactive},
+											_1: {
+												ctor: '::',
+												_0: {ctor: '_Tuple2', _0: 'Content Elements', _1: _danielnarey$elm_modular_ui$Tab$Content},
+												_1: {
+													ctor: '::',
+													_0: {ctor: '_Tuple2', _0: 'Customization', _1: _danielnarey$elm_modular_ui$Tab$Customize},
+													_1: {ctor: '[]'}
+												}
+											}
+										},
+										selected: model.currentTab,
+										$switch: _danielnarey$elm_modular_ui$Msg$SelectTab
+									})),
+							_danielnarey$elm_modular_ui$Ui$container('div'))))
+			}));
+};
+
+var _danielnarey$elm_toolkit$Toolkit_Function_Operators_ops = _danielnarey$elm_toolkit$Toolkit_Function_Operators_ops || {};
+_danielnarey$elm_toolkit$Toolkit_Function_Operators_ops['||>'] = F2(
+	function (a, f) {
+		return f(a);
+	});
+var _danielnarey$elm_toolkit$Toolkit_Function_Operators_ops = _danielnarey$elm_toolkit$Toolkit_Function_Operators_ops || {};
+_danielnarey$elm_toolkit$Toolkit_Function_Operators_ops['#'] = F2(
+	function (f, b) {
+		return A2(_elm_lang$core$Basics$flip, f, b);
+	});
+var _danielnarey$elm_toolkit$Toolkit_Function_Operators_ops = _danielnarey$elm_toolkit$Toolkit_Function_Operators_ops || {};
+_danielnarey$elm_toolkit$Toolkit_Function_Operators_ops['@@|>'] = F2(
+	function (params, f) {
+		return A2(_elm_lang$core$Basics$uncurry, f, params);
+	});
+var _danielnarey$elm_toolkit$Toolkit_Function_Operators_ops = _danielnarey$elm_toolkit$Toolkit_Function_Operators_ops || {};
+_danielnarey$elm_toolkit$Toolkit_Function_Operators_ops['|>.'] = F2(
+	function (data, fList) {
+		var _p0 = fList;
+		if (_p0.ctor === '[]') {
+			return {ctor: '[]'};
+		} else {
+			return {
+				ctor: '::',
+				_0: _p0._0(data),
+				_1: A2(_danielnarey$elm_toolkit$Toolkit_Function_Operators_ops['|>.'], data, _p0._1)
+			};
+		}
+	});
+
 var _danielnarey$elm_modular_ui$View$view = function (model) {
 	var pageContent = function () {
 		var _p0 = model.currentPage;
-		_v0_3:
-		do {
-			switch (_p0.ctor) {
-				case 'Home':
-					return _danielnarey$elm_modular_ui$View_Home$page;
-				case 'Interactive':
-					switch (_p0._0.ctor) {
-						case 'Buttons':
-							return _danielnarey$elm_modular_ui$View_Interactive$button;
-						case 'Input':
-							return _danielnarey$elm_modular_ui$View_Interactive$input(model);
-						default:
-							break _v0_3;
-					}
-				default:
-					break _v0_3;
-			}
-		} while(false);
-		return _danielnarey$elm_modular_ui$Ui$leaf('div');
+		switch (_p0.ctor) {
+			case 'Home':
+				return _elm_lang$core$Basics$always(_danielnarey$elm_modular_ui$View_Home$overview);
+			case 'Interactive':
+				switch (_p0._0.ctor) {
+					case 'Buttons':
+						return _danielnarey$elm_modular_ui$View_Interactive$buttons;
+					case 'Input':
+						return _danielnarey$elm_modular_ui$View_Interactive$input;
+					case 'Selectors':
+						return _danielnarey$elm_modular_ui$View_Interactive$selectors;
+					default:
+						return _danielnarey$elm_modular_ui$View_Interactive$indicators;
+				}
+			case 'Content':
+				switch (_p0._0.ctor) {
+					case 'Text':
+						return _elm_lang$core$Basics$always(_danielnarey$elm_modular_ui$View_Content$text);
+					case 'Heading':
+						return _elm_lang$core$Basics$always(_danielnarey$elm_modular_ui$View_Content$heading);
+					case 'Icon':
+						return _elm_lang$core$Basics$always(_danielnarey$elm_modular_ui$View_Content$icon);
+					case 'Media':
+						return _elm_lang$core$Basics$always(_danielnarey$elm_modular_ui$View_Content$media);
+					default:
+						return _elm_lang$core$Basics$always(_danielnarey$elm_modular_ui$View_Content$source);
+				}
+			default:
+				switch (_p0._0.ctor) {
+					case 'Modifier':
+						return _danielnarey$elm_modular_ui$View_Customize$modifier;
+					case 'Attribute':
+						return _elm_lang$core$Basics$always(_danielnarey$elm_modular_ui$View_Customize$attribute);
+					case 'Action':
+						return _danielnarey$elm_modular_ui$View_Customize$action;
+					default:
+						return _elm_lang$core$Basics$always(_danielnarey$elm_modular_ui$View_Customize$style);
+				}
+		}
 	}();
 	return _danielnarey$elm_modular_ui$Ui$render(
 		A2(
-			_danielnarey$elm_modular_ui$Ui_Style$add,
-			{ctor: '_Tuple2', _0: 'background-color', _1: '#dbdbdb'},
+			_danielnarey$elm_modular_ui$Ui$container,
+			'div',
 			A2(
-				_danielnarey$elm_modular_ui$Ui$container,
-				'div',
+				_danielnarey$elm_toolkit$Toolkit_Function_Operators_ops['|>.'],
+				model,
 				{
 					ctor: '::',
-					_0: _danielnarey$elm_modular_ui$View_Navigation$breadcrumbs(model),
+					_0: _danielnarey$elm_modular_ui$View_Navigation$headerWithTabs,
 					_1: {
 						ctor: '::',
-						_0: pageContent,
-						_1: {ctor: '[]'}
+						_0: _danielnarey$elm_modular_ui$View_Navigation$secondaryTabs,
+						_1: {
+							ctor: '::',
+							_0: _danielnarey$elm_modular_ui$View_Layout$pageHeader,
+							_1: {
+								ctor: '::',
+								_0: function (_p1) {
+									return function () {
+										var _p2 = model.currentPage;
+										if (_p2.ctor === 'Home') {
+											return _elm_lang$core$Basics$identity;
+										} else {
+											return _danielnarey$elm_modular_ui$Ui_Style$add(
+												{ctor: '_Tuple2', _0: 'background-color', _1: '#dbdbdb'});
+										}
+									}()(
+										pageContent(_p1));
+								},
+								_1: {
+									ctor: '::',
+									_0: function (_p3) {
+										return A2(
+											_danielnarey$elm_modular_ui$Ui_Modifier$conditional,
+											{ctor: '_Tuple2', _0: 'is-active', _1: model.alertIsVisible},
+											_danielnarey$elm_modular_ui$View_Layout$alertModal(_p3));
+									},
+									_1: {ctor: '[]'}
+								}
+							}
+						}
 					}
 				})));
 };

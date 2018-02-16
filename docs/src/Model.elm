@@ -6,6 +6,7 @@ module Model exposing
 
 -- Project
 import Page
+import Tab
 import Option
 -- Frameworks
 import Effect.Routing
@@ -15,8 +16,10 @@ import Color exposing (Color)
 
 type alias Model =
   { currentPage : Page.Id
+  , currentTab : Tab.Id
   , alertText : String
   , alertIsVisible : Bool
+  , deleteIsHidden : Bool
   , userName : String
   , userBio : String
   , userAge : Maybe Int
@@ -28,12 +31,17 @@ type alias Model =
   , userAgrees : Bool
   , emailFrequency : Option.EmailFrequency
   , shippingDestination : Maybe Option.ShippingDestination
+  , notificationIsHidden : Bool
+  , tagIsActive : Bool
+  , tagIsHovered : Bool
   }
 
 
 initial : Model
 initial =
   { currentPage = Page.Home
+  , currentTab = Tab.Interactive
+  , deleteIsHidden = False
   , alertText = ""
   , alertIsVisible = False
   , userName = ""
@@ -47,6 +55,9 @@ initial =
   , userAgrees = False
   , emailFrequency = Option.Weekly
   , shippingDestination = Nothing
+  , notificationIsHidden = False
+  , tagIsActive = False
+  , tagIsHovered = False
   }
 
 
@@ -56,6 +67,7 @@ fromLocation location =
     updatePage model page =
       { model
       | currentPage = page
+      , currentTab = page |> Tab.fromPage
       }
 
   in

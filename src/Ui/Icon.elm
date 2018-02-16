@@ -49,12 +49,9 @@ import Dom.Attribute
 -}
 svg : { path : String, altText : String } -> Ui.Element msg
 svg args =
-  [ Dom.Node.leaf "object"
-    [ "data"
+  [ Dom.Node.leaf "img"
+    [ "src"
       |> Dom.Property.string args.path
-
-    , "type"
-      |> Dom.Property.string "image/svg+xml"
 
     , "aria-hidden"
       |> Dom.Attribute.string "true"

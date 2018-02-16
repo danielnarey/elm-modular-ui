@@ -1,31 +1,36 @@
-module View.Component exposing
-  ( equalColumns, example, section )
+module View.Layout exposing
+  ( pageHeader, example, alertModal )
 
 
+-- Project
+import Page
+import Model
+import Msg
 -- Frameworks
 import Ui
 import Ui.Modifier
 import Ui.Heading
 import Component.Grid
-import Component.Layout
+import Component.Hero
+import Component.Modal
 import Dom.Element
 -- Helpers
 import SyntaxHighlight
 import Toolkit.List.Operators exposing ( (:|>), (.|>) )
 
 
-equalColumns : String -> List (Ui.Element msg) -> Ui.Element msg
-equalColumns modifier =
-  List.map
-    ( Component.Grid.column
-      >> Ui.Modifier.add modifier
-    )
+pageHeader : Model.Model -> Ui.Element msg
+pageHeader model =
+  { title =
+        model.currentPage
+          |> Page.title
 
-   >> Component.Grid.columns
-   >> Ui.Modifier.addList
-     [ "is-centered"
-     , "is-vcentered"
-     ]
+  , subtitle = ""
+  , head = Nothing
+  , foot = Nothing
+  }
+    |> Component.Hero.container
+
 
 
 example : String -> (String, Ui.Element msg) -> Ui.Element msg
@@ -56,7 +61,7 @@ example label (code, element) =
         |> Ui.Modifier.add "has-text-centered"
 
       ]
-        |> equalColumns "is-half"
+        |> Component.Grid.equalColumns "is-half"
         |> Ui.Modifier.add "box"
 
   in
@@ -67,19 +72,18 @@ example label (code, element) =
       |> Ui.container "div"
 
 
-section : String -> List (Ui.Element msg) -> Ui.Element msg
-section label examples =
-  let
-    heading =
-      label
-        |> Ui.Heading.title "h2"
+alertModal : Model.Model -> Ui.Element Msg.Msg
+alertModal model =
+  { content =
+      model.alertText
+        |> Ui.textWrapper "p"
         |> Ui.Modifier.addList
-          [ "is-2"
-          , "has-text-black"
+          [ "is-size-1"
+          , "has-text-danger"
+          , "has-text-centered"
           ]
 
-  in
-    examples
-      |> (::) heading
-      |> Component.Layout.container
-     :|> Component.Layout.section
+  , close = Just Msg.DismissAlert
+
+  }
+    |> Component.Modal.container

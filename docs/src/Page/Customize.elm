@@ -1,14 +1,13 @@
 module Page.Customize exposing
   ( Id(..)
-  , hash, title, ancestors
+  , hash, title
   , fromHash
   )
 
 
 
 type Id
-  = Index
-  | Modifier
+  = Modifier
   | Attribute
   | Action
   | Style
@@ -17,9 +16,6 @@ type Id
 hash : Id -> String
 hash id =
   case id of
-    Index ->
-      "/"
-
     Modifier ->
       "/modifier"
 
@@ -36,9 +32,6 @@ hash id =
 title : Id -> String
 title id =
   case id of
-    Index ->
-      "Customize"
-
     Modifier ->
       "Modifier"
 
@@ -52,26 +45,16 @@ title id =
       "Style"
 
 
-ancestors : Id -> List (String, Id)
-ancestors id =
-  case id of
-    Index ->
-      []
-
-    _ ->
-      [ ( Index |> title, Index) ]
-
-
 fromHash : List String -> Maybe Id
 fromHash parsed =
   case (parsed |> List.head) of
     Nothing ->
-      Just Index
+      Just Modifier
 
     Just next ->
       ( case next of
         "" ->
-          Just Index
+          Just Modifier
 
         "modifier" ->
           Just Modifier

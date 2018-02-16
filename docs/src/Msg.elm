@@ -4,17 +4,21 @@ module Msg exposing
 
 -- Project
 import Page
+import Tab
 import Option
 -- Frameworks
 import Effect.Routing
 -- Core
 import Color exposing (Color)
 
+
 type Msg
   = Route Effect.Routing.Location
   | Load Page.Id
+  | SelectTab Tab.Id
   | Alert String
-  | NavTo String
+  | DismissAlert
+  | LoadUrl String
   | Disappear
   | UpdateUserName String
   | UpdateUserBio String
@@ -27,3 +31,6 @@ type Msg
   | ToggleUserAgrees
   | UpdateEmailFrequency Option.EmailFrequency
   | UpdateShippingDestination (Maybe Option.ShippingDestination)
+  | HideNotification
+  | ToggleTag
+  | Hover Bool

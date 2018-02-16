@@ -3,15 +3,23 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com http://elm-lang.org; img-src 'self' data:">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Modular UI for Elm | A friendly UI development framework based on Bulma CSS</title>
   <script type="text/javascript" src="js/modular-ui-demo.js"></script>
   <script type="text/javascript" src="js/elm-fullscreen.js"></script>
-  <link rel="stylesheet" href="css/bulma.css">
-  <link rel="stylesheet" href="css/elm-syntax.css">
+  <script type="text/javascript" src="js/load-deferred-styles.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/bulma.css">
 </head>
 
-<body></body>
+<body>
+  <noscript id="deferred-styles">
+    <link rel="stylesheet" type="text/css" href="css/elm-syntax.css">
+    <link rel="stylesheet" type="text/css" href="icons/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" type="text/css" href="icons/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" type="text/css" href="icons/open-iconic/font/css/open-iconic.css">
+  </noscript>
+</body>
 
 </html>
