@@ -34,7 +34,8 @@ add =
 
     myElement
       |> Ui.Modifier.addList
-        [ "box"
+        [ "is-size-3"
+        , "has-text-weight-bold"
         , "has-text-centered"
         ]
 
@@ -56,7 +57,7 @@ addList modifiers element =
           |> Dom.Element.hasClass "box"
 
         )
-        
+
 -}
 conditional : (String, Bool) -> Ui.Element msg -> Ui.Element msg
 conditional (modifier, test) =

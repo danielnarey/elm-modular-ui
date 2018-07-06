@@ -216,7 +216,7 @@ media =
 
 
     svgCode =
-      "{ path = \"media/cc-by-nc-nd.svg.svg\"\n, fallback = \"media/cc-by-nc-nd.png\"\n, altText = \"Icon for Creative Commons BY-NC-ND license\"\n}\n  |> Ui.Media.svg"
+      "{ path = \"media/cc-by-nc-nd.svg\"\n, fallback = \"media/cc-by-nc-nd.png\"\n, altText = \"Icon for Creative Commons BY-NC-ND license\"\n}\n  |> Ui.Media.svg"
 
     svgElement =
       { path = "media/cc-by-nc-nd.svg"

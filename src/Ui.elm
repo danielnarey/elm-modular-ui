@@ -1,6 +1,7 @@
 module Ui exposing
   ( Element
-  , leaf, textWrapper, container, setId
+  , leaf, textWrapper, container
+  , addClass, setId
   , render
   )
 
@@ -11,6 +12,9 @@ module Ui exposing
 
 # Generic Constructors
 @docs leaf, textWrapper, container
+
+## Adding a class
+@docs addClass
 
 ## Setting an element's id
 @docs setId
@@ -104,6 +108,36 @@ textWrapper =
 container : String -> List (Element msg) -> Element msg
 container =
   Dom.Element.container
+
+
+{-| Add an element, component, or layout class when using a generic constructor
+
+    "This text is in a box."
+      |> Ui.textWrapper "p"
+      |> Ui.addClass "box"
+
+To maintain a consistent pattern, use
+[Ui.Modifier.add](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Modifier#add)
+or
+[Ui.Modifier.addList](http://package.elm-lang.org/packages/danielnarey/elm-modular-ui/latest/Ui-Modifier#addList)
+to append additional modifier classes. Note, however, that this is just
+semantic sugar — `Ui.addClass` and `Ui.Modifier.add` are equivalent (both are
+aliases for
+[Dom.Element.addClass](http://package.elm-lang.org/packages/danielnarey/elm-semantic-dom/latest/Dom-Element#addClass)).
+
+    "This text is in a box."
+      |> Ui.textWrapper "p"
+      |> Ui.addClass "box"
+      |> Ui.Modifier.addList
+        [ "is-size-3"
+        , "has-text-weight-bold"
+        , "has-text-centered"
+        ]
+
+-}
+addClass : String -> Element msg -> Element msg
+addClass =
+  Dom.Element.addClass
 
 
 {-| Set the `id` field on a `Ui.Element` record, the value of which will be
