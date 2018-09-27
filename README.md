@@ -1,3 +1,8 @@
+# Not updated for Elm 0.19
+## Check out https://github.com/visotype/elm-dom
+
+---
+
 # Modular UI for Elm
 ### A friendly UI development framework based on Bulma CSS
 
