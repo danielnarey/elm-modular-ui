@@ -1,4 +1,4 @@
-# This package will not be updated for Elm 0.19
+# This package will not be updated for Elm 0.19. 
 ## Check out https://github.com/visotype/elm-dom
 
 ---
